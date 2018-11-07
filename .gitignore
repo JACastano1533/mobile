@@ -8,3 +8,6 @@ sites/*/private
 .htaccesss
 logs
 tmp
+sites/all/themes/roofbag/.htaccess
+sites/mobile.dd
+sites/sites.php
