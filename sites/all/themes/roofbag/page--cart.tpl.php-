@@ -1,0 +1,415 @@
+<?php 
+global $base_url;
+$items = uc_cart_get_contents();
+$no_of_cart_items = sizeof($items);
+
+global $user;
+
+if((arg(0)!='user') && ( !$user->uid )) {
+	?>
+<script type="text/javascript">
+	if (screen.width >= 768) {
+		window.location.href = "https://www.roofbag.com/";
+	} 
+	
+	
+	</script>
+<?php 
+}
+/**
+ * @file
+ * Default theme implementation to display a single Drupal page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.tpl.php template in this directory.
+ *
+ * Available variables:
+ *
+ *
+ * Regions:
+ * - $page['help']: Dynamic help text, mostly for admin pages.
+ * - $page['highlighted']: Items for the highlighted content region.
+ * - $page['content']: The main content of the current page.
+ * - $page['sidebar_first']: Items for the first sidebar.
+ * - $page['sidebar_second']: Items for the second sidebar.
+ * - $page['header']: Items for the header region.
+ * - $page['footer']: Items for the footer region.
+ *
+ * @see bootstrap_preprocess_page()
+ * @see template_preprocess()
+ * @see template_preprocess_page()
+ * @see bootstrap_process_page()
+ * @see template_process()
+ * @see html.tpl.php
+ *
+ * @ingroup templates
+ */
+
+
+?>
+
+<header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
+  <div id="mySidenav" class="sidenav">
+    <?php 
+		$menu = menu_navigation_links('main-menu');
+		$menu2 = menu_navigation_links('user-menu');
+
+		foreach($menu as $main_menu)
+		{
+			if($main_menu['title']=='Home')
+			{
+				echo '<a href="'.$base_url.'">'.$main_menu['title'].'</a>'; 
+				echo '<a href="'.$base_url.'/#collapseOne_panel" class="page-scroll">Why people love RoofBag?</a>';
+				echo '<a href="'.$base_url.'/#collapseFour_panel" class="page-scroll">How Soon Can I Get It? </a>';
+				echo '<a href="'.$base_url.'/#collapseTwo_panel" class="page-scroll">Does it fit my car?</a>';
+				echo '<a href="'.$base_url.'/#collapseSix_panel" class="page-scroll">How Does It Attach?</a>'; 
+				echo '<a href="'.$base_url.'/#collapseThree_panel" class="page-scroll">Customer Reviews</a>'; 
+			}
+
+			else
+			{
+				$link_alias=$main_menu['href'];
+				$alias = drupal_get_path_alias($link_alias);
+				echo '<a href="'.$base_url.'/'.$alias.'">'.$main_menu['title'].'</a>'; 
+			}
+			
+		}
+		if($menu2){
+			echo "<hr />";
+			foreach($menu2 as $main_menu)
+			{
+				$link_alias=$main_menu['href'];
+				$alias = drupal_get_path_alias($link_alias);
+				echo '<a href="'.$alias.'">'.$main_menu['title'].'</a>'; 
+			}
+		}
+		
+
+		?>
+  </div>
+  <div class="fadeMe" id="fadeMe" onclick="closeNav()"></div>
+  <div class="fadeMe1" id="fadeMe1"></div>
+  <div class="<?php print $container_class; ?>">
+    <div class="navbar " style="margin-bottom:0px;" data-spy="affix" data-offset-top="197" >
+      <?php 
+			if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): 
+				?>
+      <button type="button" class="navbar-toggle " type="button" onclick="openNav()" id="menu1"  style="float:left;" >
+      <span class="sr-only"><?php print t('Toggle navigation'); ?></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+      </button>
+      <nav role="navigation"  class="dropdown-menu dropdown-menu-left" >
+        <?php 
+				if (!empty($primary_nav)):
+					print render($primary_nav);
+				endif;
+				if (!empty($secondary_nav)):
+					print render($secondary_nav);
+				endif;
+				if (!empty($page['navigation'])):
+					print render($page['navigation']);
+				endif; 
+				?>
+      </nav>
+      <?php 
+			endif; ?>
+      <?php 
+			if ($logo): ?>
+      <a class="logo navbar-btn pull-left" style="position: absolute;left: 46%;margin-left: -65px;" href="<?php print $front_page; ?>" title="<?php print t('RoofBag Homepage'); ?>"> 
+      <!-- img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" / -->
+      <div id="logo-text">RoofBag</div>
+      <div id="tag-line">Travel Made Easy</div>
+      </a>
+      <div class="navbar-btn pull-left" style="float:right !important;padding-top:5px;"> <a href="javascript:void(0)" class=""><i class="fa fa-phone" aria-hidden="true" data-toggle="collapse" data-target=".navbar-collapse" style="margin-right:25px;"></i></a> <a href="javascript:void(0)" class=""><i class="fa fa-comments" aria-hidden="true"></i></a>
+        <?php
+				if (!drupal_is_front_page()) {
+					?>
+        <a href="<?php echo $base_url; ?>" class=""> <i class="fa fa-home bounce animated"></i> </a>
+        <?php
+				}
+				?>
+      </div>
+      <?php endif; ?>
+      <?php 
+		if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): 
+			?>
+      <div class="navbar-collapse collapse" id="navbar-collapse" style="width:100%;">
+        <nav role="navigation">
+          <ul class="menu nav navbar-nav">
+            <li class="first leaf active"><a href="tel:800-276-6322" class="call-from">Call (from USA)</a></li>
+            <li class="last leaf"><a href="tel:619-662-0495" class="call-from">Call (from Outside USA)</a></li>
+          </ul>
+        </nav>
+      </div>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="stctik-cart-butn">
+    <div class="shopping-cart-bar" onclick="open_shopingcart_block()">
+      <div class="shop_cart_ico"> <span><?php echo ($no_of_cart_items) ? $no_of_cart_items: "0"; ?></span> <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i> </div>
+      <span class="shping-text">Shopping Cart</span> </div>
+    <div class="shoping-checkout"> <a href="/cart/checkout">Checkout</a> </div>
+  </div>
+  </div>
+</header>
+<div class="main-container cart-page <?php print $container_class; ?>">
+  <header role="banner" id="page-header">
+    <?php
+		if (!empty($site_slogan)): 
+			?>
+    <p class="lead"><?php print $site_slogan; ?></p>
+    <?php 
+		endif; ?>
+    <?php 
+		print render($page['header']); ?>
+  </header>
+  <!-- /#page-header -->
+  
+  <div class="row">
+    <?php
+		if (!empty($page['sidebar_first'])): 
+			?>
+    <aside class="col-sm-3" role="complementary"> <?php print render($page['sidebar_first']); ?> </aside>
+    <!-- /#sidebar-first -->
+    <?php
+		endif; ?>
+    <section <?php print $content_column_class; ?>>
+      <?php 
+			if (!empty($page['highlighted'])): ?>
+      <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
+      <?php 
+			endif;
+			if (!empty($breadcrumb)): print $breadcrumb; 
+			endif;
+			//print $messages; 
+			if (!empty($tabs)):
+				print render($tabs);
+			endif;
+			if (!empty($page['help'])):
+				print render($page['help']);
+			endif;
+			if (!empty($action_links)):
+				?>
+      <ul class="action-links">
+        <?php print render($action_links); ?>
+      </ul>
+      <?php 
+			endif;
+			?>
+      <div class="modal fade" id="myModal_cart_content" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Cart Content</h4>
+            </div>
+            <div class="modal-body">
+              <div class="cart-img-desp-sattik-show">
+                <?php
+								$sub_total = 0;
+								foreach ($items as $item){
+									$item_total = $item->price*$item->qty;
+									$sub_total = $sub_total+$item_total;
+									$img_url = $item->uc_product_image['und'][0]['uri'];
+									$style = 'thumbnail';
+									?>
+                <div class="inner-wapper-cart-imgs">
+                  <div class="left-cart-img"> <img class="img-responsive" src="<?php print image_style_url($style, $img_url) ?>"> </div>
+                  <div class="midller-content-sec-cus"> <strong><?php echo $item->title; ?></strong> <?php echo $item->body['und']['0']['summary']; ?>
+                    <p><strong>QTY: $<?php echo $item->qty; ?></strong></p>
+                    <p><strong>Item Price: $<?php echo $item->qty; ?></strong></p>
+                  </div>
+                  <div class="last-price-sec"> <strong>$
+                    <?php  echo $item_total; ?>
+                    </strong> </div>
+                </div>
+                <?php
+								}
+								?>
+                <div class="totel-sub-main-info">
+                  <div class="inner-pro-cart-deatil-sec">
+                    <div class="order-totel-txt"> <strong>Order Subtitle</strong> </div>
+                    <div class="right-totle-sub"> <strong>$<?php echo $sub_total; ?></strong> </div>
+                  </div>
+                  <div class="inner-pro-cart-deatil-sec">
+                    <div class="order-totel-txt"> <strong>Shipping</strong> </div>
+                    <div class="right-totle-sub">
+                      <p>Enter zip or postal code below</p>
+                    </div>
+                  </div>
+                  
+                  <!-- zip code custom-->
+                  <div class="inner-search-boxes-zip-code">
+                    <div class="input-group boots-cus-style-butn">
+                      <input id="edit-panes-delivery-delivery-postal-code2" style="text-transform:uppercase" name="panes[delivery][delivery_postal_code]" size="30" maxlength="10" class="form-text ajax-processed progress-disabled form-control" placeholder="Enter Zip Code or Postal Code" type="text">
+                      <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                      </span> </div>
+                    <div id="quotes_all1" style="">
+                      <div class="form-item form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-107" onclick="saveToCart(this.id)" style="display: block;">
+                        <label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7">
+                        <input style="display:none;" name="panes[quotes][quotes][quote_option]" value="ups---107" class="form-radio ajax-processed" type="radio">
+                        <span class="service_name">UPS Ground Rate </span>$<span class="service_rate">9.75</span> <span class="service_arrival">Arrives 06 Mar</span>
+                        <label></label>
+                        </label>
+                      </div>
+                      <div class="form-item form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-106" onclick="saveToCart(this.id)" style="display: block;">
+                        <label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7">
+                        <input style="display:none;" name="panes[quotes][quotes][quote_option]" value="ups---106" class="form-radio ajax-processed" type="radio">
+                        <span class="service_name">UPS 3 Day Select Rate </span>$<span class="service_rate">15.07</span> <span class="service_arrival">Arrives 09 Mar</span>
+                        <label></label>
+                        </label>
+                      </div>
+                      <div class="form-item form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-105" onclick="saveToCart(this.id)" style="display: block;">
+                        <label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7">
+                        <input style="display:none;" name="panes[quotes][quotes][quote_option]" value="ups---105" class="form-radio ajax-processed" type="radio">
+                        <span class="service_name">UPS 2nd Day Air Rate </span>$<span class="service_rate">20.87</span> <span class="service_arrival">Arrives 08 Mar</span>
+                        <label></label>
+                        </label>
+                      </div>
+                      <div class="form-item form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-102" onclick="saveToCart(this.id)" style="display: block;">
+                        <label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7">
+                        <input style="display:none;" name="panes[quotes][quotes][quote_option]" value="ups---102" class="form-radio ajax-processed" type="radio">
+                        <span class="service_name">UPS Next Day Air Rate </span>$<span class="service_rate">41.17</span> <span class="service_arrival">Arrives 07 Mar</span>
+                        <label></label>
+                        </label>
+                      </div>
+                      <a href="javascript:void(0)" style="color: inherit" onclick="showAllQuotes()" class="see_more_rates">See more rates</a><a href="javascript:void(0)" style="color: inherit; display:none;" onclick="closeAllQuotes()" class="close_more_rates">Close</a></div>
+                  </div>
+                  <div class="border-green-totle-botom">
+                  <div class="order-totel-txt"> <strong>Order Total</strong> </div>
+                    <div class="right-totle-sub"> <strong>$56</strong> </div>
+                    </div>
+                   
+                  <!--End zip code custom--> 
+
+                </div>
+                <div class="clearfix clear"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 accordion-wrap" style="display:none">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default" id="collapseOne_panel">
+            <div class="panel-heading">
+              <h4 class="panel-title"> <a class="accordion-toggle panel_hdg" data-toggle="collapse"  href="#collapseOne"> <i class="fa fa-custom fa-cart " aria-hidden="true" style="padding-right:5px;"></i>Cart</span> </a> </h4>
+            </div>
+            <div id="collapseOne"  class="panel-collapse collapse in" aria-expanded="true">
+              <div class="panel-body">
+                <?php
+								print render($page['content_top']);
+								print render($page['content']);
+								?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12"> </div>
+      <div class="">
+        <?php
+				if($no_of_cart_items){
+					echo '<div class="add-accessories"><br /><h1>Add Recomended Accessories</h1>';
+					$item_nid_arr = array();
+					foreach ($items as $item){
+						if($item->field_related_products){
+							$field_related_products  = $item->field_related_products['und'];
+							foreach ($field_related_products as $key => $value) {
+								/* to avoid duplication. If same product add twice in the cart */
+								if(! in_array($value['nid'], $item_nid_arr)){
+									$item_nid_arr[] = $value['nid'];
+									_get_products_data($value['nid']);
+								}
+							}
+						}
+					}
+					echo "</div>";
+				}
+				?>
+      </div>
+    </section>
+    <?php 
+		if (!empty($page['sidebar_second'])): ?>
+    <aside class="col-sm-3" role="complementary"> <?php print render($page['sidebar_second']); ?> </aside>
+    <!-- /#sidebar-second -->
+    <?php
+		endif; ?>
+  </div>
+</div>
+<?php if (!empty($page['footer'])): ?>
+<footer class="footer <?php print $container_class; ?>"> <?php print render($page['footer']); ?> </footer>
+<?php endif; ?>
+<?php
+function _get_products_data($nid){
+	global $base_url;
+	$node = node_load($nid);
+	setlocale(LC_MONETARY,"en_US");
+
+	$add_to_cart = array( 
+		'#theme' => 'uc_product_add_to_cart',
+		'#form' => drupal_get_form('uc_product_add_to_cart_form_' . $nid, $node) 
+		);
+	$imge_url = $base_url."/sites/default/files/".$node->uc_product_image['und'][0]['filename'];
+	$img_width =  $node->uc_product_image['und'][0]['width'];
+	$img_height = $node->uc_product_image['und'][0]['height'];
+	
+	
+	//$body_text = field_view_field('node', $node, 'body'); 
+	$body_full_formated_text = $node->body['und']['0']['value'];
+	$do_need_formated_text = $node->field_do_i_need_this['und']['0']['value'];
+
+	?>
+<div class="main-row-porducts">
+  <div class="inner-wapper-producta-deatil">
+    <div class="left-products-img"> <?php echo '<img src="'.$imge_url.'" width="'.$img_width.'" height="'.$img_height.'" alt="" />'; ?> </div>
+    <div class="right-side-detail-products">
+      <h1 class="inner-detail-heading"><?php echo $node->title; ?></h1>
+      <?php echo $node->body['und']['0']['summary']; ?> </div>
+  </div>
+  <div class="price-bottm-sec"><?php echo setRBAmount($node->price); ?></div>
+  <?php
+		print drupal_render($add_to_cart);
+		?>
+</div>
+<a class="pro-desp" data-toggle="modal" data-target="#myModal<?php echo $nid; ?>" href="javascript:void(0);">Description</a>
+<?php description_model($nid,$body_full_formated_text); ?>
+<a class="pro-do-it" data-toggle="modal" data-target="#myModal_do_need<?php echo $nid; ?>" href="javascript:void(0);">Do I need this?</a>
+<?php do_need_model($nid,$do_need_formated_text); ?>
+<?php
+}
+
+function description_model($nid,$body_full_formated_text){
+	?>
+<div class="modal fade" id="myModal<?php echo $nid; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Description</h4>
+      </div>
+      <div class="modal-body">
+        <div><?php echo $body_full_formated_text; ?> </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php
+}
+function do_need_model($nid,$body_full_formated_text){
+	?>
+<div class="modal fade" id="myModal_do_need<?php echo $nid; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Do I need this?</h4>
+      </div>
+      <div class="modal-body">
+        <div><?php echo $body_full_formated_text; ?> </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php
+}

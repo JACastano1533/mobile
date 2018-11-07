@@ -1,0 +1,4 @@
+name = Order Shipped Rule
+description = Custom rules event in Drupal 7 by Roofbag
+core = 7.x
+package = Order Shipped Page

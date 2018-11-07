@@ -1,0 +1,634 @@
+<?php
+
+/**
+ * @file
+ * Shipping quote module that defines custom rate for each product.
+ */
+
+/**
+ * Implements hook_uc_shipping_method().
+ */
+function uc_custom_ups_uc_shipping_method() {
+    $methods['customups'] = array(
+	'id' => 'customups',
+	'module' => 'uc_custom_ups',
+	'title' => t('Custom UPS'),
+	'operations' => array(
+	    'configure' => array(
+		'title' => t('configure'),
+		'href' => 'admin/store/settings/quotes/settings',
+	    ),
+	),
+	'quote' => array(
+	    'type' => 'small_package',
+	    'callback' => 'uc_custom_ups_quote',
+	    'accessorials' => _uc_custom_ups_service_list(),
+	),
+    );
+
+    return $methods;
+}
+
+/**
+ * Standard callback to return a shipping rate via the flat rate method.
+ *
+ * @param $products
+ *   The order's products.
+ * @param $details
+ *   Other order details including a shipping address.
+ * @param $method
+ *   The shipping method to use to create the quote.
+ *
+ * @return
+ *   An array containing the shipping quote for the order.
+ */
+function uc_custom_ups_quote($products, $details, $method) {
+    $destination = (object) $details;
+    if (empty($destination->postal_code)) {
+	return array();
+    }
+
+//    if (isset($_SESSION["PREVIOUS_UPS_CITY"]) && isset($_SESSION["PREVIOUS_UPS_COUNTRY"]) && isset($_SESSION["PREVIOUS_UPS_POSTAL_CODE"]) && isset($_SESSION["PREVIOUS_UPS_ZONE"])) {
+//	if ($_SESSION["PREVIOUS_UPS_CITY"] == $details['city'] && $_SESSION["PREVIOUS_UPS_COUNTRY"] == $details['country'] && $_SESSION["PREVIOUS_UPS_POSTAL_CODE"] == $details['postal_code'] && $_SESSION["PREVIOUS_UPS_ZONE"] == $details['zone']) {
+//	    if (isset($_SESSION["PREVIOUS_UPS_ARRAY"])) {
+//		return $_SESSION["PREVIOUS_UPS_ARRAY"];
+//	    }
+//	}
+//    }
+//    $_SESSION["PREVIOUS_UPS_ZONE"] = $details['zone'];
+//    $_SESSION["PREVIOUS_UPS_CITY"] = $details['city'];
+//    $_SESSION["PREVIOUS_UPS_COUNTRY"] = $details['country'];
+//    $_SESSION["PREVIOUS_UPS_POSTAL_CODE"] = $details['postal_code'];
+    
+ //    if (isset($_SESSION["PREVIOUS_UPS_POSTAL_CODE"])) {
+	// if ($_SESSION["PREVIOUS_UPS_POSTAL_CODE"] == $details['postal_code']) {
+	//     if (isset($_SESSION["PREVIOUS_UPS_ARRAY"])) {
+	// 	return $_SESSION["PREVIOUS_UPS_ARRAY"];
+	//     }
+	// }
+ //    }
+    $_SESSION["PREVIOUS_UPS_POSTAL_CODE"] = $details['postal_code'];
+
+    $quotes = array();
+
+    $addresses = array(variable_get('uc_quote_store_default_address', new UcAddress()));
+
+    $postcode = $details['postal_code'];
+    $fromzip = $addresses[0]->postal_code;
+    $tozip = $details['postal_code'];
+
+//    ============================================================= UPS Services =============================================================
+    $services = $method["quote"]["accessorials"];
+
+    if ($postcode) {
+	$postcode = str_replace(' ', '+', $postcode);
+	;
+	$address = urlencode($postcode);
+	$url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $postcode . '&sensor=false';
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	$source = $data;
+	$obj = json_decode($source);
+
+	foreach ($obj->results[0]->address_components as $key => $address_data) {
+	    if ($address_data->types['0'] == 'country') {
+		$tocountry = $address_data->short_name;
+	    }
+	}
+    }
+
+    /*     * ***********************************
+      Get your own credentials from ups.com
+     * *********************************** */
+    $ups_accessnumber = "ED0EDC64284E1E19";
+    $ups_username = "pkindustries";
+    $ups_password = "Oli1533vella";
+    $ups_password = "Oli1533vella";
+    $ups_shippernumber = "";
+
+    $myRate = new customUpsRate;
+    $myRate->setCredentials($ups_accessnumber, $ups_username, $ups_password, $ups_shippernumber);
+
+    $items = uc_cart_get_contents();
+
+    $sub_total = 0;
+    foreach ($items as $item) {
+	$item_total = $item->price * $item->qty;
+	$sub_total += $item_total;
+    }
+    if ($sub_total == 0)
+	$sub_total = 45;
+    foreach ($services as $service => $name) {
+	$tmp_arr = array();
+	$rate_price = 0;
+	$actual_weight = 0;
+	$roofbag_box1 = 0;
+	$roofbag_box2 = 0;
+	$box_weight = 0;
+	$roofbag_1_qty = 0;
+	$roofbag_2_qty = 0;
+	$tire_step = false;
+	$tire_step = false;
+	if (count($items) > 0) {
+	    foreach ($items as $product) {
+		$actual_weight += ( $product->weight * $product->qty );
+
+		if ($product->nid == 284) {
+		    $tire_step = true;
+		    $box_weight = 1.6;
+		} else if ($product->nid == 1 || $product->nid == 292) {
+		    $roofbag_1_qty = $product->qty;
+		    if (isset($product->data["attributes"][3])) {
+			if ($product->data["attributes"][3] == 5) {
+			    $roofbag_box1 = 0.8;
+			} else if ($product->data["attributes"][3] == 6) {
+			    $roofbag_box1 = 1;
+			}
+		    }
+		} else if ($product->nid == 289 || $product->nid == 293) {
+		    $roofbag_2_qty = $product->qty;
+		    if (isset($product->data["attributes"][3])) {
+			if ($product->data["attributes"][3] == 5) {
+			    $roofbag_box2 = 0.8;
+			} else if ($product->data["attributes"][3] == 6) {
+			    $roofbag_box2 = 1;
+			}
+		    }
+		}
+	    }
+
+	    if (!$tire_step) {
+    	
+		if ($roofbag_1_qty + $roofbag_2_qty > 2) {
+		    $box_weight = 1.6;
+		} else if ($roofbag_1_qty == 1 && $roofbag_2_qty == 1) {
+		    $box_weight = 1.2;
+		} else if ($roofbag_box1 > $roofbag_box2) {
+		    $box_weight = $roofbag_box1;
+		} else {
+		    $box_weight = $roofbag_box2;
+		}
+	    }
+	    // echo $box_weight;exit;
+
+	    if ($box_weight == 1.6) {
+		$box_length = 22;
+		$box_width = 14;
+		$box_height = 14;
+	    } else if ($box_weight == 1.2) {
+		$box_length = 16;
+		$box_width = 12;
+		$box_height = 12;
+	    } else if ($box_weight == 1) {
+		$box_length = 16;
+		$box_width = 13;
+		$box_height = 7;
+	    } else {
+		$box_length = 14;
+		$box_width = 12;
+		$box_height = 7;
+	    }
+	    $actual_weight += $box_weight;
+	    if (!$actual_weight) {
+		$actual_weight = $weight;
+	    }
+
+	    $rate = $myRate->getRate($fromzip, $tozip, $tocountry, $service, $box_length, $box_width, $box_height, $actual_weight);
+	    if ($rate != '') {
+		$rate_price += $rate["price"];
+	    }
+	} else {
+	    $rate = $myRate->getRate($fromzip, $tozip, $tocountry, $service, 13, 13, 7, 9);
+	    if ($rate != '') {
+		$rate_price += $rate["price"];
+	    }
+	}
+	if ($rate_price != 0) {
+	    $rate_price += getUPSHandlingFees($service, $sub_total);
+	    $tmp_arr = array("rate" => $rate_price, "label" => $name, "option_label" => $name, "arrival_date" => $rate["arrives"]);
+	    $quotes[$service] = $tmp_arr;
+	}
+    }
+    uasort($quotes, 'uc_quote_price_sort');
+
+    $_SESSION["PREVIOUS_UPS_ARRAY"] = $quotes;
+    return $quotes;
+}
+
+function _uc_custom_ups_service_list() {
+    return array(
+	// Domestic services.
+	'14' => t('UPS Next Day Early A.M.'),
+	'01' => t('UPS Next Day Air'),
+	'02' => t('UPS 2nd Day Air'),
+	'12' => t('UPS 3 Day Select'),
+	'03' => t('UPS Ground'),
+	'13' => t('UPS Next Day Air Saver'),
+	'59' => t('UPS 2nd Day Air A.M.'),
+	//For Canadian Postal Code UPS Shippings
+	'11' => t('UPS Standard'),
+	'08' => t('UPS Worldwide Expedited'),
+	'65' => t('UPS Worldwide Saver'),
+	'07' => t('UPS Worldwide Express'),
+	'54' => t('UPS Worldwide Express Plus'),
+    );
+}
+
+function getUPSHandlingFees($name, $subtotal) {
+    switch ($name) {
+	case '14':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case '01':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case '13':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case '59':
+	    if ($subtotal > 0 && $subtotal < 10) {
+		return 3;
+	    }
+	    break;
+	case '02':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 3;
+	    }
+	    break;
+	case '12':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 2;
+	    }
+	    break;
+	case '03':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 54.99) {
+		return 0;
+	    } else if ($subtotal >= 55 && $subtotal < 64.99) {
+		return 0;
+	    } else if ($subtotal >= 65 && $subtotal < 74.99) {
+		return 1;
+	    } else if ($subtotal >= 75 && $subtotal < 84.99) {
+		return 1.5;
+	    } else if ($subtotal >= 85 && $subtotal < 94.99) {
+		return 2;
+	    } else if ($subtotal >= 95 && $subtotal < 104.99) {
+		return 2.5;
+	    } else if ($subtotal >= 105 && $subtotal < 114.99) {
+		return 3;
+	    } else if ($subtotal >= 115 && $subtotal < 124.99) {
+		return 4;
+	    } else if ($subtotal >= 125 && $subtotal < 134.99) {
+		return 5;
+	    } else if ($subtotal >= 135 && $subtotal < 144.99) {
+		return 6;
+	    } else if ($subtotal >= 145 && $subtotal < 10000) {
+		return 7;
+	    }
+	    break;
+	case '11':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 2;
+	    }
+	    break;
+	case '08':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 2;
+	    }
+	    break;
+	case '07':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 3;
+	    }
+	    break;
+	case '54':
+	    if ($subtotal > 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 3;
+	    }
+	    break;
+	default:
+	    return 0;
+    }
+}
+
+class customUpsRate {
+
+    var $AccessLicenseNumber;
+    var $UserId;
+    var $Password;
+    var $shipperNumber;
+    var $credentials;
+    var $dimensionsUnits = "IN";
+    var $weightUnits = "LBS";
+
+    function setCredentials($access, $user, $pass, $shipper) {
+	$this->AccessLicenseNumber = $access;
+	$this->UserID = $user;
+	$this->Password = $pass;
+	$this->shipperNumber = $shipper;
+	$this->credentials = 1;
+    }
+
+    function setDimensionsUnits($unit) {
+	$this->dimensionsUnits = $unit;
+    }
+
+    function setWeightUnits($unit) {
+	$this->weightUnits = $unit;
+    }
+
+    // Define the function getRate() - no parameters
+    function getRate($PostalCode, $dest_zip, $dest_country, $service, $length, $width, $height, $weight) {
+		if ($this->credentials != 1) {
+		    print 'Please set your credentials with the setCredentials function';
+		    die();
+		}
+		$data = "<?xml version=\"1.0\"?>  
+			<AccessRequest xml:lang=\"en-US\">  
+			    <AccessLicenseNumber>$this->AccessLicenseNumber</AccessLicenseNumber>  
+			    <UserId>$this->UserID</UserId>  
+			    <Password>$this->Password</Password>  
+			</AccessRequest>  
+			<?xml version=\"1.0\"?>  
+			<RatingServiceSelectionRequest xml:lang=\"en-US\">  
+			    <Request>  
+				<TransactionReference>  
+				    <CustomerContext>Bare Bones Rate Request</CustomerContext>  
+				    <XpciVersion>1.0001</XpciVersion>  
+				</TransactionReference>  
+				<RequestAction>Rate</RequestAction>  
+				<RequestOption>Rate</RequestOption>  
+			    </Request>  
+			<PickupType>  
+			    <Code>01</Code>  
+			</PickupType>  
+			<Shipment>  
+			    <Shipper>  
+				<Address>  
+				    <PostalCode>$PostalCode</PostalCode>  
+				    <CountryCode>US</CountryCode>  
+				</Address>  
+			    <ShipperNumber>$this->shipperNumber</ShipperNumber>  
+			    </Shipper>  
+			    <ShipTo>
+	      <Address>
+	        
+	        <PostalCode>$dest_zip</PostalCode>
+	        <CountryCode>$dest_country</CountryCode>
+	        <ResidentialAddressIndicator/>
+	      </Address>
+	    </ShipTo> 
+			    <ShipFrom>  
+				<Address>  
+				    <PostalCode>$PostalCode</PostalCode>  
+				    <CountryCode>US</CountryCode>  
+				</Address>  
+			    </ShipFrom>  
+			    <Service>  
+				<Code>$service</Code>  
+			    </Service>  
+			    <Package>  
+				<PackagingType>  
+				    <Code>02</Code>  
+				</PackagingType>  
+				<Dimensions>  
+				    <UnitOfMeasurement>  
+					<Code>$this->dimensionsUnits</Code>  
+				    </UnitOfMeasurement>  
+				    <Length>$length</Length>  
+				    <Width>$width</Width>  
+				    <Height>$height</Height>  
+				</Dimensions>  
+				<PackageWeight>  
+				    <UnitOfMeasurement>  
+					<Code>$this->weightUnits</Code>  
+				    </UnitOfMeasurement>  
+				    <Weight>$weight</Weight>  
+				</PackageWeight>  
+			    </Package>  
+			</Shipment>  
+		</RatingServiceSelectionRequest>";
+		// echo "<pre>";
+  //      print_r($data);
+  //      exit;
+		$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+		curl_setopt($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		$result = curl_exec($ch);
+		echo '<!-- ' . $result . ' -->'; // THIS LINE IS FOR DEBUG PURPOSES ONLY-IT WILL SHOW IN HTML COMMENTS  
+		$data = strstr($result, '<?');
+		$xml_parser = xml_parser_create();
+		xml_parse_into_struct($xml_parser, $data, $vals, $index);
+		xml_parser_free($xml_parser);
+		$params = array();
+		$level = array();
+		foreach ($vals as $xml_elem) {
+		    if ($xml_elem['type'] == 'open') {
+			if (array_key_exists('attributes', $xml_elem)) {
+			    list($level[$xml_elem['level']], $extra) = array_values($xml_elem['attributes']);
+			} else {
+			    $level[$xml_elem['level']] = $xml_elem['tag'];
+			}
+		    }
+		    if ($xml_elem['type'] == 'complete') {
+			$start_level = 1;
+			$php_stmt = '$params';
+			while ($start_level < $xml_elem['level']) {
+			    $php_stmt .= '[$level[' . $start_level . ']]';
+			    $start_level++;
+			}
+			if (isset($xml_elem['value'])) {
+			    $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+			    eval($php_stmt);
+			}
+		    }
+		}
+		curl_close($ch);
+
+		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) {
+		    $time = time();
+		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'];
+		    $return_data_1 = "";
+		    if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'])) {
+			$GUARANTEEDDAYSTODELIVERY = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'];
+			$return_data_1 = 'Arrives ' . date('l, M d', mktime(0, 0, 0, date("n", $time), date("j", $time) + $GUARANTEEDDAYSTODELIVERY, date("Y", $time)));
+		    } else {
+			$timetoadd = time() + 86400;
+			if (date('l') == "Friday") {
+			    $timetoadd = time() + (86400 * 3);
+			} else if (date('l') == "Saturday") {
+			    $timetoadd = time() + (86400 * 2);
+			}
+			$return_data_1 = 'Arrives ' . date('l, M d', $timetoadd);
+		    }
+
+		    $return_data = array("price" => $return_data_0, "arrives" => $return_data_1);
+		    
+		    return $return_data;
+		}
+    }
+
+    function getRateOriginal($PostalCode, $dest_zip, $dest_country, $service, $length, $width, $height, $weight) {
+		if ($this->credentials != 1) {
+		    print 'Please set your credentials with the setCredentials function';
+		    die();
+		}
+		$data = "<?xml version=\"1.0\"?>  
+			<AccessRequest xml:lang=\"en-US\">  
+			    <AccessLicenseNumber>$this->AccessLicenseNumber</AccessLicenseNumber>  
+			    <UserId>$this->UserID</UserId>  
+			    <Password>$this->Password</Password>  
+			</AccessRequest>  
+			<?xml version=\"1.0\"?>  
+			<RatingServiceSelectionRequest xml:lang=\"en-US\">  
+			    <Request>  
+				<TransactionReference>  
+				    <CustomerContext>Bare Bones Rate Request</CustomerContext>  
+				    <XpciVersion>1.0001</XpciVersion>  
+				</TransactionReference>  
+				<RequestAction>Rate</RequestAction>  
+				<RequestOption>Rate</RequestOption>  
+			    </Request>  
+			<PickupType>  
+			    <Code>01</Code>  
+			</PickupType>  
+			<Shipment>  
+			    <Shipper>  
+				<Address>  
+				    <PostalCode>$PostalCode</PostalCode>  
+				    <CountryCode>US</CountryCode>  
+				</Address>  
+			    <ShipperNumber>$this->shipperNumber</ShipperNumber>  
+			    </Shipper>  
+			    <ShipTo>
+	      <Address>
+	        
+	        <PostalCode>$dest_zip</PostalCode>
+	        <CountryCode>$dest_country</CountryCode>
+	      </Address>
+	    </ShipTo> 
+			    <ShipFrom>  
+				<Address>  
+				    <PostalCode>$PostalCode</PostalCode>  
+				    <CountryCode>US</CountryCode>  
+				</Address>  
+			    </ShipFrom>  
+			    <Service>  
+				<Code>$service</Code>  
+			    </Service>  
+			    <Package>  
+				<PackagingType>  
+				    <Code>02</Code>  
+				</PackagingType>  
+				<Dimensions>  
+				    <UnitOfMeasurement>  
+					<Code>$this->dimensionsUnits</Code>  
+				    </UnitOfMeasurement>  
+				    <Length>$length</Length>  
+				    <Width>$width</Width>  
+				    <Height>$height</Height>  
+				</Dimensions>  
+				<PackageWeight>  
+				    <UnitOfMeasurement>  
+					<Code>$this->weightUnits</Code>  
+				    </UnitOfMeasurement>  
+				    <Weight>$weight</Weight>  
+				</PackageWeight>  
+			    </Package>  
+			</Shipment>  
+		</RatingServiceSelectionRequest>";
+		$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+		curl_setopt($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		$result = curl_exec($ch);
+		echo '<!-- ' . $result . ' -->'; // THIS LINE IS FOR DEBUG PURPOSES ONLY-IT WILL SHOW IN HTML COMMENTS  
+		$data = strstr($result, '<?');
+		$xml_parser = xml_parser_create();
+		xml_parse_into_struct($xml_parser, $data, $vals, $index);
+		xml_parser_free($xml_parser);
+		$params = array();
+		$level = array();
+		foreach ($vals as $xml_elem) {
+		    if ($xml_elem['type'] == 'open') {
+			if (array_key_exists('attributes', $xml_elem)) {
+			    list($level[$xml_elem['level']], $extra) = array_values($xml_elem['attributes']);
+			} else {
+			    $level[$xml_elem['level']] = $xml_elem['tag'];
+			}
+		    }
+		    if ($xml_elem['type'] == 'complete') {
+			$start_level = 1;
+			$php_stmt = '$params';
+			while ($start_level < $xml_elem['level']) {
+			    $php_stmt .= '[$level[' . $start_level . ']]';
+			    $start_level++;
+			}
+			if (isset($xml_elem['value'])) {
+			    $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+			    eval($php_stmt);
+			}
+		    }
+		}
+		curl_close($ch);
+		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) {
+		    $time = time();
+		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'];
+		    $return_data_1 = "";
+		    if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'])) {
+			$GUARANTEEDDAYSTODELIVERY = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'];
+			$return_data_1 = 'Arrives ' . date('l, M d', mktime(0, 0, 0, date("n", $time), date("j", $time) + $GUARANTEEDDAYSTODELIVERY, date("Y", $time)));
+		    } else {
+			$timetoadd = time() + 86400;
+			if (date('l') == "Friday") {
+			    $timetoadd = time() + (86400 * 3);
+			} else if (date('l') == "Saturday") {
+			    $timetoadd = time() + (86400 * 2);
+			}
+			$return_data_1 = 'Arrives ' . date('l, M d', $timetoadd);
+		    }
+
+		    $return_data = array("price" => $return_data_0, "arrives" => $return_data_1);
+		    return $return_data;
+		}
+    }
+
+}

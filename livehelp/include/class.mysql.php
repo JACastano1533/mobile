@@ -1,0 +1,415 @@
+<?php
+/*
+stardevelop.com Live Help
+International Copyright stardevelop.com
+
+You may not distribute this program in any manner,
+modified or otherwise, without the express, written
+consent from stardevelop.com
+
+You may make modifications, but only for your own 
+use and within the confines of the License Agreement.
+All rights reserved.
+
+Selling the code for this program without prior 
+written consent is expressly forbidden. Obtain 
+permission before redistributing this program over 
+the Internet or in any other medium.  In all cases 
+copyright and header must remain intact.  
+*/
+
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+
+// Log PHP Fatal Errors - Development Servers
+if (isset($_SETTINGS['PHPLOG'])) {
+	ini_set('log_errors', 1);
+	ini_set('error_log', $_SETTINGS['PHPLOG']);
+}
+
+// User defined error handling function
+function userErrorHandler ($errno, $errmsg, $filename, $linenum, $vars) { 
+
+	// Define an assoc array of error string 
+	// in reality the only entries we should 
+	// consider are 2,8,256,512 and 1024
+	$errortype = array ( 
+		1   =>  "Error", 
+		2   =>  "Warning", 
+		4   =>  "Parsing Error", 
+		8   =>  "Notice", 
+		16  =>  "Core Error", 
+		32  =>  "Core Warning", 
+		64  =>  "Compile Error", 
+		128 =>  "Compile Warning", 
+		256 =>  "User Error", 
+		512 =>  "User Warning", 
+		1024=>  "User Notice",
+		2048=>	"Strict Error",
+		4096=>	"Recoverable Error",
+		8191=>	"All Errors"
+		);
+
+	$date = date("Y-m-d H:i:s"); 
+	$trace = debug_backtrace();
+	
+	$file = ''; $line = ''; $function = '';
+	foreach ($trace as $key => $value) {
+		if (is_array($value)) {
+			if (isset($value['file'])) { $file = $value['file']; }
+			if (isset($value['line'])) { $line = $value['line']; }
+			if (isset($value['function'])) { $function = $value['function']; }
+		}
+	}
+
+	if (!empty($file) && !empty($line)) {
+		$error = "$date PHP {$errortype[$errno]}: $errmsg $filename at line $linenum (Debug Trace: $function() at line $line within $file)\n";
+	} else {
+		$error = "$date PHP {$errortype[$errno]}: $errmsg $filename at line $linenum\n";
+	}
+
+	// Save to the error log
+	if (is_writable('../log/ERRORLOG.TXT')) { error_log($error, 3, '../log/ERRORLOG.TXT'); }
+
+} 
+
+set_error_handler('userErrorHandler'); 
+
+class MySQL {
+
+	var $host = DB_HOST;
+	var $user = DB_USER;
+	var $pass = DB_PASS;
+	var $name = DB_NAME;
+	var $db;
+	var $result;
+	var $error;
+	var $connected = 0;
+
+	var $slavedb;
+	var $slavehost = '';
+	var $slaveconnected = 0;
+	
+	function MySQL() {
+		if (defined('DB_SLAVE')) {
+			$this->slavehost = DB_SLAVE;
+		}
+	}
+	
+	function connect($slave = false) {
+		//
+		// Connects to the SQL server and sets the active database.
+		//
+		$host = $this->host;
+
+		if ($slave == true && !empty($this->slavehost)) {
+			$host = $this->slavehost;
+			$this->slaveconnected = 1;
+			if (function_exists('mysqli_connect')) {
+				$this->slavedb = mysqli_connect($host, $this->user, $this->pass) or $this->slaveconnected = 0;
+			}
+			else {
+				$this->slavedb = mysql_connect($host, $this->user, $this->pass) or $this->slaveconnected = 0;
+			}
+			$this->setdb($this->slavedb);
+			$this->setcharset($this->slavedb);
+		} else {
+			$this->connected = 1;
+			if (function_exists('mysqli_connect')) {
+				$this->db = mysqli_connect($host, $this->user, $this->pass) or $this->connected = 0;
+			}
+			else {
+				$this->db = mysql_connect($host, $this->user, $this->pass) or $this->connected = 0;
+			}
+			$this->setdb($this->db);
+			$this->setcharset($this->db);
+		}
+	}
+	
+	function disconnect() {
+		//
+		// Connects to the SQL server and sets the active database.
+		//
+		if ($this->connected) {
+			$this->connected = 0;
+			if (function_exists('mysqli_connect')) {
+				$this->db = mysqli_close($this->db) or $this->connected = 1;
+			}
+			else {
+				$this->db = mysql_close($this->db) or $this->connected = 1;
+			}
+		}
+
+		// Disconnect Slave
+		if ($this->slaveconnected) {
+			$this->slaveconnected = 0;
+			if (function_exists('mysqli_connect')) {
+				$this->slavedb = mysqli_close($this->slavedb) or $this->slaveconnected = 1;
+			}
+			else {
+				$this->slavedb = mysql_close($this->slavedb) or $this->slaveconnected = 1;
+			}
+		}
+	}
+	
+	function setdb($db, $database = '') {
+		//
+		// Sets the active database.  If new_db is specified, the active database is set to it.
+		// If not, it uses the current this->name.
+		//
+		if ($database) { $this->name = $database; }
+		if (function_exists('mysqli_connect')) {
+			if ($this->connected) { mysqli_select_db($db, $this->name); }
+		}
+		else {
+			if ($this->connected) { mysql_select_db($this->name, $db); }
+		}
+	}
+
+	function setcharset($db) {
+		//
+		// Sets the local client charset
+		//
+		if (function_exists('mysqli_set_charset')) {
+			if ($this->connected) { mysqli_set_charset($db, 'utf8'); }
+		}
+		else if (function_exists('mysql_set_charset')) {
+			if ($this->connected) { mysql_set_charset('utf8', $db); }
+		}
+		else {
+			$this->miscquery('SET NAMES utf8');
+		}
+	}
+
+	function seterror($sql, $error) {
+		//
+		// Called internally to set the error message generated by a failed method call.
+		//
+		trigger_error('SQL Error: ' . $sql . ' ' . $error, E_USER_ERROR); 
+		$this->error = $error;
+	}
+	
+	function insertquery($sql) {
+		//
+		// Wrapper for mysql_query(), for use with "INSERT INTO" queries.
+		//
+		// Returns the ID of the new row on success, or FALSE on error.
+		//
+		if (!$this->connected) {
+			$this->connect();
+		}
+
+		if (function_exists('mysqli_connect')) {
+			$result = @mysqli_query($this->db, $sql) or $this->seterror($sql, mysqli_error($this->db));
+			if ($result) {
+				$this->affected = mysqli_affected_rows($this->db);
+				return mysqli_insert_id($this->db);
+			} else {
+				return $result; 
+			}
+		}
+		else {
+			$result = @mysql_query($sql, $this->db) or $this->seterror($sql, mysql_error($this->db));
+			if ($result) {
+				$this->affected = mysql_affected_rows();
+				return mysql_insert_id($this->db);
+			} else {
+				return $result; 
+			}
+		}
+	}
+
+	function deletequery($sql) {
+		//
+		// Wrapper for mysql_query(), for use with update queries.
+		//
+		// Basically just for consistency with updatequery().
+		// Doesn't return FALSE on affected rows
+		//
+		if (!$this->connected) {
+			$this->connect();
+		}
+
+		if (function_exists('mysqli_connect')) {
+			$result = (@mysqli_query($this->db, $sql) or $this->seterror($sql, mysqli_error($this->db)));
+			if ($result) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		else {
+			$result = (@mysql_query($sql, $this->db) or $this->seterror($sql, mysql_error($this->db)));
+			if ($result) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	function updatequery($sql) {
+		//
+		// Wrapper for mysql_query(), for use with update queries.
+		//
+		// Basically just for consistency with insertquery and() selectquery().
+		// Returns the number of affected rows, or FALSE on failure.
+		//
+		if (!$this->connected) {
+			$this->connect();
+		}
+
+		if (function_exists('mysqli_connect')) {
+			$result = (@mysqli_query($this->db, $sql) or $this->seterror($sql, mysqli_error($this->db)));
+			if ($result) {
+				$this->affected = mysqli_affected_rows($this->db);
+				if  ($this->affected == 0) {
+					return false;
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}
+		else {
+			$result = (@mysql_query($sql, $this->db) or $this->seterror($sql, mysql_error($this->db)));
+			if ($result) {
+				$this->affected = mysql_affected_rows();
+				if  ($this->affected == 0) {
+					return false;
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+	}
+	
+	function miscquery($sql) {
+		//
+		// Wrapper for mysql_query(), for use with miscellaneous queries.
+		//
+		// Basically just for consistency with insertquery and() selectquery().
+		// Doesn't return FALSE on affected rows
+		//
+		if (!$this->connected) {
+			$this->connect();
+		}
+
+		if (function_exists('mysqli_connect')) {
+			$result = (@mysqli_query($this->db, $sql) or $this->seterror($sql, mysqli_error($this->db)));
+			if ($result) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		else {
+			$result = (@mysql_query($sql, $this->db) or $this->seterror($sql, mysql_error($this->db)));
+			if ($result) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+	}
+	
+	function selectquery($sql) {
+		//
+		// Wrapper for mysql_query(), for use with SELECT queries.
+		//
+		// Returns the first result row on success, or FALSE on failure.
+		// Subsequent rows may be retrieved using selectnext().
+		//
+		if (empty($this->slavehost)) {
+			if (!$this->connected) {
+				$this->connect();
+			}
+		} else {
+			if (!$this->slaveconnected) {
+				$this->connect(true);
+			}
+		}
+
+		$db = $this->db;
+		if ($this->slaveconnected) {
+			$db = $this->slavedb;
+		}
+
+		if (function_exists('mysqli_connect')) {
+			$result = @mysqli_query($db, $sql) or $this->seterror($sql, mysqli_error($db));
+			if ($result) {
+				$this->result = $result;
+				$this->results = mysqli_num_rows($result);
+				return $this->selectnext();
+			} else {
+				return $result; 
+			}
+		}
+		else {
+			$result = @mysql_query($sql, $db) or $this->seterror($sql, mysql_error($db));
+			if ($result) {
+				$this->result = $result;
+				$this->results = mysql_num_rows($result);
+				return $this->selectnext();
+			} else {
+				return $result; 
+			}
+		}
+	}
+
+	function selectnext() {
+		//
+		// Wrapper for mysql_fetch_assoc().
+		//
+		// Automatically strips escape characters (slashes) from string-type elements
+		// prior to returning.
+		// Returns the next result row on success, or FALSE on failure.
+		//
+		if (function_exists('mysqli_connect')) {
+			$row = mysqli_fetch_assoc($this->result);
+		}
+		else {
+			$row = mysql_fetch_assoc($this->result);
+		}
+		return $row;
+	}
+	
+	function selectall($sql) {
+		//
+		// Executes a select query and returns ALL result rows for that query.
+		//
+		$output = array();
+		$res = $this->selectquery($sql);
+		if (!is_array($res)) { return false; }
+		while (is_array($res)) {
+			$output[] = $res;
+			$res = $this->selectnext();
+		}
+		return $output;
+	}
+	
+	function escape($string) {
+		//
+		// Wrapper for mysql_real_escape_string.
+		//
+		// Automatically escapes string
+		// Returns the escaped string.
+		//
+		if (!$this->connected) {
+			$this->connect();
+		}
+
+		if (function_exists('mysqli_connect')) {
+			$escaped = mysqli_real_escape_string($this->db, $string);
+		}
+		else {
+			$escaped = mysql_real_escape_string($string, $this->db);
+		}
+		return $escaped;
+	}
+
+}
+?>

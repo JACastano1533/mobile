@@ -1,0 +1,10 @@
+name = Custom Data Changes
+description = Various blocks, pages, and functions for Custom Data.
+package = Custom Data
+core = 7.x
+
+version = "7.x-2.9"
+core = "7.x"
+project = "Custom Data"
+datestamp = "1484385527"
+

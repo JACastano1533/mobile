@@ -1,0 +1,598 @@
+<?php
+
+/**
+ * @file
+ * Shipping quote module that defines custom rate for each product.
+ */
+
+/**
+ * Implements hook_uc_shipping_method().
+ */
+function uc_custom_fedex_uc_shipping_method() {
+    $methods['customfedex'] = array(
+	'id' => 'customfedex',
+	'module' => 'uc_custom_fedex',
+	'title' => t('Custom FedEx'),
+	'operations' => array(
+	    'configure' => array(
+		'title' => t('configure'),
+		'href' => 'admin/store/settings/quotes/settings',
+	    ),
+	),
+	'quote' => array(
+	    'type' => 'small_package',
+	    'callback' => 'uc_custom_fedex_quote',
+	    'accessorials' => _uc_custom_fedex_service_list(),
+	),
+    );
+
+    return $methods;
+}
+
+/**
+ * Standard callback to return a shipping rate via the flat rate method.
+ *
+ * @param $products
+ *   The order's products.
+ * @param $details
+ *   Other order details including a shipping address.
+ * @param $method
+ *   The shipping method to use to create the quote.
+ *
+ * @return
+ *   An array containing the shipping quote for the order.
+ */
+function uc_custom_fedex_quote($products, $details, $method) {
+
+    $destination = (object) $details;
+    if (empty($destination->postal_code)) {
+	return array();
+    }
+
+//    if (isset($_SESSION["PREVIOUS_FEDEX_CITY"]) && isset($_SESSION["PREVIOUS_FEDEX_COUNTRY"]) && isset($_SESSION["PREVIOUS_FEDEX_POSTAL_CODE"]) && isset($_SESSION["PREVIOUS_FEDEX_ZONE"])) {
+//	if ($_SESSION["PREVIOUS_FEDEX_CITY"] == $details['city'] && $_SESSION["PREVIOUS_FEDEX_COUNTRY"] == $details['country'] && $_SESSION["PREVIOUS_FEDEX_POSTAL_CODE"] == $details['postal_code'] && $_SESSION["PREVIOUS_FEDEX_ZONE"] == $details['zone']) {
+//	    if (isset($_SESSION["PREVIOUS_FEDEX_ARRAY"])) {
+//		return $_SESSION["PREVIOUS_FEDEX_ARRAY"];
+//	    }
+//	}
+//    }
+//    $_SESSION["PREVIOUS_FEDEX_ZONE"] = $details['zone'];
+//    $_SESSION["PREVIOUS_FEDEX_CITY"] = $details['city'];
+//    $_SESSION["PREVIOUS_FEDEX_COUNTRY"] = $details['country'];
+//    $_SESSION["PREVIOUS_FEDEX_POSTAL_CODE"] = $details['postal_code'];
+    
+ //    if (isset($_SESSION["PREVIOUS_FEDEX_POSTAL_CODE"])) {
+	// if ($_SESSION["PREVIOUS_FEDEX_POSTAL_CODE"] == $details['postal_code']) {
+	//     if (isset($_SESSION["PREVIOUS_FEDEX_ARRAY"])) {
+	// 	return $_SESSION["PREVIOUS_FEDEX_ARRAY"];
+	//     }
+	// }
+ //    }
+    $_SESSION["PREVIOUS_FEDEX_POSTAL_CODE"] = $details['postal_code'];
+
+    $quotes = array();
+
+    $addresses = array(variable_get('uc_quote_store_default_address', new UcAddress()));
+
+    $postcode = $details['postal_code'];
+    $fromzip = $addresses[0]->postal_code;
+    $tozip = $details['postal_code'];
+
+//    ============================================================= FedEx Services =============================================================
+    $services = $method["quote"]["accessorials"];
+    $items = uc_cart_get_contents();
+    if ($postcode) {
+	$postcode = str_replace(' ', '+', $postcode);
+	;
+	$address = urlencode($postcode);
+	$url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $postcode . '&sensor=false';
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	$source = $data;
+	$obj = json_decode($source);
+
+	foreach ($obj->results[0]->address_components as $key => $address_data) {
+	    if ($address_data->types['0'] == 'country') {
+		$tocountry = $address_data->short_name;
+	    }
+	}
+    }
+
+    $sub_total = 0;
+    foreach ($items as $product) {
+	$item_total = $product->price * $product->qty;
+	$sub_total += $item_total;
+    }
+    if ($sub_total == 0) {
+	$sub_total = 45;
+    }
+
+    $tmp_arr = array();
+    $rate_price = 0;
+    $actual_weight = 0;
+    $roofbag_box1 = 0;
+    $roofbag_box2 = 0;
+    $box_weight = 0;
+    $roofbag_1_qty = 0;
+    $roofbag_2_qty = 0;
+    $tire_step = false;
+    $tire_step = false;
+    if (count($items) > 0) {
+	foreach ($items as $product) {
+	    $actual_weight += ( $product->weight * $product->qty);
+
+	    if ($product->nid == 284) {
+		$tire_step = true;
+		$box_weight = 1.6;
+	    } else if ($product->nid == 1 || $product->nid == 292) {
+		$roofbag_1_qty = $product->qty;
+		if (isset($product->data["attributes"][3])) {
+		    if ($product->data["attributes"][3] == 5) {
+			$roofbag_box1 = 0.8;
+		    } else if ($product->data["attributes"][3] == 6) {
+			$roofbag_box1 = 1;
+		    }
+		}
+	    } else if ($product->nid == 289 || $product->nid == 293) {
+		$roofbag_2_qty = $product->qty;
+		if (isset($product->data["attributes"][3])) {
+		    if ($product->data["attributes"][3] == 5) {
+			$roofbag_box2 = 0.8;
+		    } else if ($product->data["attributes"][3] == 6) {
+			$roofbag_box2 = 1;
+		    }
+		}
+	    }
+	}
+
+	if (!$tire_step) {
+	    if ($roofbag_1_qty + $roofbag_2_qty > 2) {
+		$box_weight = 1.6;
+	    } else if ($roofbag_1_qty == 1 && $roofbag_2_qty == 1) {
+		$box_weight = 1.2;
+	    } else if ($roofbag_box1 > $roofbag_box2) {
+		$box_weight = $roofbag_box1;
+	    } else {
+		$box_weight = $roofbag_box2;
+	    }
+	}
+
+	if ($box_weight == 1.6) {
+	    $box_length = 22;
+	    $box_width = 14;
+	    $box_height = 14;
+	} else if ($box_weight == 1.2) {
+	    $box_length = 16;
+	    $box_width = 12;
+	    $box_height = 12;
+	} else if ($box_weight == 1) {
+	    $box_length = 16;
+	    $box_width = 13;
+	    $box_height = 7;
+	} else {
+	    $box_length = 14;
+	    $box_width = 12;
+	    $box_height = 7;
+	}
+
+	$actual_weight += $box_weight;
+	if (!$actual_weight) {
+	    $actual_weight = $weight;
+	}
+    } else {
+	$actual_weight = $weight;
+	$box_height = $height;
+	$box_width = $width;
+	$box_length = $length;
+    }
+    
+    $data = "<?xml version='1.0'?>  
+	<FDXRateAvailableServicesRequest xmlns:api='http://www.fedex.com/fsmapi' xmlns:xsi='http://www.w3.org/2001/XMLSchemainstance' xsi:noNamespaceSchemaLocation='FDXRateAvailableServicesRequest.xsd'>
+		<RequestHeader>
+			<AccountNumber>1vN6TtJYilEbreCVQktuMg4pX@t9giZERJ1SP8pkBT@353527843@103951883</AccountNumber>
+			<MeterNumber>103951883</MeterNumber>
+		</RequestHeader>
+		<ShipDate>" . date("c") . "</ShipDate>
+		<DropoffType>REGULAR_PICKUP</DropoffType>
+		<Packaging>YOUR_PACKAGING</Packaging>
+		<WeightUnits>LBS</WeightUnits>
+		<Weight>" . $actual_weight . "</Weight>
+		<ListRate>0</ListRate>
+		<OriginAddress>
+		    <PostalCode>92154</PostalCode>
+		    <CountryCode>US</CountryCode>
+		</OriginAddress>
+		<DestinationAddress>
+		    <PostalCode>" . str_replace('+', '', $postcode) . "</PostalCode>
+		    <CountryCode>" . $tocountry . "</CountryCode>
+		</DestinationAddress>
+		<Payment>
+			<PayorType>SENDER</PayorType>
+		</Payment>
+		<Dimensions>
+			<Length>12</Length>
+			<Width>16</Width>
+			<Height>6</Height>
+			<Units>IN</Units>
+		</Dimensions>
+		<PackageCount>1</PackageCount>
+		<SpecialServices>
+			<ResidentialDelivery>TRUE</ResidentialDelivery>
+		</SpecialServices>
+	</FDXRateAvailableServicesRequest>";
+	
+//    $ch = curl_init("http://raladexan.com/apiratexlator.aspx");
+//    Fedex rate server changed 5.18.2018:
+    $ch = curl_init("http://fdxbst.servebbs.com:50384/apiratexlator.aspx");
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    $result = curl_exec($ch);
+
+    $xml_results = new SimpleXMLElement($result);
+    $xml_results = json_decode(json_encode((array) $xml_results), false);
+
+    foreach ($xml_results->Entry AS $xml_result) {
+	$tmp_arr = returnShippingRateReplyDetails($xml_result, $sub_total, $tocountry);
+	$quotes[$tmp_arr["fedex_key"]] = $tmp_arr;
+    }
+
+    $_SESSION["PREVIOUS_FEDEX_ARRAY"] = array_filter($quotes);
+    return array_filter($quotes);
+}
+
+function returnShippingRateReplyDetails($xml_result, $sub_total, $tocountry = "US") {
+    $serviceTypeFedExName = getFedExUnderScoredName($xml_result->Service);
+    $serviceType = getLiveSiteName($serviceTypeFedExName, $tocountry);
+    $actual_amount = $xml_result->EstimatedCharges->DiscountedCharges->NetCharge;
+
+
+
+//	echo '<pre>'; print_r($serviceType);  echo '</pre>';				
+
+
+
+
+//  For free fedex ground shipping:
+//   if ($serviceType == FedEx Ground) {
+//      $actual_amount = 0
+//   }
+
+
+
+
+// 7/9/2018 - remove handling fees
+//  $actual_amount += getFedExHandlingFees($serviceTypeFedExName, $sub_total, $tocountry);
+
+    $amount = number_format($actual_amount, 2, ".", ",");
+    
+    if (isset($xml_result->DeliveryDate)) {
+	$deliveryDate = 'Arrives ' . date('l, M d', strtotime($xml_result->DeliveryDate));
+    } else if (isset($xml_result->TimeInTransit)) {
+		$loopTimer = $xml_result->TimeInTransit;
+		// $arrivalTimeTransit = date('l, M d', strtotime("+" .$xml_result->TimeInTransit.' days'));
+		$arrivalTimeTransit = date('l, M d');
+
+		while ($loopTimer > 0 ){		    
+		    if( IsAHolidayOrSaturdaySundayModules($arrivalTimeTransit) ){
+		    	$arrivalTimeTransit = date('l, M d',strtotime($arrivalTimeTransit."+1 days"));
+		    }else{
+	    		$arrivalTimeTransit = date('l, M d',strtotime($arrivalTimeTransit."+1 days"));
+	    		$loopTimer = $loopTimer - 1;
+		    }
+		}
+
+		$deliveryDate = 'Arrives ' . $arrivalTimeTransit;
+
+    } else {
+		$timetoadd = time() + 86400;
+		if (date('l') == "Friday") {
+		    $timetoadd = time() + (86400 * 3);
+		} else if (date('l') == "Saturday") {
+		    $timetoadd = time() + (86400 * 2);
+		}
+		$deliveryDate = 'Arrives ' . date('l, M d', $timetoadd);
+    }
+
+    return array("rate" => $amount, "label" => $serviceType, "option_label" => $serviceType, "arrival_date" => $deliveryDate, "fedex_key" => $serviceTypeFedExName);
+}
+
+function IsAHolidayOrSaturdaySundayModules( $dateShip ){
+	$TodayIsHoliday = false;
+	$dateDay = date('l',strtotime($dateShip));
+	$dateDayMonth = date('Y-m-d',strtotime($dateShip));
+	if( $dateDay == 'Sunday'|| $dateDay == 'Saturday' ){
+		$TodayIsHoliday = true;
+	}
+
+	$FedexHolidays = array();
+
+	if( date('Y') == 2015 ){
+		$FedexHolidays = array("2015-01-01" , "2015-05-25" , "2015-07-04" , "2015-09-07" , "2015-11-26" , "2015-12-25" );
+	}
+	if( date('Y') == 2016 ){
+		$FedexHolidays = array("2016-01-01" , "2016-05-30" , "20166-07-04" , "2016-09-05" , "2016-11-24" , "2016-12-25" );
+	}
+	if( date('Y') == 2017 ){
+		$FedexHolidays = array("2017-01-01" , "2017-05-29" , "2017-07-04" , "2017-09-04" , "2017-11-23" , "2017-11-24" , "2017-12-25" );
+	}
+	if( date('Y') == 2018 ){
+		$FedexHolidays = array("2018-01-01" , "2018-05-28" , "2018-07-04" , "2018-09-03" , "2018-11-22" , "2018-12-25" );
+	}
+	if( date('Y') == 2019 ){
+		$FedexHolidays = array("2019-01-01" , "2019-05-27" , "2019-07-04" , "2019-09-02" , "2019-11-28" , "2019-12-25" );
+	}
+	foreach( $FedexHolidays as $ddate ){
+		if( $dateDayMonth == $ddate ){
+			$TodayIsHoliday = true;
+		}
+	}
+
+	return $TodayIsHoliday;
+}
+
+function _uc_custom_fedex_service_list() {
+    return array(
+	// Domestic services.
+	'FEDEX_EXPRESS_SAVER' => t('FedEx Express Saver'),
+	'FEDEX_2_DAY' => t('FedEx 2 Day'),
+	'FEDEX_2_DAY_AM' => t('FedEx 2 Day Am'),
+	'STANDARD_OVERNIGHT' => t('FedEx Standard Overnight'),
+	'PRIORITY_OVERNIGHT' => t('FedEx Priority Overnight'),
+	'FIRST_OVERNIGHT' => t('FedEx First Overnight'),
+	'EUROPE_FIRST_INTERNATIONAL_PRIORITY' => t('FedEx Europe First International Priority'),
+	'FEDEX_1_DAY_FREIGHT' => t('FedEx 1 Day Freight'),
+	'FEDEX_2_DAY_FREIGHT' => t('FedEx 2 Day Freight'),
+	'FEDEX_3_DAY_FREIGHT' => t('FedEx 3 Day Freight'),
+	'FEDEX_GROUND' => t('FedEx Ground'),
+	'FEDEX_OVERNIGHT' => t('FedEx Overnight'),
+	'GROUND_HOME_DELIVERY' => t('FedEx Ground Home Delivery'),
+	'INTERNATIONAL_DISTRIBUTION_FREIGHT' => t('FedEx International Distribution Freight'),
+	'INTERNATIONAL_ECONOMY' => t('FedEx International Economy'),
+	'INTERNATIONAL_ECONOMY_DISTRIBUTION' => t('FedEx International Economy Distribution'),
+	'INTERNATIONAL_ECONOMY_FREIGHT' => t('FedEx International Economy Freight'),
+	'INTERNATIONAL_FIRST' => t('FedEx International First'),
+	'INTERNATIONAL_PRIORITY' => t('FedEx International Priority'),
+	'INTERNATIONAL_PRIORITY_DISTRIBUTION' => t('FedEx Priority Distribution'),
+	'INTERNATIONAL_PRIORITY_FREIGHT' => t('FedEx International Priority Freight'),
+    );
+}
+
+function getFedExHandlingFees($name, $subtotal, $tocountry) {
+    switch ($name) {
+	case 'FEDEX_GROUND':
+	case 'GROUND_HOME_DELIVERY':
+	    if ($tocountry == "CA") {
+		return 30;
+	    } else {
+		if ($subtotal >= 0 && $subtotal < 44.99) {
+		    return 0;
+		} else if ($subtotal >= 45 && $subtotal < 54.99) {
+		    return 0;
+		} else if ($subtotal >= 55 && $subtotal < 64.99) {
+		    return 0;
+		} else if ($subtotal >= 65 && $subtotal < 74.99) {
+		    return 0;
+		} else if ($subtotal >= 75 && $subtotal < 84.99) {
+		    return 0;
+		} else if ($subtotal >= 85 && $subtotal < 94.99) {
+		    return 0;
+		} else if ($subtotal >= 95 && $subtotal < 104.99) {
+		    return 0;
+		} else if ($subtotal >= 105 && $subtotal < 114.99) {
+		    return 0;
+		} else if ($subtotal >= 115 && $subtotal < 124.99) {
+		    return 0;
+		} else if ($subtotal >= 125 && $subtotal < 134.99) {
+		    return 0;
+		} else if ($subtotal >= 135 && $subtotal < 144.99) {
+		    return 0;
+		} else if ($subtotal >= 145 && $subtotal < 10000) {
+		    return 0;
+		}
+	    }
+	    break;
+	case 'FEDEX_EXPRESS_SAVER':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 2;
+	    }
+	    break;
+	case 'FEDEX_2_DAY':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 2;
+	    }
+	    break;
+	case 'FEDEX_2_DAY_AM':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case 'STANDARD_OVERNIGHT':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case 'PRIORITY_OVERNIGHT':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case 'FIRST_OVERNIGHT':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case 'INTERNATIONAL_ECONOMY':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 2;
+	    }
+	    break;
+	case 'INTERNATIONAL_ECONOMY_FREIGHT':
+	    if ($subtotal >= 0 && $subtotal < 10000) {
+		return 2;
+	    }
+	    break;
+	case 'INTERNATIONAL_PRIORITY':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 3;
+	    }
+	    break;
+	case 'INTERNATIONAL_PRIORITY_FREIGHT':
+	    if ($subtotal >= 0 && $subtotal < 10000) {
+		return 5;
+	    }
+	    break;
+	case 'INTERNATIONAL_FIRST':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	case 'EUROPE_FIRST_INTERNATIONAL_PRIORITY':
+	    if ($subtotal >= 0 && $subtotal < 44.99) {
+		return 0;
+	    } else if ($subtotal >= 45 && $subtotal < 10000) {
+		return 4;
+	    }
+	    break;
+	default:
+	    return 0;
+    }
+}
+
+function getLiveSiteName($service, $tocountry) {
+    $result = $service;
+    switch ($service) {
+	case "PRIORITY_OVERNIGHT":
+	    $result = "FedEx Priority Overnight";
+	    break;
+	case "STANDARD_OVERNIGHT":
+	    $result = "FedEx Standard Overnight";
+	    break;
+	case "FIRST_OVERNIGHT":
+	    $result = "FedEx First Overnight";
+	    break;
+	case "FEDEX_2_DAY":
+	    $result = "FedEx 2nd Day";
+	    break;
+	case "FEDEX_2_DAY_AM":
+	    $result = "FedEx 2nd Day AM";
+	    break;
+	case "FEDEX_EXPRESS_SAVER":
+	    $result = "FedEx Express Saver";
+	    break;
+	case "INTERNATIONAL_PRIORITY":
+	    $result = "FedEx International Priority";
+	    break;
+	case "INTERNATIONAL_ECONOMY":
+	    $result = "FedEx International Economy";
+	    break;
+	case "INTERNATIONAL_FIRST":
+	    $result = "FedEx International First";
+	    break;
+	case "FEDEX_1_DAY_FREIGHT":
+	    $result = "FedEx 1 Day Freight";
+	    break;
+	case "FEDEX_3_DAY_FREIGHT":
+	    $result = "FedEx 3 Day Freight";
+	    break;
+	case "FEDEX_GROUND":
+	case "GROUND_HOME_DELIVERY":
+	    if ($tocountry == "CA") {
+		$result = "FedEx Ground CA";
+	    } else {
+		$result = "FedEx Ground";
+	    }
+	    break;
+	case "INTERNATIONAL_PRIORITY_FREIGHT":
+	    $result = "FedEx International Priority Freight";
+	    break;
+	case "INTERNATIONAL_ECONOMY_FREIGHT":
+	    $result = "FedEx International Economy Freight";
+	    break;
+	case "EUROPE_FIRST_INTERNATIONAL_PRIORITY":
+	    $result = "FedEx Europe First International Priority";
+	    break;
+    }
+    return $result;
+}
+
+function getFedExUnderScoredName($service) {
+    $result = $service;
+    switch ($service) {
+	case "PRIORITYOVERNIGHT":
+	    $result = "PRIORITY_OVERNIGHT";
+	    break;
+	case "STANDARDOVERNIGHT":
+	    $result = "STANDARD_OVERNIGHT";
+	    break;
+	case "FIRSTOVERNIGHT":
+	    $result = "FIRST_OVERNIGHT";
+	    break;
+	case "FEDEX2DAY":
+	    $result = "FEDEX_2_DAY";
+	    break;
+	case "FEDEX2DAYAM":
+	    $result = "FEDEX_2_DAY_AM";
+	    break;
+	case "FEDEXEXPRESSSAVER":
+	    $result = "FEDEX_EXPRESS_SAVER";
+	    break;
+	case "INTERNATIONALPRIORITY":
+	    $result = "INTERNATIONAL_PRIORITY";
+	    break;
+	case "INTERNATIONALECONOMY":
+	    $result = "INTERNATIONAL_ECONOMY";
+	    break;
+	case "INTERNATIONALFIRST":
+	    $result = "INTERNATIONAL_FIRST";
+	    break;
+	case "FEDEX1DAYFREIGHT":
+	    $result = "FEDEX_1_DAY_FREIGHT";
+	    break;
+	case "FEDEX3DAYFREIGHT":
+	    $result = "FEDEX_3_DAY_FREIGHT";
+	    break;
+	case "FEDEXGROUND":
+	    $result = "FEDEX_GROUND";
+	    break;
+	case "GROUNDHOMEDELIVERY":
+	    $result = "GROUND_HOME_DELIVERY";
+	    break;
+	case "INTERNATIONALPRIORITYFREIGHT":
+	    $result = "INTERNATIONAL_PRIORITY_FREIGHT";
+	    break;
+	case "INTERNATIONALECONOMYFREIGHT":
+	    $result = "INTERNATIONAL_ECONOMY_FREIGHT";
+	    break;
+	case "EUROPEFIRSTINTERNATIONALPRIORITY":
+	    $result = "EUROPE_FIRST_INTERNATIONAL_PRIORITY";
+	    break;
+    }
+    return $result;
+}

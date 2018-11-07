@@ -1,0 +1,610 @@
+<?php
+
+function custom_shipping_labels_menu() {
+    $items = array();
+
+    $items['admin/store/orders/custom_shipping_labels'] = array(
+	'title' => 'Shipping Labels', //page title
+	'description' => 'Create shipping labels for paid orders',
+	'page callback' => 'custom_shipping_labels_paid_orders', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+	'access arguments' => array('access administration pages'),
+    );
+
+    $items['admin/store/orders/custom_shipping_labels/shipped'] = array(
+	'title' => 'Shipped Orders', //page title
+	'description' => 'Shipped Orders',
+	'page callback' => 'custom_shipping_labels_shipped_orders', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+	'access arguments' => array('access administration pages'),
+    );
+//    $items['admin/store/orders/%uc_order/shipments/custom_shipping_labels'] = array(
+//    $items['admin/store/orders/%uc_order/custom_shipping_labels'] = array(
+//    $items['admin/store/orders/custom_shipping_labels/ship'] = array(
+//	'title' => '2. Ship All',
+//	'page callback' => 'custom_shipping_labels_order_details',
+//	'page arguments' => array(1),
+//	'access arguments' => array('access administration pages'),
+//    );
+    $items['custom/data/ship'] = array(
+	'title' => 'Ship All',
+	'page callback' => 'custom_shipping_labels_order_details',
+	'access arguments' => array('access administration pages'),
+    );
+    return $items;
+}
+
+function custom_shipping_labels_order_details() {
+    $recordsPerPage = 25;
+//    if (isset($_SESSION["SHIP_ALL"])) {
+    unset($_SESSION["SHIP_ALL"]);
+//	unset($_SESSION["SHIP_ALL"]);
+
+    require_once('library/fedex-common.php5');
+    require_once('fpdi/fpdf.php');
+    require_once('fpdi/fpdi.php');
+
+
+    ////live//////////
+    //$fedex_key = 't9giZERJ1SP8pkBT';
+    //$fedex_password = '1vN6TtJYilEbreCVQktuMg4pX';
+    //$fedex_shipaccount = '353527843';
+    //$fedex_billaccount = '353527843';
+    //$fedex_meter = '103951883';
+    /////////test////////////
+    $fedex_key = 'Y66ocO3GYqwcanY9';
+    $fedex_password = 'EcxFWxFUs89HY7DJIfGGiW9Ds';
+    $fedex_shipaccount = '510087160';
+    $fedex_billaccount = '510087160';
+    $fedex_meter = '118557946';
+    //The WSDL is not included with the sample code.
+    //Please include and reference in $path_to_wsdl variable.
+    $path_to_wsdl = "http://" . $_SERVER["HTTP_HOST"] . "/sites/all/modules/custom_shipping_labels/library/ShipService_v19.wsdl";
+    ini_set("soap.wsdl_cache_enabled", "0");
+
+
+
+
+    $query = db_select('uc_orders', 'uc');
+
+    $query->join('uc_order_quotes', 'uoq', 'uoq.order_id = uc.order_id');
+    $query->join('uc_countries', 'ucc', 'ucc.country_id = uc.delivery_country');
+    $query->join('uc_zones', 'ucz', 'ucz.zone_id = uc.delivery_zone');
+
+    $query->fields('uc')
+	    ->fields('uoq', array('accessorials', 'rate'))
+	    ->fields('ucc', array('country_iso_code_2'))
+	    ->fields('ucz', array('zone_code'))
+	    ->condition('uc.order_status', 'payment_received', '=')
+	    ->condition('uc.order_confirm', '1', '=')
+	    ->condition('uoq.method', 'customfedex', '=')
+	    ->orderBy('uc.order_id', 'DESC')
+	    ->range(0, $recordsPerPage);
+
+    $result = $query->execute();
+
+    $pdf = new FPDI();
+    $batchOrderName = "shipgroundlabel_" . time() . ".pdf";
+    $errorsCounter = 0;
+    $successCounter = 0;
+    $delete_invoices = array();
+    while ($group = $result->fetchObject()) {
+	$residential = false;
+	if (getFedExUnderScoredName($group->accessorials) == "GROUNDHOMEDELIVERY" || getFedExUnderScoredName($group->accessorials) == "GROUND_HOME_DELIVERY") {
+	    $residential = true;
+	}
+	$recipientPhoneNumber = $group->delivery_phone;
+	if ($recipientPhoneNumber == "") {
+	    $recipientPhoneNumber = "1-6194280081";
+	}
+	$client = new SoapClient($path_to_wsdl, array('trace' => 1)); // Refer to http://us3.php.net/manual/en/ref.soap.php for more information
+
+	$request = array();
+	$request['WebAuthenticationDetail'] = array(
+	    'UserCredential' => array(
+		'Key' => $fedex_key,
+		'Password' => $fedex_password
+	    )
+	);
+
+	$request['ClientDetail'] = array(
+	    'AccountNumber' => $fedex_shipaccount,
+	    'MeterNumber' => $fedex_meter
+	);
+	$request['TransactionDetail'] = array('CustomerTransactionId' => '*** Ground Domestic Shipping Request using PHP ***');
+	$request['Version'] = array(
+	    'ServiceId' => 'ship',
+	    'Major' => '19',
+	    'Intermediate' => '0',
+	    'Minor' => '0'
+	);
+	$request['RequestedShipment'] = array(
+	    'ShipTimestamp' => date('c'),
+	    'DropoffType' => 'REGULAR_PICKUP', // valid values REGULAR_PICKUP, REQUEST_COURIER, DROP_BOX, BUSINESS_SERVICE_CENTER and STATION
+	    'ServiceType' => getFedExUnderScoredName($group->accessorials), // valid values STANDARD_OVERNIGHT, PRIORITY_OVERNIGHT, FEDEX_GROUND, ...
+	    'PackagingType' => 'YOUR_PACKAGING', // valid values FEDEX_BOX, FEDEX_PAK, FEDEX_TUBE, YOUR_PACKAGING, ...
+	    'Shipper' => array(
+		'Contact' => array(
+		    'PersonName' => 'Jaime Castano',
+		    'CompanyName' => 'RoofBag',
+		    'PhoneNumber' => '1-6194280081'
+		),
+		'Address' => array(
+		    'StreetLines' => array('1533 Olivella Way'),
+		    'City' => 'San Diego',
+		    'StateOrProvinceCode' => 'CA',
+		    'PostalCode' => '92154',
+		    'CountryCode' => 'US'
+		)
+	    ),
+	    'Recipient' => array(
+		'Contact' => array(
+		    'PersonName' => $group->delivery_first_name . " " . $group->delivery_last_name,
+		    'CompanyName' => $group->delivery_company,
+		    'PhoneNumber' => $recipientPhoneNumber
+		),
+		'Address' => array(
+		    'StreetLines' => array($group->delivery_street1, $group->delivery_street2),
+		    'City' => $group->delivery_city,
+		    'StateOrProvinceCode' => $group->zone_code,
+		    'PostalCode' => $group->delivery_postal_code,
+		    'CountryCode' => $group->country_iso_code_2,
+		    'Residential' => $residential
+		)
+	    ),
+	    'ShippingChargesPayment' => array(
+		'PaymentType' => 'SENDER',
+		'Payor' => array(
+		    'ResponsibleParty' => array(
+			'AccountNumber' => $fedex_billaccount,
+			'Contact' => null,
+			'Address' => array(
+			    'CountryCode' => 'US'
+			)
+		    )
+		)
+	    ),
+	    'LabelSpecification' => array(
+		'LabelFormatType' => 'COMMON2D', // valid values COMMON2D, LABEL_DATA_ONLY
+		'ImageType' => 'PNG', // valid values DPL, EPL2, PDF, ZPLII and PNG
+		'LabelStockType' => 'PAPER_7X4.75',
+	    ),
+	    'PackageCount' => 1,
+	    'PackageDetail' => 'INDIVIDUAL_PACKAGES',
+	);
+
+	$order = uc_order_load($group->order_id);
+	if ($group->country_iso_code_2 == "CA") {
+	    $total_weight = 0;
+	    $commodities = array();
+	    foreach ($order->products AS $product) {
+		$total_weight += $product->weight;
+		$commodities[] = array(
+		    'NumberOfPieces' => 1,
+		    'Description' => $product->title,
+		    'CountryOfManufacture' => 'US',
+		    'Weight' => array(
+			'Units' => strtoupper($product->weight_units),
+			'Value' => $product->weight,
+		    ),
+		    'Quantity' => $product->qty,
+		    'QuantityUnits' => 'EA',
+		    'UnitPrice' => array(
+			'Currency' => 'USD',
+			'Amount' => $product->price * 1,
+		    ),
+		    'CustomsValue' => array(
+			'Currency' => 'USD',
+			'Amount' => $product->price * $product->qty,
+		    )
+		);
+	    }
+	    $request['RequestedShipment']['CustomsClearanceDetail'] = array(
+		'DutiesPayment' => array(
+		    'PaymentType' => 'SENDER', // valid values RECIPIENT, SENDER and THIRD_PARTY
+		    'Payor' => array(
+			'ResponsibleParty' => array(
+			    'AccountNumber' => $fedex_shipaccount,
+			    'Contact' => null,
+			    'Address' => array(
+				'CountryCode' => 'US'
+			    )
+			)
+		    )
+		),
+		'DocumentContent' => 'NON_DOCUMENTS',
+		'CustomsValue' => array(
+		    'Currency' => 'USD',
+		    'Amount' => $group->order_total - $group->rate
+		),
+		'Commodities' => $commodities,
+		'ExportDetail' => array(
+		    'B13AFilingOption' => 'NOT_REQUIRED'
+		)
+	    );
+	} else {
+	    $total_weight = 9;
+	}
+	$request['RequestedShipment']['RequestedPackageLineItems'] = array(
+	    '0' => array(
+		'SequenceNumber' => 1,
+		'GroupPackageCount' => 1,
+		'Weight' => array(
+		    'Value' => $total_weight,
+		    'Units' => 'LB'
+		),
+		'Dimensions' => array(
+		    'Length' => 12,
+		    'Width' => 16,
+		    'Height' => 6,
+		    'Units' => 'IN'
+		),
+		'CustomerReferences' => array(
+		    '0' => array(
+			'CustomerReferenceType' => 'CUSTOMER_REFERENCE', // valid values CUSTOMER_REFERENCE, INVOICE_NUMBER, P_O_NUMBER and SHIPMENT_INTEGRITY
+			'Value' => 'GR4567892'
+		    )
+		),
+	    )
+	);
+
+	try {
+
+	    if (setEndpoint('changeEndpoint')) {
+		$newLocation = $client->__setLocation(setEndpoint('endpoint'));
+	    }
+	    $response = $client->processShipment($request); // FedEx web service invocation
+	    if ($response->HighestSeverity != 'FAILURE' && $response->HighestSeverity != 'ERROR') {
+//		    printSuccess($client, $response);exit;
+
+		$ship_label = "sites/all/modules/custom_shipping_labels/uploads/shipgroundlabel_" . $group->order_id . ".png";
+		$fp = fopen($ship_label, 'wb');
+		fwrite($fp, ($response->CompletedShipmentDetail->CompletedPackageDetails->Label->Parts->Image));
+		fclose($fp);
+		$file = imagecreatefrompng($ship_label);
+		$rotim = imagerotate($file, 90, 0);
+		imagepng($rotim, $ship_label);
+
+		uc_order_update_status($group->order_id, 'shipped'); // Change status to Shipped
+
+		$invoice = theme('uc_order', array(
+		    'order' => $order,
+		    'op' => 'print',
+		    'template' => variable_get('uc_cust_order_invoice_template', 'customer'),
+		));
+		$invoice = str_replace("http://" . $_SERVER["SERVER_NAME"] . "/sites/default/files/rb-mountain_0.png", $_SERVER["DOCUMENT_ROOT"] . "\\sites\\default\\files\\rb-mountain_0.png", $invoice);
+		require_once "sites/all/libraries/dompdf/dompdf_config.inc.php";
+		$dompdf = new DOMPDF();
+		$dompdf->load_html($invoice);
+		$dompdf->render();
+
+		$output = $dompdf->output();
+
+		$tmp_invoices = $_SERVER["DOCUMENT_ROOT"] . "\\sites\\all\\modules\\custom_shipping_labels\\tmp_invoices\\invoice_" . $group->order_id . ".pdf";
+		file_put_contents($tmp_invoices, $output);
+
+		$pdf->setSourceFile($tmp_invoices);
+
+		$tplIdx = $pdf->importPage(1, '/MediaBox');
+		$pdf->addPage();
+		$pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
+
+		$pdf->addPage();
+		$pdf->Image($ship_label, 0, 10, 200);
+
+		array_push($delete_invoices, $tmp_invoices);
+//		unlink($tmp_invoices);
+
+		db_update('uc_orders')
+			->fields(array(
+			    'batch_order' => $batchOrderName,
+			))
+			->condition('order_id', $group->order_id, '=')
+			->execute();
+
+		custom_shipping_labels_shipment_submit($group->order_id, $response, $order);
+		uc_order_comment_save($group->order_id, 0, "Order has been shipped");
+
+		rules_invoke_event('order_shipped_rule_event', $order);
+		$successCounter++;
+	    } else {
+		$errorsCounter++;
+//		echo "Error against Order# = " . $group->order_id;
+//		printError($client, $response);
+//		exit;
+	    }
+	    writeToLog($client);    // Write to log file
+	} catch (SoapFault $exception) {
+	    $errorsCounter++;
+//	    echo "Error against Order# = " . $group->order_id;
+//	    printFault($exception, $client);
+//	    exit;
+	}
+    }
+    if ($successCounter > 0) {
+	$pdf->Output("sites/all/modules/custom_shipping_labels/batch_orders/" . $batchOrderName, 'F');
+    }
+
+    $url = $_SERVER['HTTP_REFERER'];
+    if ($errorsCounter > 0 && $successCounter == 0) {
+	$msg = "We could not connect to FedEx API. Please try again later or contact FedEx support at 'websupport@fedex.com'.";
+	$status = "error";
+    } else if ($errorsCounter > 0 && $successCounter > 0) {
+	$msg = "Some orders failed to ship.";
+	$status = "error";
+    } else {
+	$msg = "All orders Shipped Successfully";
+	$status = "status";
+    }
+    
+    foreach ($delete_invoices as $invoice) {
+	unlink($invoice);
+    }
+    
+    drupal_set_message($msg, $status);
+    drupal_goto($url);
+    exit;
+//    } else {
+//	return "";
+//    }
+}
+
+function custom_shipping_labels_shipment_submit($order_id, $response, $order) {
+    $origin = new stdClass();
+    $origin->phone = $order->delivery_phone;
+    $origin->first_name = $order->delivery_first_name;
+    $origin->last_name = $order->delivery_last_name;
+    $origin->company = $order->delivery_company;
+    $origin->street1 = $order->delivery_street1;
+    $origin->street2 = $order->delivery_street2;
+    $origin->city = $order->delivery_city;
+    $origin->zone = $order->delivery_zone;
+    $origin->country = $order->delivery_country;
+    $origin->postal_code = $order->delivery_postal_code;
+    $origin->email = $order->primary_email;
+
+
+
+    // Build $shipment object to return to uc_shipment
+    $shipment = new stdClass();
+    $shipment->order_id = $order_id;
+    $shipment->origin = clone($origin);
+    $shipment->destination = clone($origin);
+    $shipment->packages = clone($origin);
+    $shipment->shipping_method = 'fedex';
+    $shipment->accessorials = $order->quote["accessorials"];
+    $shipment->carrier = t('FedEx');
+    $shipment->tracking_number = $response->CompletedShipmentDetail->CompletedPackageDetails->TrackingIds->TrackingNumber;
+//    $ship_date = $_SESSION['fedex']['ship_date'];
+    $shipment->ship_date = gmmktime(12, 0, 0, date("m"), date("d"), date("Y"));
+
+    if (isset($response->CompletedShipmentDetail->RoutingDetail->DeliveryDate)) {
+	$exp_delivery = date_parse($response->CompletedShipmentDetail->RoutingDetail->DeliveryDate);
+	$shipment->expected_delivery = gmmktime(12, 0, 0, $exp_delivery['month'], $exp_delivery['day'], $exp_delivery['year']);
+    } else {
+	$shipment->expected_delivery = gmmktime(12, 0, 0, date("m"), date("d", strtotime("+2 days")), date("Y"));
+    }
+
+    // Final package in shipment contains summary information
+    if (isset($response->CompletedShipmentDetail->ShipmentRating)) {
+	$rating = $response->CompletedShipmentDetail->ShipmentRating;
+	if (is_array($rating->ShipmentRateDetails)) {
+	    $ratedetail = $rating->ShipmentRateDetails[0];
+	} else {
+	    $ratedetail = $rating->ShipmentRateDetails;
+	}
+	$shipment_charge = $ratedetail->TotalNetCharge;
+	$shipment->cost = (string) $shipment_charge->Amount;
+    } else {
+	$shipment->cost = "0";
+    }
+
+
+
+    uc_shipping_shipment_save($shipment);
+}
+
+function custom_shipping_labels_shipped_orders() {
+    $recordsPerPage = 25;
+
+    $query = db_select('uc_orders', 'uc')
+	    ->extend('PagerDefault')
+	    ->limit($recordsPerPage);
+
+    $query->join('uc_order_quotes', 'uoq', 'uoq.order_id = uc.order_id');
+    $query->join('uc_countries', 'ucc', 'ucc.country_id = uc.delivery_country');
+    $query->join('uc_shipments', 'ucs', 'ucs.order_id = uc.order_id');
+
+    $query->fields('uc')
+	    ->fields('uoq', array('accessorials'))
+	    ->fields('ucc', array('country_iso_code_2'))
+	    ->fields('ucs', array('tracking_number'))
+	    ->condition('uc.order_status', 'shipped', '=')
+	    ->condition('uc.order_confirm', '1', '=')
+	    ->condition('uoq.method', 'customfedex', '=')
+	    ->orderBy('uc.order_id', 'DESC');
+
+    $result = $query->execute();
+
+    $batchOrdersOccurences = array();
+    if ($result->rowCount() > 0) {
+	while ($group = $result->fetchObject()) {
+	    $batchOrders = $group->batch_order;
+
+	    if (!isset($batchOrdersOccurences[$batchOrders])) {
+		$batchOrdersOccurences[$batchOrders] = 1;
+	    } else {
+		$batchOrdersOccurences[$batchOrders] ++;
+	    }
+
+	    $lastOrder = "";
+	}
+    }
+    $result = $query->execute();
+
+    $output = '<table class="views-table sticky-enabled cols-6 tableheader-processed sticky-table">
+		<thead>
+		    <tr>
+			<th class="views-field views-field-order-id active" scope="col">
+			    Order ID
+			</th>
+			<th class="views-field views-field-billing-full-name" scope="col">
+			    Customer
+			</th>
+			<th class="views-field views-field-order-total" scope="col">
+			    Total
+			</th>
+			<th class="views-field views-field-created" scope="col">
+			    Purchase date
+			</th>
+			<th class="views-field views-field-actions" scope="col">
+			    Shipping
+			</th>
+			<th class="views-field views-field-actions" scope="col">
+			    Tracking Number
+			</th>
+			<!--<th class="views-field views-field-actions" scope="col">
+			    Download
+			</th>-->
+			<th class="views-field views-field-actions" scope="col">
+			    Batch Report
+			</th>
+		    </tr>
+		</thead>
+		<tbody>
+		';
+    if ($result->rowCount() > 0) {
+	while ($group = $result->fetchObject()) {
+	    $batchOrders = $group->batch_order;
+	    $output .= '<tr class="odd views-row-first">
+			    <td class="views-field views-field-order-id active">
+				<a href="/admin/store/orders/' . $group->order_id . '">
+				    ' . $group->order_id . '
+				</a>
+			    </td>
+			    <td class="views-field views-field-billing-full-name">
+				' . $group->delivery_first_name . " " . $group->delivery_last_name . '
+			    </td>
+			    <td class="views-field views-field-order-total">
+				$' . number_format($group->order_total, 2, '.', ",") . '
+			    </td>
+			    <td class="views-field views-field-created">
+				' . date("m/d/Y", $group->created) . '
+			    </td>
+			    <td class="views-field views-field-actions">
+				' . ucwords(str_replace("_", " ", getLiveSiteName($group->accessorials, $group->country_iso_code_2))) . '
+			    </td>
+			    <td class="views-field views-field-actions">
+				<a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . $group->tracking_number . '" target="_blank">
+				    ' . $group->tracking_number . '
+				</a>
+			    </td>
+			    <!--<td class="views-field views-field-actions" scope="col">
+				<a href="/sites/all/modules/custom_shipping_labels/uploads/shipgroundlabel_' . $group->order_id . '.png" download>
+				    Ship Label
+				</a>
+			    </td>-->';
+	    if ($lastOrder != $group->batch_order) {
+		$output .= '<td class="views-field views-field-actions" scope="col" rowspan="' . $batchOrdersOccurences[$batchOrders] . '">
+				<a href="/sites/all/modules/custom_shipping_labels/batch_orders/' . $group->batch_order . '" download>
+				    Batch Report
+				</a>
+			    </td>
+			</tr>';
+		$lastOrder = $group->batch_order;
+	    }
+	}
+    } else {
+	$output .= '<tr class="odd views-row-first"><td>No Record Found</td></tr>';
+    }
+    $output .= '</tbody>'
+	    . '</table>';
+    $output .= theme('pager', array('tags' => array()));
+    return $output;
+}
+
+function custom_shipping_labels_paid_orders() {
+    $recordsPerPage = 25;
+
+    $query = db_select('uc_orders', 'uc')
+	    ->extend('PagerDefault')
+	    ->limit($recordsPerPage);
+
+    $query->join('uc_order_quotes', 'uoq', 'uoq.order_id = uc.order_id');
+    $query->join('uc_countries', 'ucc', 'ucc.country_id = uc.delivery_country');
+
+    $query->fields('uc')
+	    ->fields('uoq', array('accessorials'))
+	    ->fields('ucc', array('country_iso_code_2'))
+	    ->condition('uc.order_status', 'payment_received', '=')
+	    ->condition('uc.order_confirm', '1', '=')
+	    ->condition('uoq.method', 'customfedex', '=')
+	    ->orderBy('uc.order_id', 'DESC');
+
+    $result = $query->execute();
+
+    $_SESSION["SHIP_ALL"] = true;
+    $output = '<form action="/custom/data/ship" method="get">'
+	    . '<input type="submit" class="form-submit" value="Ship All" />'
+	    . '</form>';
+
+    $output .= '<table class="views-table sticky-enabled cols-6 tableheader-processed sticky-table">
+		<thead>
+		    <tr>
+			<th class="views-field views-field-order-id active" scope="col">
+			    Order ID
+			</th>
+			<th class="views-field views-field-billing-full-name" scope="col">
+			    Customer
+			</th>
+			<th class="views-field views-field-order-total" scope="col">
+			    Total
+			</th>
+			<th class="views-field views-field-created" scope="col">
+			    Purchase date
+			</th>
+			<th class="views-field views-field-actions" scope="col">
+			    Shipping
+			</th>
+			<!-- AddedBy WebPlanex -->
+            <th class="views-field views-field-actions" scope="col">
+			    Download
+			</th>
+		    </tr>
+		</thead>
+		<tbody>
+		';
+    if ($result->rowCount() > 0) {
+	while ($group = $result->fetchObject()) {
+	    $output .= '<tr class="odd views-row-first">
+			    <td class="views-field views-field-order-id active">
+				<a href="/admin/store/orders/' . $group->order_id . '">
+				    ' . $group->order_id . '
+				</a>
+			    </td>
+			    <td class="views-field views-field-billing-full-name">
+				' . $group->delivery_first_name . " " . $group->delivery_last_name . '
+			    </td>
+			    <td class="views-field views-field-order-total">
+				$' . number_format($group->order_total, 2, '.', ",") . '
+			    </td>
+			    <td class="views-field views-field-created">
+				' . date("m/d/Y", $group->created) . '
+			    </td>
+			    <td class="views-field views-field-actions">
+				' . ucwords(str_replace("_", " ", getLiveSiteName($group->accessorials, $group->country_iso_code_2))) . '
+			    </td>
+				<!-- AddedBy WebPlanex -->
+                <td class="views-field views-field-actions" scope="col">
+					<a href="/sites/all/modules/custom_shipping_labels/uploads/shipgroundlabel_' . $group->order_id . '.png" download>
+				    	Ship Label
+					</a>
+			    </td>
+			</tr>';
+	}
+    } else {
+	$output .= '<tr class="odd views-row-first"><td>No Record Found</td></tr>';
+    }
+    $output .= '</tbody>'
+	    . '</table>';
+    $output .= theme('pager', array('tags' => array()));
+    return $output;
+}

@@ -1,0 +1,1554 @@
+<?php
+$upspSunday = 0;
+$upspSaturday = 6;
+/**
+ * @file
+ *
+ * This module gives developers feedback as to what their
+ * node_access table contains, and which nodes are protected or
+ * visible to the public.
+ *
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function custom_data_changes_permission() {
+    return array(
+	'access custom information' => array(
+	    'description' => t('View Custom Data about Cars'),
+	    'title' => t('View Custom Data about Cars'),
+	),
+    );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function custom_data_changes_menu() {
+    $items = array();
+    // add this to the custom menu 'devel' created by the devel module.
+    $items['custom/data/fetch'] = array(
+	'title' => 'Custom Data Fetch',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_get',
+    );
+    $items['custom/data/block'] = array(
+	'title' => 'Custom Data Fetch',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_block_get',
+    );
+
+    $items['custom/data/sizeinfo'] = array(
+	'title' => 'Custom Data Size ',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_get_size_info',
+    );
+    $items['custom/data/fetch_ups'] = array(
+	'title' => 'Custom Data Fast UPS',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_get_ups_fast',
+    );
+    $items['custom/data/fetch_fedex'] = array(
+	'title' => 'Custom Data Fast FedEx',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_get_fedex_fast',
+    );
+    $items['custom/data/change_cart_quantity'] = array(
+	'title' => 'Change Cart Quantity',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_cart_quantity',
+    );
+    $items['fetch/myorder'] = array(
+	'title' => 'Fetch Order',
+	'label' => 'Fetch Order',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+	'page arguments' => array('custom_data_changes_myorder_form'), //put the name of the form here
+	'access callback' => TRUE
+    );
+    $items['fetch/listorder'] = array(
+	'title' => 'Fetch Order',
+	'page callback' => 'drupal_custom_order_form',
+	'access arguments' => array('access content')
+    );
+
+    $items['custom/data/create_session'] = array(
+	'title' => 'Create Session',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_create_session',
+    );
+    $items['custom/data/fetch_usps'] = array(
+	'title' => 'Fetch USPS',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_fetch_usps',
+    );
+
+    // kp
+    $items['custom/data/remove_zip_code'] = array(
+	'title' => 'Remove Zip Code',
+	'access arguments' => array('access custom information'),
+	'page callback' => 'custom_data_changes_remove_zipcode',
+    );
+
+
+    return $items;
+}
+
+/**
+ * Fetch Order based on First name and Last name 
+ */
+function custom_data_changes_myorder_form($form, &$form_state) {
+
+    $form['firstname'] = array(
+	'#type' => 'textfield', //you can find a list of available types in the form api
+	'#title' => 'First Name',
+	'#size' => 10,
+	'#maxlength' => 10,
+	'#required' => TRUE, //make this field required 
+    );
+    $form['lastname'] = array(
+	'#type' => 'textfield', //you can find a list of available types in the form api
+	'#title' => 'Last Name',
+	'#size' => 10,
+	'#maxlength' => 10,
+	'#required' => TRUE, //make this field required 
+    );
+
+    $form['submit_button'] = array(
+	'#type' => 'submit',
+	'#prefix' => '<div class="btn-yellowbig">',
+	'#suffix' => '</div>',
+	'#value' => t('Submit'),
+    );
+
+    return $form;
+}
+
+function drupal_custom_order_form() {
+    if (!isset($_SESSION['firstname']) && !isset($_SESSION['lastname'])) {
+	drupal_goto('fetch/myorder');
+    }
+
+    $date = new DateTime();
+    //echo $date->getTimestamp().'<br />';
+    $date->sub(new DateInterval('P30D'));
+    $date_Utime_stamp = $date->getTimestamp();
+    //echo $date->format('Y-m-d') . "\n";
+    //echo date('Y-m-d', strtotime('- 30 days'));
+    //echo $date->getTimestamp();
+    $fname = $_SESSION['firstname'];
+    $lname = $_SESSION['lastname'];
+
+    $query = db_select('uc_orders', 'uo');
+    $query->addField('uo', 'order_id');
+    $query->addField('uo', 'order_total');
+    $query->addField('uo', 'created');
+    $query->addField('uo', 'order_status'); // optional: $query->addField('uo', 'product_count');
+    $query->addJoin('LEFT', 'uc_order_products', 'p', 'p.order_id = uo.order_id');
+    $query->addField('p', 'nid');
+    $query->condition('billing_first_name', $fname);
+    $query->condition('billing_last_name', $lname);
+    $query->condition('created', $date_Utime_stamp, '>');
+
+
+    $result = $query->execute()->fetchAll();
+    $result_size = sizeof($result);
+
+    //echo "<pre>";print_r($result); echo "</pre>";
+    setlocale(LC_MONETARY, "en_US");
+
+
+    $html_order = '<h1>My Orders</h1><hr /> <p>Hi ' . $fname . ',</p>';
+    $html_order .= '<p>Below are your current orders:</p>';
+    foreach ($result as $res) {
+	$date->setTimestamp($res->created);
+	$order_created = $date->format('m/d/Y');
+
+	$html_order .= '<div class="col-xs-12"><div class="col-xs-6">Order Number:</div><div class="col-xs-6">' . $res->order_id . '</div></div>';
+	$html_order .= '<div class="col-xs-12"><div class="col-xs-6">Order Date:</div><div class="col-xs-6">' . $order_created . '</div></div>';
+	$html_order .= '<div class="col-xs-12"><div class="col-xs-6">Order Total:</div><div class="col-xs-6">' . setRBAmount($res->order_total) . '</div></div>';
+	$html_order .= '<div class="col-xs-12"><div class="col-xs-6">Order Status:</div><div class="col-xs-6">' . $res->order_status . '</div></div>';
+	if ($result_size > 1) {
+	    $html_order .= '<div class="clear clearfix"></div><hr />';
+	}
+    }
+
+    return $html_order;
+    //drupal_set_message($html_order); 
+}
+
+/**
+ * Fetch USPS Quotes
+ */
+function custom_data_changes_fetch_usps() {
+    if ($_POST) {
+		$zip_value = $_POST['id'];
+
+	$postcode = str_replace(' ', '+', $zip_value);
+	$address = urlencode($postcode);
+	$url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $postcode . '&key=AIzaSyAJJxiUZLH6kQC6LQ4JfDUCu3VrFpqmNX8&sensor=false';
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	$source = $data;
+	$obj = json_decode($source);
+
+	$tocountry = "";
+	foreach ($obj->results[0]->address_components as $key => $address_data) {
+	    if ($address_data->types['0'] == 'country') {
+		$tocountry = $address_data->short_name;
+	    }
+	}
+	if ($tocountry != "US" && $tocountry != "CA") {
+	    echo "wrong_postal";
+	    exit;
+	}
+
+	$zipPickupFactory = ['91901','91902','91903','91905','91906','91908','91909','91910','91911','91912','91913','91914','91915','91916','91917','91921','91931','91932','91933','91934','91935','91941','91942','91943','91944','91945','91946','91947','91948','91950','91951','91962','91963','91976','91977','91978','91979','91980','92003','92004','92007','92008','92009','92013','92014','92018','92019','92020','92021','92022','92023','92024','92025','92026','92027','92028','92029','92030','92033','92036','92037','92038','92039','92040',',92046','92049','92051','92052','92054','92055','92056','92057','92058','92059','92060','92061',',92064','92065','92066','92067','92068','92069','92070','92071','92072','92074','92075','92078','92079','92082','92083','92084','92085',',92088','92091','92092','92093','92101','92102','92103','92104','92105','92106','92107','92108','92109','92110','92111','92112','92113','92114','92115','92116','92117','92118','92119','92120','92121','92122','92123','92124','92126','92127','92128','92129','92130','92131','92132','92133','92134','92135','92136','92137','92138','92139','92140','92142','92143','92145','92147','92149','92150','92152','92153','92154','92155','92159','92160','92162','92163','92164','92165','92166','92167','92168','92169','92170','92171','92172','92173','92174','92175','92176','92177','92178','92182','92186','92190','92191','92192','92193','92194','92195','92196','92197','92198','92199'];
+	if( in_array($postcode, $zipPickupFactory) ){
+		echo '<div id="pickup_from_factory1" class="shipping_rates_bar form-item form-item-panes-quotes-quotes-quote-option form-type-radio radio"><label class="control-label"><input style="display:none;" name="panes[quotes][quotes][quote_option]" class="form-radio ajax-processed" type="radio" value="flatrate_1---0"><span class="service_name">Pick Up at factory</span><span class="service_rate">0.00</span><span class="service_arrival"><button data-toggle="modal" data-target="#myModal" class="btn_view_map"><span class="glyphicon glyphicon-map-marker"></span> View Map</button></span></label></div>';
+	}
+
+	// Subtotal + Calculation
+	$items = uc_cart_get_contents();
+	$sub_total = 0;
+	$USPS_weight = 0;
+    $box_weight = 0;
+    $tire_step = false;
+
+	foreach ($items as $item) {
+		if ($product->nid == 284) {
+			$tire_step = true;
+			$box_weight = 1.6;
+		}
+		if ($product->nid == 1 || $product->nid == 292) {
+			$roofbag_1_qty = $product->qty;
+		}
+		if ($product->nid == 289 || $product->nid == 293) {
+			$roofbag_2_qty = $product->qty;
+		}
+		$USPS_weight += ( $item->weight * $item->qty );
+	    $item_total = $item->price * $item->qty;
+	    $sub_total += $item_total;
+	}
+
+	if (!$tire_step) {
+	    if ($roofbag_1_qty + $roofbag_2_qty > 2) {
+			$box_weight = 1.6;
+	    } else if ($roofbag_1_qty == 1 && $roofbag_2_qty == 1) {
+			$box_weight = 1.2;
+	    } else if ($roofbag_box1 > $roofbag_box2) {
+			$box_weight = $roofbag_box1;
+	    } else {
+			$box_weight = $roofbag_box2;
+	    }
+	}
+	$USPS_weight += $box_weight;
+	if( empty($USPS_weight) ){
+		$USPS_weight = 9;
+	}
+	if ($sub_total == 0)
+	    $sub_total = 45;
+
+	if ($tocountry == "US") {
+	    error_reporting(0);
+	    $url = "http://production.shippingapis.com/ShippingAPI.dll?API=RateV4";
+	    $ch = curl_init();
+
+	    // set the target url
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    curl_setopt($ch, CURLOPT_HEADER, 1);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	    // parameters to post
+	    curl_setopt($ch, CURLOPT_POST, 1);
+	    $serviceArray = array("Express", "First Class", "Priority", "Parcel");
+	    $data = 'XML=<RateV4Request USERID="305PKIND7763">';
+	    $date_request = date("d-M-Y");
+	    foreach ($serviceArray AS $key => $service) {
+		$data .= '<Package ID="' . $key . '">'
+			. '<Service>' . $service . '</Service>'
+			. '<ZipOrigination>92154</ZipOrigination>'
+			. '<ZipDestination>' . $zip_value . '</ZipDestination>'
+			. '<Pounds>'.$USPS_weight.'</Pounds>'
+			. '<Ounces>0</Ounces>'
+			. '<Container/>'
+			. '<Size>REGULAR</Size>'
+			. '<Machinable>TRUE</Machinable>'
+			. '<ReturnLocations>TRUE</ReturnLocations>'
+			. '<ShipDate Option="EMSH">' . $date_request . '</ShipDate>'
+			. '</Package>';
+	    }
+	    $data .= '</RateV4Request>';
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	    	 
+	    	 //echo '<pre>'; print_r($data);  echo '</pre>';
+	   
+ 		$result = curl_exec($ch);
+	    	 //echo '<pre>'; print_r($result);  echo '</pre>';
+
+	    $data = strstr($result, '<?');
+	    	 //echo '<!-- '. $data. ' -->'; // Uncomment to show XML in comments
+	    	 //echo '<pre>'; print_r($data);  echo '</pre>';
+
+	    $xml_parser = xml_parser_create();
+	    xml_parse_into_struct($xml_parser, $data, $vals, $index);
+	    xml_parser_free($xml_parser);
+	    $params = array();
+	    $level = array();
+	    foreach ($vals as $xml_elem) {
+			if ($xml_elem['type'] == 'open') {
+			    if (array_key_exists('attributes', $xml_elem)) {
+				list($level[$xml_elem['level']], $extra) = array_values($xml_elem['attributes']);
+			    } else {
+				$level[$xml_elem['level']] = $xml_elem['tag'];
+			    }
+			}
+			if ($xml_elem['type'] == 'complete') {
+			    $start_level = 1;
+			    $php_stmt = '$params';
+			    while ($start_level < $xml_elem['level']) {
+				$php_stmt .= '[$level[' . $start_level . ']]';
+				$start_level++;
+			    }
+			    $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+			    eval($php_stmt);
+			}
+	    }
+	    curl_close($ch);
+
+	    $check_value = "";
+	    $count_records = 50;
+
+	    foreach ($params['RATEV4RESPONSE'] as $getvalue) {
+		$result = array_search_key("MAILSERVICE", $getvalue, "");
+		$result["RATE"] = $getvalue[$result["key"]]["RATE"];
+		$result["COMMITMENTDATE"] = $getvalue[$result["key"]]["COMMITMENTDATE"];
+		
+		//echo 'code debug by webplanex'; //kp
+		//echo '<pre>'; print_r($result);  echo '</pre>';
+
+		if (isset($result["value"])) {
+		    if (strpos($result["value"], "Flat Rate") !== false) {
+			continue;
+		    }
+		    if ($result["value"] == 'Media Mail Parcel' || $result["value"] == 'Library Mail Parcel')
+			continue;
+		    if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		    }
+		    $_SESSION['savedzip'] = $zip_value;
+
+		    if (strpos($result["value"], '&lt;') !== false) {
+			$pieces = explode("&lt;", $result["value"]);
+			$MAILSERVICE = "USPS " . $pieces['0'];			
+		    } else {
+			$MAILSERVICE = "USPS " . $result["value"];
+		    }
+					    
+		    if ($check_value == $MAILSERVICE)
+			continue;
+		    $check_value = $MAILSERVICE;
+		    
+			// list of previoulsy selected shipping methods	(clickable)	   
+		    echo '<div class="form-item shipping_rates_bar form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-' . $result["key"] . '">
+		    <label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7"><input type="radio" style="display:none;" id="edit-panes-quotes-quotes-quote-option-ups-' . $result["key"] . '" name="panes[quotes][quotes][quote_option]"  value="customusps---' . $result["key"] . '"  class="form-radio ajax-processed">';
+		   
+			if (strpos($result["value"], '&lt;') !== false) {
+			$pieces = explode("&lt;", $result["value"]);
+			
+			// JC 6/28/2018 - rename "USPS Priority Mail Express 1-day" and "USPS Priority Mail 2-Day" to "USPS Priority" and "USPS Express"		
+			$MAILSERVICE = "USPS " . $pieces['0'];			
+			if (strpos($MAILSERVICE, 'Express') !== false) {
+			$MAILSERVICE = 'USPS Express';
+			}			
+			if (strpos($MAILSERVICE, 'Priority') !== false) {
+			$MAILSERVICE = 'USPS Priority';
+			}
+		    
+			echo '<span class="service_name USPS">' . $MAILSERVICE . '</span>';	
+	        //echo '<span class="service_name USPS">USPSS ' . $pieces['0'] . '</span>';
+		    } else {
+			echo '<span class="service_name USPS">' . $MAILSERVICE . '</span>';
+	        //echo '<span class="service_name USPS">USPSS ' . $result["value"] . '</span>';
+		    }
+		    echo '<span class="service_rate">' . number_format($result["RATE"], 2) . '</span>';
+
+			// Calculate arrival date
+		    if (isset($result["COMMITMENTDATE"])) {
+	            // JC 6/26/18:
+	            // added a day to arrival date (to account for Post office not picking up, or Priority Mail taking 3 days instead of 2 for some locations)
+	            // corrected format of cut-off time (startDate) and endDate (midnight) so that now it works
+	            // corrected arrival date to Monday if calculated arrival falls on Saturday or Sunday
+		    	$startDate = date("Y-m-d 9:00:00");
+				$startDate = strtotime($startDate);
+				$endDate = date("Y-m-d 22:59:59");
+				$endDate = strtotime($endDate);
+	            $current = time();
+	            
+	            //for troubleshooting:
+	            //echo '<pre>'; print_r($current);  echo '</pre>';
+				
+	            //echo '<pre>'; print_r($result["COMMITMENTDATE"]);  echo '</pre>';
+	            //2018-06-28
+				
+				//add one day or two days if current time is before or after USPS shipping cut-off time
+	            if( $current >= $startDate && $current <= $endDate ){
+	            	  $arrival = date('l, M d', strtotime($result["COMMITMENTDATE"]) + 86400 + 86400 + 86400 );
+	            }else{
+					  $arrival = date('l, M d', strtotime($result["COMMITMENTDATE"]) + 86400 + 86400 );
+	            }
+
+				//move arrival date to Monday if calculation falls on Sat or Sun
+	            if (strpos($arrival, 'Saturday') !== false) {
+				$arrival = date('l, M d', strtotime($arrival) + 86400 + 86400 );
+				}				
+
+	            if (strpos($arrival, 'Sunday') !== false) {
+				$arrival = date('l, M d', strtotime($arrival) + 86400 );
+				}	
+				
+					if (strpos($MAILSERVICE, 'Express') !== false) {
+					$arrival = date('l, M d', strtotime($arrival) - 86400 ); 
+					}
+
+  					if(IsAHolidayOrSunday($arrival)) {
+              	  $arrival = date('l, M d', strtotime($arrival) + 86400 );
+           		 }
+
+				//write corrected arrival date			
+	            echo '<span class="service_arrival"> Arrives ' . $arrival . '</span></label></div>';
+			
+		    } else {
+			echo '</label></div>';
+		    }
+		}
+
+		$count_records++;
+	    }
+
+	    die;
+	} else {
+	    // just doing domestic for demonstration purposes
+	    $services = array(
+		"UPS Standard" => "11",
+		"UPS Worldwide Expedited" => "08",
+		"UPS Worldwide Saver" => "65",
+		"UPS Worldwide Express" => "07",
+		"UPS Worldwide Express Plus" => "54",
+	    );
+	    error_reporting(0);
+	    $url = "http://production.shippingapis.com/ShippingAPI.dll?API=IntlRateV2";
+	    $ch = curl_init();
+
+	    // set the target url
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    curl_setopt($ch, CURLOPT_HEADER, 1);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	    // parameters to post
+	    curl_setopt($ch, CURLOPT_POST, 1);
+	    $date_request = date("d-M-Y");
+//		$data = 'XML=<RateV4Request USERID="305PKIND7763"><Revision>2</Revision>
+//			<Package ID="0"><Service>ALL</Service><ZipOrigination>92154</ZipOrigination>
+//			<ZipDestination>' . $zip_value . '</ZipDestination><Pounds>2</Pounds><Ounces>3.3</Ounces><Container>VARIABLE</Container>
+//			<Size>REGULAR</Size><Width>10</Width><Length>10</Length><Height>10</Height><Girth>40</Girth><Value>75</Value>
+//			<Machinable>TRUE</Machinable><ReturnLocations>TRUE</ReturnLocations><ShipDate Option="EMSH">' . $date_request . '</ShipDate>
+//			</Package></RateV4Request>';
+	    $data = 'XML=<IntlRateV2Request USERID="305PKIND7763"><Revision>2</Revision><Package ID="0"><Pounds>'.$USPS_weight.'</Pounds><Ounces>0</Ounces><MailType>All</MailType><ValueOfContents>85</ValueOfContents><Country>Canada</Country>
+			<Container>RECTANGULAR</Container><Size>REGULAR</Size><Width></Width><Length></Length><Height></Height><Girth></Girth><OriginZip>92154
+			</OriginZip></Package></IntlRateV2Request>';
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+	    $result = curl_exec($ch);
+	    //echo '<pre>'; print_r($data); echo'</pre>';
+	    //echo '<pre>'; print_r($result); echo'</pre>';die;
+	    $data = strstr($result, '<?');
+	    // echo '<!-- '. $data. ' -->'; // Uncomment to show XML in comments
+	    $xml_parser = xml_parser_create();
+	    xml_parse_into_struct($xml_parser, $data, $vals, $index);
+	    xml_parser_free($xml_parser);
+	    $params = array();
+	    $level = array();
+	    foreach ($vals as $xml_elem) {
+		//echo '<pre>'; print_r($xml_elem); echo'</pre>';
+		if ($xml_elem['type'] == 'open') {
+		    if (array_key_exists('attributes', $xml_elem)) {
+			list($level[$xml_elem['level']], $extra) = array_values($xml_elem['attributes']);
+		    } else {
+			$level[$xml_elem['level']] = $xml_elem['tag'];
+		    }
+		}
+		if ($xml_elem['type'] == 'complete') {
+		    $start_level = 1;
+		    $php_stmt = '$params';
+		    while ($start_level < $xml_elem['level']) {
+			$php_stmt .= '[$level[' . $start_level . ']]';
+			$start_level++;
+		    }
+		    $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+		    eval($php_stmt);
+		}
+	    }
+	    curl_close($ch);
+	    //echo '<pre>'; print_r($params); echo'</pre>'; // Uncomment to see xml tags
+	    //return $params['RATEV3RESPONSE']['1ST']['1']['RATE'];
+	    $check_value = '';
+	    $count_records = '';
+	    foreach ($params['INTLRATEV2RESPONSE']['0'] as $service => $getvalue) {
+		//echo '<pre>'; print_r($getvalue); echo'</pre>';
+		if (strpos($getvalue['SVCDESCRIPTION'], "Flat Rate") !== false || strpos($getvalue['SVCDESCRIPTION'], "Priority Mail International") !== false) {
+		    continue;
+		}
+		if (isset($getvalue['SVCDESCRIPTION'])) {
+		    if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		    }
+		    if ($check_value == $getvalue['POSTAGE']) {
+			continue;
+		    }
+		    $check_value = $getvalue['POSTAGE'];
+		    $_SESSION['savedzip'] = $zip_value;
+
+		    echo '<div class="form-item shipping_rates_bar form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-' . $service . '"><label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7"><input style="display:none;" type="radio"  name="panes[quotes][quotes][quote_option]" value="customusps---' . $service . '"  class="form-radio ajax-processed">';
+		    if (strpos($getvalue['SVCDESCRIPTION'], '&lt;') !== false) {
+
+			$pieces = explode("&lt;", $getvalue['SVCDESCRIPTION']);
+			$usps_service_name = $pieces['0'];
+			if (strpos($usps_service_name, "GXG") !== false) {
+			    $usps_service_name = "Global Express";
+			}
+			echo '<span class="ups3 service_name">USPS ' . $usps_service_name . '</span>';
+		    } else {
+			$usps_service_name = $getvalue['SVCDESCRIPTION'];
+			if (strpos($usps_service_name, "GXG") === true) {
+			    $usps_service_name = "Global Express";
+			}
+			echo '<span class="ups4 service_name">USPS ' . $usps_service_name . '</span>';
+		    }
+		    echo '<span class="service_rate">' . number_format($getvalue['POSTAGE'], 2) . '</span>';
+		    if ($getvalue['SVCCOMMITMENTS']) {
+			echo '<span class="service_arrival">Arrives in ' . $getvalue['SVCCOMMITMENTS'] . '</span>';
+		    }
+		    echo '</label></div>';
+		}
+	    }
+	}
+    }
+}
+
+function array_search_key($needle_key, $array, $parent_key) {
+    foreach ($array AS $key => $value) {
+	if ($key == $needle_key)
+	    return array("key" => $parent_key, "value" => $value);
+	if (is_array($value)) {
+	    if (($result = array_search_key($needle_key, $value, $key)) !== false)
+		return $result;
+	}
+    }
+    return "";
+}
+
+/**
+ * My Order Fetch form Submission code
+ */
+function custom_data_changes_myorder_form_submit($form, &$form_state) {
+
+    $fname = $form['firstname']['#value'];
+    $lname = $form['lastname']['#value'];
+    $query = db_select('uc_orders', 'uo');
+    $query->addField('uo', 'order_id');
+    $query->addField('uo', 'order_total');
+    $query->addField('uo', 'order_status'); // optional: $query->addField('uo', 'product_count');
+    $query->addJoin('LEFT', 'uc_order_products', 'p', 'p.order_id = uo.order_id');
+    $query->addField('p', 'nid');
+    $query->condition('billing_first_name', $fname);
+    $query->condition('billing_last_name', $lname);
+    $result = $query->execute()->fetchAll();
+
+    if (!empty($result)) {
+	$_SESSION['firstname'] = $fname;
+	$_SESSION['lastname'] = $lname;
+	$form_state['rebuild'] = TRUE;
+	drupal_goto('fetch/listorder');
+    }
+    $html_order = '<div class="row"><div class="col-sm-6">Invalid First or Last name.</div></div>';
+    //$html_order1='';
+    //$html_order2='';
+    // foreach($result as $res)
+    // {
+    //   //$html_order1.='<div class="col-sm-6">Order Total:'.$res->order_total.'</div>';
+    //   //$html_order1.='<div class="col-sm-6">Order Status:'.$res->order_status.'</div>';
+    // 	$html_order1='<div class="col-sm-6">Order Total:'.$res->order_total.'</div>';
+    //   $html_order2='<div class="col-sm-6">Order Status:'.$res->order_status.'</div>';
+    // }
+    // $html_order.='</div>';
+    $form_state['rebuild'] = TRUE;
+    //return $html_order;
+    drupal_set_message($html_order);
+}
+
+/**
+ * Get Car Data 
+ */
+function custom_data_changes_get_size_info() {
+
+    $data_c = $_POST['make'];
+    $data_model = $_POST['model'];
+    $body_style = $_POST['body_style'];
+
+    $query = db_select('cardata', 'u');
+    $query->condition('make', $data_c, '=');
+    $query->condition('model', $data_model, '=');
+    $query->condition('body_style', $body_style, '=');
+    $query->fields('u', array('11_cu_ft', '15_cu_ft'));
+
+    $results = $query->distinct()->execute();
+
+
+    while ($record = $results->fetchAssoc()) {
+
+
+	$size = '';
+	$check = 0;
+	if ($record['11_cu_ft'] != '') {
+	    $size = '11 cu. ft.';
+	    $check = 1;
+	}
+	if (($record['15_cu_ft'] != '0') && ($check == 1)) {
+
+
+	    $size = '11 cu. ft. or 15 cu. ft.';
+	} else if ($record['15_cu_ft'] != '0') {
+	    $size = '15 cu. ft.';
+	}
+
+	$cu_11ft = $record['11_cu_ft'];
+	$cu_15ft = $record['15_cu_ft'];
+	echo '<div >We suggest you purchase the ' . $size . ' size for your ' . $data_c . ' ' . $data_model . '</div>';
+    }
+}
+
+/**
+ * Get Car data based on make and model
+ */
+function custom_data_changes_get() {
+    session_start();
+    $_SESSION['saved_make'] = $_POST['make'];
+    if (isset($_POST['model'])) {
+	$_SESSION['saved_model'] = $_POST['model'];
+    }
+
+    if ($_POST['make'] && $_POST['model']) {
+	$data_c = $_POST['make'];
+	$data_model = $_POST['model'];
+	$query = db_select('cardata', 'u');
+	$query->condition('make', $data_c, '=');
+	$query->condition('model', $data_model, '=');
+	$query->condition('body_style', '', '!=');
+	$query->fields('u', array('11_cu_ft', '15_cu_ft', 'body_style'));
+
+	$results = $query->distinct()->execute();
+	$num_of_results = $results->rowCount();
+	if ($num_of_results > 1) {
+	    $query = db_select('cardata', 'u');
+	    $query->condition('make', $data_c, '=');
+	    $query->condition('model', $data_model, '=');
+	    $query->fields('u', array('11_cu_ft', '15_cu_ft'));
+
+	    $results = $query->distinct()->execute();
+	    $num_of_results = $results->rowCount();
+
+	    while ($record = $results->fetchAssoc()) {
+		if ($record['11_cu_ft'] == 1 && $record['15_cu_ft'] == 1) {
+		    echo "check-size2";
+		    exit;
+		} else if ($record['15_cu_ft'] == 1) {
+		    echo "check-size2";
+		    exit;
+		} else if ($record['11_cu_ft'] == 1) {
+		    echo "check-size1";
+		    exit;
+		}
+	    }
+//	    echo '<select id="body_style" class="form-control">';
+//	    echo '<option value="">Select style</option>';
+//	    while ($record = $results->fetchAssoc()) {
+//		echo '<option >' . $record['body_style'] . '</option>';
+//	    }
+//	    echo '</select>';
+	} else {
+	    $query = db_select('cardata', 'u');
+	    $query->condition('make', $data_c, '=');
+	    $query->condition('model', $data_model, '=');
+	    $query->fields('u', array('11_cu_ft', '15_cu_ft'));
+
+	    $results = $query->distinct()->execute();
+	    $num_of_results = $results->rowCount();
+
+	    while ($record = $results->fetchAssoc()) {
+		if ($record['11_cu_ft'] == 1 && $record['15_cu_ft'] == 1) {
+		    echo "check-size2";
+		    exit;
+		} else if ($record['15_cu_ft'] == 1) {
+		    echo "check-size2";
+		    exit;
+		} else if ($record['11_cu_ft'] == 1) {
+		    echo "check-size1";
+		    exit;
+		}
+	    }
+	}
+    } else {
+	$data_c = $_POST['make'];
+	$query = db_select('cardata', 'u');
+	$query->condition('make', $data_c, '=');
+	$query->fields('u', array('model', '11_cu_ft', '15_cu_ft'));
+
+	$results = $query->distinct()->execute();
+
+	echo '<select id="madel_select" class="form-control form-control2">';
+	echo '<option value="">Select model</option>';
+	while ($record = $results->fetchAssoc()) {
+	    $unsrot_record[] = $record['model'];
+	}
+	sort($unsrot_record);
+	$sorted_roecord = $unsrot_record;
+	$sorted_roecord = array_unique($sorted_roecord);
+	foreach ($sorted_roecord as $key) {
+	    echo '<option>' . $key . '</option>';
+	}
+	echo '</select>';
+    }
+    die;
+}
+
+//function custom_data_changes_get() {
+//    if ($_POST['make'] && $_POST['model']) {
+//	$data_c = $_POST['make'];
+//	$data_model = $_POST['model'];
+//	$query = db_select('cardata', 'u');
+//	$query->condition('make', $data_c, '=');
+//	$query->condition('model', $data_model, '=');
+//	$query->condition('body_style', '', '!=');
+//	$query->fields('u', array('11_cu_ft', '15_cu_ft', 'body_style'));
+//
+//	$results = $query->distinct()->execute();
+//	$num_of_results = $results->rowCount();
+//	if ($num_of_results > 1) {
+//	    echo '<select id="body_style" class="form-control">';
+//	    echo '<option value="">Select style</option>';
+//	    while ($record = $results->fetchAssoc()) {
+//		echo '<option >' . $record['body_style'] . '</option>';
+//	    }
+//	    echo '</select>';
+//	} else {
+//	    $query = db_select('cardata', 'u');
+//	    $query->condition('make', $data_c, '=');
+//	    $query->condition('model', $data_model, '=');
+//	    $query->fields('u', array('11_cu_ft', '15_cu_ft'));
+//
+//	    $results = $query->distinct()->execute();
+//	    $num_of_results = $results->rowCount();
+//
+//	    while ($record = $results->fetchAssoc()) {
+//		$size = '';
+//		$check = 0;
+//		if ($record['11_cu_ft'] != '') {
+//		    $size = '11 cu. ft.';
+//		    $check = 1;
+//		}
+//		if (($record['15_cu_ft'] != '0') && ($check == 1)) {
+//
+//
+//		    $size = '11 cu. ft. or 15 cu. ft.';
+//		} else if ($record['15_cu_ft'] != '0') {
+//		    $size = '15 cu. ft.';
+//		}
+//
+//		$cu_11ft = $record['11_cu_ft'];
+//		$cu_15ft = $record['15_cu_ft'];
+//		echo '<div >We suggest you purchase the ' . $size . ' size for your ' . $data_c . ' ' . $data_model . '</div>';
+//	    }
+//	}
+//    } else {
+//	$data_c = $_POST['make'];
+//	$query = db_select('cardata', 'u');
+//	$query->condition('make', $data_c, '=');
+//	$query->fields('u', array('model', '11_cu_ft', '15_cu_ft'));
+//
+//	$results = $query->distinct()->execute();
+//
+//	echo '<select id="madel_select" class="form-control form-control2">';
+//	echo '<option value="">Select model</option>';
+//	while ($record = $results->fetchAssoc()) {
+//	    $unsrot_record[] = $record['model'];
+//	}
+//	sort($unsrot_record);
+//	$sorted_roecord = $unsrot_record;
+//	foreach ($sorted_roecord as $key) {
+//	    echo '<option>' . $key . '</option>';
+//	}
+//	echo '</select>';
+//    }
+//    die;
+//}
+/**
+ * Fetch UPS Quotes
+ */
+function custom_data_changes_get_ups_fast() {
+    global $base_url;
+    if (isset($_POST['tocountry'])) {
+	$tocountry = $_POST['tocountry'];
+	$url = "http://production.shippingapis.com/ShippingAPI.dll?API=IntlRateV2";
+	$ch = curl_init();
+
+	// set the target url
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	// parameters to post
+	curl_setopt($ch, CURLOPT_POST, 1);
+	$date_request = date("d-M-Y");
+	$data = 'XML=<IntlRateV2Request USERID="305PKIND7763"><Revision>2</Revision><Package ID="0"><Pounds>2</Pounds><Ounces>4</Ounces><MailType>All</MailType><ValueOfContents>85</ValueOfContents><Country>' . $tocountry . '</Country>
+	<Container>RECTANGULAR</Container><Size>REGULAR</Size><Width></Width><Length></Length><Height></Height><Girth></Girth><OriginZip>92154
+	</OriginZip></Package></IntlRateV2Request>';
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+	$result = curl_exec($ch);
+	//echo '<pre>'; print_r($data); echo'</pre>';
+	//echo '<pre>'; print_r($result); echo'</pre>';die;
+	$data = strstr($result, '<?');
+	// echo '<!-- '. $data. ' -->'; // Uncomment to show XML in comments
+	$xml_parser = xml_parser_create();
+	xml_parse_into_struct($xml_parser, $data, $vals, $index);
+	xml_parser_free($xml_parser);
+	$params = array();
+	$level = array();
+	foreach ($vals as $xml_elem) {
+	    //echo '<pre>'; print_r($xml_elem); echo'</pre>';
+	    if ($xml_elem['type'] == 'open') {
+		if (array_key_exists('attributes', $xml_elem)) {
+		    list($level[$xml_elem['level']], $extra) = array_values($xml_elem['attributes']);
+		} else {
+		    $level[$xml_elem['level']] = $xml_elem['tag'];
+		}
+	    }
+	    if ($xml_elem['type'] == 'complete') {
+		$start_level = 1;
+		$php_stmt = '$params';
+		while ($start_level < $xml_elem['level']) {
+		    $php_stmt .= '[$level[' . $start_level . ']]';
+		    $start_level++;
+		}
+		$php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+		eval($php_stmt);
+	    }
+	}
+	curl_close($ch);
+	//echo '<pre>'; print_r($params); echo'</pre>'; // Uncomment to see xml tags
+	//return $params['RATEV3RESPONSE']['1ST']['1']['RATE'];
+	$check_value = '';
+	$count_records = 0;
+	foreach ($params['INTLRATEV2RESPONSE']['0'] as $getvalue) {
+	    if (isset($getvalue['SVCDESCRIPTION'])) {
+		if (session_status() == PHP_SESSION_NONE) {
+		    session_start();
+		}
+		if ($check_value == $getvalue['POSTAGE']) {
+		    continue;
+		}
+		$check_value = $getvalue['POSTAGE'];
+		echo '<div class="form-item shipping_rates_bar form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-' . $count_records . '"><label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7"><input style="display:none;" type="radio"  name="panes[quotes][quotes][quote_option]" value="ups---' . $count_records . '"  class="form-radio ajax-processed">';
+		if (strpos($getvalue['SVCDESCRIPTION'], '&lt;') !== false) {
+
+		    $pieces = explode("&lt;", $getvalue['SVCDESCRIPTION']);
+		    echo '<span class="ups1 service_name">USPS ' . $pieces['0'] . '</span> $1!';
+		} else {
+
+		    echo '<span class="ups2 service_name">USPS ' . $getvalue['SVCDESCRIPTION'] . '</span>';
+		}
+
+
+
+		echo '<span class="service_rate">$' . number_format($getvalue['POSTAGE'], 2) . '</span>';
+		echo '</label></div>';
+	    }
+
+	    $count_records++;
+	}
+	if (!$_POST['tozip']) {
+	    die;
+	}
+    }
+    if ($_POST) {
+	$zip_value = $_POST['tozip'];
+	$errors = false;
+	$errmessage = "";
+	if ($_POST['fromzip']) {
+	    $fromzip = $_POST['fromzip'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid Shipping from Zip.<br />\n";
+	}
+	if ($_POST['tozip']) {
+	    $tozip = $_POST['tozip'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid Shipping to Zip.<br />\n";
+	}
+	if (is_numeric($_POST['length'])) {
+	    $length = $_POST['length'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid length.<br />\n";
+	}
+	if (is_numeric($_POST['width'])) {
+	    $width = $_POST['width'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid width.<br />\n";
+	}
+	if (is_numeric($_POST['height'])) {
+	    $height = $_POST['height'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid height.<br />\n";
+	}
+	if (is_numeric($_POST['weight'])) {
+	    $weight = $_POST['weight'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid weight.<br />\n";
+	}
+
+	$postcode = $tozip;
+	if ($postcode) {
+
+	    $postcode = str_replace(' ', '+', $postcode);
+	    ;
+	    $address = urlencode($postcode);
+	    $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $postcode . '&key=AIzaSyAJJxiUZLH6kQC6LQ4JfDUCu3VrFpqmNX8&sensor=false';
+
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    $data = curl_exec($ch);
+	    curl_close($ch);
+	    $source = $data;
+	    $obj = json_decode($source);
+	    foreach ($obj->results[0]->address_components as $key => $address_data) {
+		if ($address_data->types['0'] == 'country') {
+		    $tocountry = $address_data->short_name;
+		} else if ($address_data->types['0'] == 'locality') {
+		    $toCity = $address_data->short_name;
+		} else if ($address_data->types['0'] == 'administrative_area_level_1') {
+		    $toState = $address_data->short_name;
+		}
+	    }
+	    //echo $key.'key'; echo '<pre>'; print_r($obj->results[0]->address_components);die;
+	    //$long = $obj->results[3]->geometry->location->lng;
+	    //$tocountry=$obj->results[0]->address_components[4]->short_name;
+	}
+
+	if (!$errors) {
+	    /*	     * ***********************************
+	      Get your own credentials from ups.com
+	     * *********************************** */
+	    $ups_accessnumber = "ED0EDC64284E1E19";
+	    $ups_username = "pkindustries";
+	    $ups_password = "Oli1533vella";
+	    $ups_password = "Oli1533vella";
+	    $ups_shippernumber = "";
+	    //$tocountry='CA';
+	    // just doing domestic for demonstration purposes
+	    if ($tocountry == "US") {
+		$services = array(
+		    "UPS Next Day Early A.M." => "14",
+		    "UPS Next Day Air" => "01",
+		    "UPS Next Day Air Saver" => "13",
+		    "UPS 2nd Day Air A.M." => "59",
+		    "UPS 2nd Day Air" => "02",
+		    "UPS 3 Day Select" => "12",
+		    "UPS Ground" => "03"
+		);
+	    } else {
+		$services = array(
+		    "UPS Standard" => "11",
+		    "UPS Worldwide Expedited" => "08",
+		    "UPS Worldwide Saver" => "65",
+		    "UPS Worldwide Express" => "07",
+		    "UPS Worldwide Express Plus" => "54",
+		);
+	    }
+	    require("upsRate.php");
+
+
+	    $myRate = new upsRate;
+	    $myRate->setCredentials($ups_accessnumber, $ups_username, $ups_password, $ups_shippernumber);
+	    //echo "<h1>UPS Rates</h1>\n";
+	    //echo "<ul>\n";
+
+	    $items = uc_cart_get_contents();
+	    $sub_total = 0;
+	    foreach ($items as $item) {
+		$item_total = $item->price * $item->qty;
+		$sub_total += $item_total;
+	    }
+	    //  $tmp_sub_total = $sub_total;
+	    if ($sub_total == 0)
+		$sub_total = 45;
+	    require("SoapTimeInTransitClient.php");
+	    foreach ($services as $name => $service) {
+		$rate_price = 0;
+		$actual_weight = 0;
+		$roofbag_box1 = 0;
+		$roofbag_box2 = 0;
+		$box_weight = 0;
+		$roofbag_1_qty = 0;
+		$roofbag_2_qty = 0;
+		$tire_step = false;
+		$tire_step = false;
+		if (count($items) > 0) {
+		    foreach ($items as $item) {
+			$actual_weight += ( $item->weight * $item->qty );
+
+			if ($item->nid == 284) {
+			    $tire_step = true;
+			    $box_weight = 1.6;
+			} else if ($item->nid == 1 || $item->nid == 292) {
+			    $roofbag_1_qty = $item->qty;
+			    if ($item->data["attributes"][3] == 5) {
+				$roofbag_box1 = 0.8;
+			    } else if ($item->data["attributes"][3] == 6) {
+				$roofbag_box1 = 1;
+			    }
+			} else if ($item->nid == 289 || $item->nid == 293) {
+			    $roofbag_2_qty = $item->qty;
+			    if ($item->data["attributes"][3] == 5) {
+				$roofbag_box2 = 0.8;
+			    } else if ($item->data["attributes"][3] == 6) {
+				$roofbag_box2 = 1;
+			    }
+			}
+		    }
+
+		    if (!$tire_step) {
+			if ($roofbag_1_qty + $roofbag_2_qty > 2) {
+			    $box_weight = 1.6;
+			} else if ($roofbag_1_qty == 1 && $roofbag_2_qty == 1) {
+			    $box_weight = 1.2;
+			} else if ($roofbag_box1 > $roofbag_box2) {
+			    $box_weight = $roofbag_box1;
+			} else {
+			    $box_weight = $roofbag_box2;
+			}
+		    }
+
+		    if ($box_weight == 1.6) {
+			$box_length = 22;
+			$box_width = 14;
+			$box_height = 14;
+		    } else if ($box_weight == 1.2) {
+			$box_length = 16;
+			$box_width = 12;
+			$box_height = 12;
+		    } else if ($box_weight == 1) {
+			$box_length = 16;
+			$box_width = 13;
+			$box_height = 7;
+		    } else {
+			$box_length = 14;
+			$box_width = 12;
+			$box_height = 7;
+		    }
+
+		    $actual_weight += $box_weight;
+		    if (!$actual_weight) {
+			$actual_weight = $weight;
+		    }
+		    $rate = $myRate->getRate($fromzip, $tozip, $tocountry, $service, $box_length, $box_width, $box_height, $actual_weight, $timeInTransits);
+		    if ($rate != '') {
+
+			$rate_price += number_format($rate["price"], 2);
+		    }
+		} else {
+
+		    $rate = $myRate->getRate($fromzip, $tozip, $tocountry, $service, $length, $width, $height, $weight, $timeInTransits);
+
+		    if ($rate != '') {
+			$rate_price += number_format($rate["price"], 2);
+		    }
+		}
+
+		if ($rate_price != 0) {
+
+		    $rate_price += getUPSHandlingFees($service, $sub_total);
+		    $rate_price = number_format($rate_price, 2);
+		    echo '<div class="form-item shipping_rates_bar form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-' . $service . '"><label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7"><input type="radio"   style="display:none;"  name="panes[quotes][quotes][quote_option]" value="customups---' . $service . '"  class="form-radio ajax-processed"><span class="ups5 service_name">'
+		    . $name . '</span>' . $rate["rate_p_1"] . $rate_price . $rate["rate_p_2"] . '<label></div>';
+		}
+	    }
+	    echo "</ul>";
+	} else {
+
+	    echo "<h2>Form Errors:</h2><p>$errmessage</p>\n";
+	}
+    }
+    die;
+}
+
+function custom_data_changes_get_fedex_fast() {
+    global $base_url;
+    if ($_POST) {
+	$zip_value = $_POST['tozip'];
+	$errors = false;
+	$errmessage = "";
+	if ($_POST['fromzip']) {
+	    $fromzip = $_POST['fromzip'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid Shipping from Zip.<br />\n";
+	}
+	if ($_POST['tozip']) {
+	    $tozip = $_POST['tozip'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid Shipping to Zip.<br />\n";
+	}
+	if (is_numeric($_POST['length'])) {
+	    $length = $_POST['length'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid length.<br />\n";
+	}
+	if (is_numeric($_POST['width'])) {
+	    $width = $_POST['width'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid width.<br />\n";
+	}
+	if (is_numeric($_POST['height'])) {
+	    $height = $_POST['height'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid height.<br />\n";
+	}
+	if (is_numeric($_POST['weight'])) {
+	    $weight = $_POST['weight'];
+	} else {
+	    $errors = true;
+	    $errmessage = "Please enter a valid weight.<br />\n";
+	}
+
+	$postcode = $tozip;
+	if ($postcode) {
+
+	    $postcode = str_replace(' ', '+', $postcode);
+	    ;
+	    $address = urlencode($postcode);
+	    $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $postcode . '&key=AIzaSyAJJxiUZLH6kQC6LQ4JfDUCu3VrFpqmNX8&sensor=false';
+
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    $data = curl_exec($ch);
+	    curl_close($ch);
+	    $source = $data;
+	    $obj = json_decode($source);
+	    //echo '<pre>'; print_r($obj); echo '</pre>'; //kp
+
+	    foreach ($obj->results[0]->address_components as $key => $address_data) {
+		if ($address_data->types['0'] == 'country') {
+		    $tocountry = $address_data->short_name;
+		}
+	    }
+
+	    //echo $key.'key'; echo '<pre>'; print_r($obj->results[0]->address_components);die;
+	    //$long = $obj->results[3]->geometry->location->lng;
+	    //$tocountry=$obj->results[0]->address_components[4]->short_name;
+	}
+	$tocountry = 'US'; //kp
+	if (!$errors) {
+	    $items = uc_cart_get_contents();
+	    $sub_total = 0;
+	    foreach ($items as $item) {
+		$item_total = $item->price * $item->qty;
+		$sub_total += $item_total;
+	    }
+	    if ($sub_total == 0) {
+		$sub_total = 45;
+	    }
+	    $rate_price = 0;
+	    $actual_weight = 0;
+	    $roofbag_box1 = 0;
+	    $roofbag_box2 = 0;
+	    $box_weight = 0;
+	    $roofbag_1_qty = 0;
+	    $roofbag_2_qty = 0;
+	    $tire_step = false;
+	    $tire_step = false;
+	    if (count($items) > 0) {
+		foreach ($items as $item) {
+		    $actual_weight += ( $item->weight * $item->qty );
+
+		    if ($item->nid == 284) {
+			$tire_step = true;
+			$box_weight = 1.6;
+		    } else if ($item->nid == 1 || $item->nid == 292) {
+			$roofbag_1_qty = $item->qty;
+			if ($item->data["attributes"][3] == 5) {
+			    $roofbag_box1 = 0.8;
+			} else if ($item->data["attributes"][3] == 6) {
+			    $roofbag_box1 = 1;
+			}
+		    } else if ($item->nid == 289 || $item->nid == 293) {
+			$roofbag_2_qty = $item->qty;
+			if ($item->data["attributes"][3] == 5) {
+			    $roofbag_box2 = 0.8;
+			} else if ($item->data["attributes"][3] == 6) {
+			    $roofbag_box2 = 1;
+			}
+		    }
+		}
+
+		if (!$tire_step) {
+		    if ($roofbag_1_qty + $roofbag_2_qty > 2) {
+			$box_weight = 1.6;
+		    } else if ($roofbag_1_qty == 1 && $roofbag_2_qty == 1) {
+			$box_weight = 1.2;
+		    } else if ($roofbag_box1 > $roofbag_box2) {
+			$box_weight = $roofbag_box1;
+		    } else {
+			$box_weight = $roofbag_box2;
+		    }
+		}
+
+		if ($box_weight == 1.6) {
+		    $box_length = 22;
+		    $box_width = 14;
+		    $box_height = 14;
+		} else if ($box_weight == 1.2) {
+		    $box_length = 16;
+		    $box_width = 12;
+		    $box_height = 12;
+		} else if ($box_weight == 1) {
+		    $box_length = 16;
+		    $box_width = 13;
+		    $box_height = 7;
+		} else {
+		    $box_length = 14;
+		    $box_width = 12;
+		    $box_height = 7;
+		}
+
+		$actual_weight += $box_weight;
+		if (!$actual_weight) {
+		    $actual_weight = $weight;
+		}
+	    } else {
+		$actual_weight = $weight;
+		$box_height = $height;
+		$box_width = $width;
+		$box_length = $length;
+	    }
+	    require("FedExRateAvailableServicesWebServiceClient.php"); //kp
+	    //require("RateFedexUsps.php"); //kp
+	} else {
+	    echo "<h2>Form Errors:</h2><p>$errmessage</p>\n";
+	}
+    }
+    die;
+}
+
+/**
+ * For making Selected price session
+ */
+function custom_data_changes_create_session() {
+			/*echo '<pre>';
+			print_r($_SESSION); 
+			echo '</pre>';*/
+			//echo '<pre>'; print_r($_SESSION); echo '</pre>'; //kp
+
+    // $_SESSION['service_arrival'] = $_POST['service_arrival'];
+    $_SESSION['sdata'] = $_POST['sdata'];
+    $_SESSION['service_rate'] = $_POST['service_rate'];
+    $service_arrival = str_replace("Arrives ", "", $_POST['service_arrival']);
+    $_SESSION['service_arrival'] = $service_arrival;
+    $_SESSION['service_name'] = $_POST['service_name'];
+    $_SESSION['service_value'] = $_POST['service_value'];
+    $_SESSION['parent_html'] = $_POST['parent_html'];
+    $_SESSION['selected_shipping_id'] = $_POST['selected_shipping_id'];
+    $_SESSION['check_geo_location'] = true;
+    $_SESSION['savedzip'] = $_POST['savedzip'];
+
+
+	
+//    echo '<pre>';
+//    print_r($_SESSION['parent_html']);
+//    echo '</pre>';
+//    die;
+    //echo '<pre>'; print_r($_SESSION['sdata']);die;
+    //echo '<pre>'; print_r($_SESSION['parent_html']); exit;
+}
+
+function custom_data_changes_uc_order($op, $order, $arg2) {
+	if (path_is_admin(current_path())) {
+		return $order;
+	}
+	if( !isset($_SESSION['service_value']) || empty($_SESSION['service_value']) ){
+		return $order;
+	}
+	if( !isset($_SESSION['service_rate']) || empty($_SESSION['service_rate']) ){
+		return $order;
+	}
+	// echo '<pre>';
+	// print_r($order);
+	// exit;
+	$selected_shipping = $_SESSION['service_value'];
+	$selected_shipping_rate = $_SESSION['service_rate'];
+    $quote_option = explode('---',$selected_shipping );
+	$order->quote['method'] = $quote_option[0];
+	$order->quote['accessorials'] = $quote_option[1];
+	$methods = uc_quote_methods();
+	$method = $methods[$quote_option[0]];
+
+	$label = $method['quote']['accessorials'][$quote_option[1]];
+
+	$quote_option = $selected_shipping;
+	$order->quote['rate'] = $selected_shipping_rate;
+
+	$result = db_query("SELECT line_item_id FROM {uc_order_line_items} WHERE order_id = :id AND type = :type", array(':id' => $order->order_id, ':type' => 'shipping'));
+	if ($lid = $result->fetchField()) {
+	uc_order_update_line_item($lid, 
+	  $label, 
+	  $order->quote['rate']
+	);
+	}
+	else {
+	uc_order_line_item_add($order->order_id, 'shipping', 
+	  $label, 
+	  $order->quote['rate']
+	);
+	}
+
+	if( isset($_SESSION['savedzip']) && !empty($_SESSION['savedzip']) ){
+		$order->delivery_postal_code = $_SESSION['savedzip'];
+	}
+
+	// Save selected shipping
+	uc_quote_uc_order('save', $order, '');
+	
+	// uc_order_load_line_items($order);
+	// uc_order_save($order);
+
+	return (array)$order;
+
+}
+
+function custom_data_changes_uc_add_to_cart($nid, $qty, $data) {
+//  print_r($data);
+//  die();
+}
+
+function custom_data_block_get() {
+
+    if ($_POST) {
+	$block_id = $_POST['block_id'];
+	if ($block_id == 14) {
+	    $block14 = module_invoke('block', 'block_view', 14);
+	    $block15 = module_invoke('block', 'block_view', 15);
+	    ?>
+	    <div class="tabbable">
+	        <ul class="nav nav-tabs">
+	    	<li class="active"><a href="#tab1" data-toggle="tab">2-Year Warranty</a></li>
+	    	<li><a href="#tab2" data-toggle="tab">Returns Policy</a></li>
+	        </ul>
+	        <div class="tab-content">
+	    	<div class="tab-pane active" id="tab1">
+			<?php print render($block14['content']); ?>
+	    	</div>
+	    	<div class="tab-pane" id="tab2">
+			<?php print render($block15['content']); ?>
+	    	</div>
+	        </div>
+	    </div>
+	    <?php
+	} else {
+
+	    $block = module_invoke('block', 'block_view', $block_id);
+
+
+	    print render($block['content']);
+	}
+    } else {
+	echo "No Content found";
+    }
+    die();
+}
+
+function custom_data_changes_cart_quantity() {
+    if (isset($_POST['qty_submit'])) {
+		$items = uc_cart_get_contents();
+		$cart_item_ids = $_POST['cart_item_id'];
+		foreach ($cart_item_ids AS $key => $cart_item_id) {
+		    $item = $items[$cart_item_id];
+		    $item->qty = $_POST['cart_item_qty'][$key];
+		    
+		    // uc_cart_remove_item($item->nid, $item->cart_id, $item->data);
+		    uc_cart_update_item($item);
+		    // uc_cart_add_item($item->nid, $item->qty, $item->data, $item->cart_id, FALSE, FALSE, TRUE);
+		}
+		uc_cart_get_contents(NULL, 'rebuild');
+		unset($_SESSION['parent_html']);
+    }
+}
+
+//kp
+function custom_data_changes_remove_zipcode() {
+
+	
+	unset($_SESSION['savedzip']);
+	
+	
+
+}
+
+
+// hook_mail()
+// function custom_data_changes_mail($key, &$message, $params) {
+// 	echo 'test';exit;
+// }
+function custom_data_changes_mail_alter(&$message) {
+	// drupal_flush_all_caches();
+	// cache_clear_all();
+	
+	if( ( isset($message['module']) && $message['module'] == 'uc_order' ) && ( isset($message['key']) && $message['key'] == 'action-mail' ) ){
+		$message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+		$message['params']['format'] = 'full_html';
+		// $message['body'] = token_replace_multiple($message['params']['message']);
+		// $message['body'] = implode("\n\n", $message['body']);
+  //   	$message['body'] = drupal_wrap_mail($message['body']);
+    	// $message['body'] = implode("\n\n", $message['body']);
+    	// $message['body'] = drupal_html_to_text($message['body'],['table','th','tr','td']);
+    	// $message['body'] = drupal_wrap_mail($message['body']);
+    	$message['body'] = array();
+    	$message['body'][] = $message['params']['message'];
+	}
+	return $message;
+}
+
+function custom_data_changes_uc_checkout_complete($order, $account) {
+	$subtotal = 0;
+	foreach ($order->products as $product) {
+		$subtotal += $product->price;
+	}
+	$toCountry = "CA";
+	if( $order->delivery_country == 124 ){
+		$toCountry = "CA";
+	}else{
+		$toCountry = "US";
+	}
+	$handlingFee = getFedExHandlingFees( $order->quote['accessorials'], $subtotal, $toCountry);
+	$num_updated = db_update('uc_orders')
+	  ->fields(array(
+	    'handling_fee_total' => $handlingFee,
+	  ))
+	  ->condition('order_id', $order->order_id , '=')
+	  ->execute();
+}
+
+function IsAHolidayOrSunday($dt) {
+	//$IsAHolidayOrSunday = false;
+	if (weekday($dt) == $upspSunday) {
+		$IsAHolidayOrSunday = true;
+		return $IsAHolidayOrSunday;
+	}
+	//Update each year variable holiday dates: 
+	// Memorial Day (last monday in May), Labor Day (first monday in September), and Thanksgiving Day (4th thursday in November). 
+	// Year doesn't matter. Entered in the variable holidays so that it looks like a date and functions Month() and Day() work.
+	
+	$upspHolidays = array("1/1/00" , "5/25/00" , "7/4/00" , "9/7/00" , "11/26/00" , "12/25/00" );
+	
+	if (getYear($dt) == '2018') {
+			$upspHolidays = array("1/1/00" , "5/28/00" , "7/4/00" , "9/3/00" , "11/22/00" , "12/25/00" );
+			foreach ($upspHolidays as $dti) {
+               
+				if (getMonth($dti) == getMonth($dt) && getDay($dti) == getDay($dt)) {
+					$IsAHolidayOrSunday = true;
+					
+				}				
+            }
+            return $IsAHolidayOrSunday;
+		}	
+	if (getYear($dt) == '2019') {
+			$upspHolidays = array("1/1/00" , "5/27/00" , "7/4/00" , "9/2/00" , "11/28/00" , "12/25/00" );
+			foreach ($upspHolidays as $dti) {
+				if (getMonth($dti) == getMonth($dt) && getDay($dti) == getDay($dt)) {
+					$IsAHolidayOrSunday = true;
+					
+				}				
+            }
+            return $IsAHolidayOrSunday;
+		}
+	if (getYear($dt) == '2020') {
+			$upspHolidays = array("1/1/00" , "5/25/00" , "7/4/00" , "9/7/00" , "11/26/00" , "12/25/00" );
+			foreach ($upspHolidays as $dti) {
+				if (getMonth($dti) == getMonth($dt) && getDay($dti) == getDay($dt)) {
+					$IsAHolidayOrSunday = true;
+					
+				}				
+            }
+            return $IsAHolidayOrSunday;
+		}
+		if (getYear($dt) == '2021') {
+			$upspHolidays = array("1/1/00" , "5/31/00" , "7/4/00" , "9/6/00" , "11/25/00" , "12/25/00" );
+			foreach ($upspHolidays as $dti) {
+				if (getMonth($dti) == getMonth($dt) && getDay($dti) == getDay($dt)) {
+					$IsAHolidayOrSunday = true;
+					
+				}				
+            }
+            return $IsAHolidayOrSunday;
+		}
+	if (getYear($dt) == '2022') {
+			$upspHolidays = array("1/1/00" , "5/30/00" , "7/4/00" , "9/5/00" , "11/24/00" , "12/25/00" );
+			foreach ($upspHolidays as $dti) {
+				if (getMonth($dti) == getMonth($dt) && getDay($dti) == getDay($dt)) {
+					$IsAHolidayOrSunday = true;
+					
+				}				
+            }
+            return $IsAHolidayOrSunday;
+		}
+	}
+
+function weekday($date) {
+$timestamp = strtotime($date);
+$day = date('w', $timestamp);
+return $day;
+}
+
+function getYear($date) {
+return date('Y', strtotime($date));
+}
+
+function getMonth($dt1) {
+return date('n', strtotime($dt1));
+}
+
+function getDay($dt1) {
+return date('j', strtotime($dt1));
+}
+
+// function custom_data_changes_cron_queue_info() {
+  
+// 	drupal_flush_all_caches();
+// 	cache_clear_all();
+	
+// }

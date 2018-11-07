@@ -1,0 +1,792 @@
+11/17/2017 06:03:48 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    2    def
+11/17/2017 06:23:32 AM    Mozilla/5.0 (Linux; Android 7.1.2; Redmi 4 Build/N    106.51.235.204    10651235204    0    def
+11/17/2017 06:30:47 AM    Mozilla/5.0 (Linux; Android 6.0.1; SM-J700H Build/    46.133.180.160    46133180160    0    def
+11/17/2017 06:50:44 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    66.102.8.42    66102842    0    def
+11/17/2017 07:07:58 AM    Mozilla/5.0 (Linux; Android 5.0; SM-G900V Build/LR    67.8.195.27    67819527    0    def
+11/17/2017 07:08:04 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac    172.56.21.113    1725621113    0    def
+11/17/2017 07:19:43 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.70.12    662497012    0    def
+11/17/2017 07:21:24 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    24.12.126.223    2412126223    0    def
+11/17/2017 07:22:07 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    24.39.78.219    243978219    0    def
+11/17/2017 07:37:01 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac    107.77.212.20    1077721220    0    def
+11/17/2017 07:53:11 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac    47.51.206.22    475120622    0    def
+11/17/2017 08:01:09 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    174.201.8.235    1742018235    0    def
+11/17/2017 08:07:50 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac    174.218.131.162    174218131162    0    def
+11/17/2017 08:09:11 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    174.201.8.235    1742018235    2    def
+11/17/2017 08:36:31 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.221.6.248    1742216248    0    def
+11/17/2017 09:33:17 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.70.10    662497010    0    def
+11/17/2017 10:00:50 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.70.10    662497010    0    def
+11/17/2017 10:18:34 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    71.251.237.157    71251237157    0    def
+11/17/2017 10:33:55 AM    Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG SCH-I54    68.6.169.183    686169183    2    def
+11/17/2017 10:40:41 AM    Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG SCH-I54    68.6.169.183    686169183    2    CTC
+11/17/2017 11:00:37 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    47.222.50.132    4722250132    0    def
+11/17/2017 11:03:43 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR    107.197.49.250    10719749250    0    def
+11/17/2017 11:13:43 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    71.34.154.191    7134154191    0    def
+11/17/2017 11:16:48 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    174.218.128.128    174218128128    0    def
+11/17/2017 11:34:10 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    71.34.154.191    7134154191    2    def
+11/17/2017 11:42:09 AM    Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG SCH-I54    67.220.165.162    67220165162    2    def
+11/17/2017 11:42:38 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    1    def
+11/17/2017 11:43:22 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    107.77.229.11    1077722911    1    def
+11/17/2017 11:44:52 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    1    def
+11/17/2017 11:45:43 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    107.77.229.11    1077722911    1    def
+11/17/2017 11:46:07 AM    Mozilla/5.0 (Linux; Android 6.0.1; Alcatel 6055U B    73.97.121.155    7397121155    0    def
+11/17/2017 11:47:20 AM    Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb    67.220.165.162    67220165162    1    def
+11/17/2017 11:53:26 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.237.6    107772376    0    def
+11/17/2017 11:54:57 AM    Mozilla/5.0 (Linux; Android 7.1.1; Moto Z (2) Buil    65.128.146.214    65128146214    0    def
+11/17/2017 11:56:43 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    0    def
+11/17/2017 11:59:38 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    107.77.229.11    1077722911    2    def
+11/17/2017 12:11:44 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    199.30.24.219    1993024219    0    def
+11/17/2017 12:14:35 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    65.183.131.121    65183131121    0    def
+11/17/2017 12:33:32 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.237.6    107772376    2    def
+11/17/2017 12:34:42 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.229.67    1077722967    0    def
+11/17/2017 12:47:00 PM    Mozilla/5.0 (Linux; Android 6.0; VS985 4G Build/MR    104.229.173.125    104229173125    0    def
+11/17/2017 13:02:02 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    107.77.210.138    10777210138    0    def
+11/17/2017 13:03:33 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    47.222.50.132    4722250132    0    def
+11/17/2017 13:18:13 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    2    def
+11/17/2017 13:31:22 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    174.198.20.112    17419820112    0    def
+11/17/2017 13:38:31 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    66.87.141.218    6687141218    0    def
+11/17/2017 13:45:39 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    174.194.10.217    17419410217    0    def
+11/17/2017 14:00:42 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    107.77.229.11    1077722911    2    def
+11/17/2017 14:14:43 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G930T Build/NR    172.58.96.123    1725896123    0    def
+11/17/2017 14:26:58 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac    75.19.160.202    7519160202    0    def
+11/17/2017 14:28:51 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    40.77.177.103    4077177103    0    def
+11/17/2017 14:43:55 PM    Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG SCH-I54    70.209.192.2    702091922    2    def
+11/17/2017 14:47:35 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    208.70.40.3    20870403    0    def
+11/17/2017 14:55:42 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.222.8.154    1742228154    0    def
+11/17/2017 15:24:40 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    66.87.130.176    6687130176    0    def
+11/17/2017 15:25:13 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    0    def
+11/17/2017 15:27:20 PM    Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/53    52.20.195.90    522019590    0    def
+11/17/2017 15:27:20 PM    Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/53    52.20.195.90    522019590    0    def
+11/17/2017 15:30:52 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    0    def
+11/17/2017 15:43:48 PM    Mozilla/5.0 (Linux; Android 7.0; VS987 Build/NRD90    68.40.174.191    6840174191    0    def
+11/17/2017 15:47:12 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    107.77.229.11    1077722911    2    def
+11/17/2017 15:58:24 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    70.196.137.213    70196137213    0    def
+11/17/2017 15:59:13 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    0    def
+11/17/2017 16:00:37 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    166.137.246.29    16613724629    0    def
+11/17/2017 16:06:40 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    107.77.229.11    1077722911    1    def
+11/17/2017 16:08:36 PM    Mozilla/5.0 (Linux; Android 7.0; Alcatel 5085C Bui    73.231.106.216    73231106216    0    def
+11/17/2017 16:17:19 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    24.184.160.60    2418416060    0    def
+11/17/2017 16:29:11 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.219.140.138    174219140138    0    def
+11/17/2017 16:33:47 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G920V Build/NR    97.88.40.203    978840203    0    def
+11/17/2017 16:39:29 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR    76.26.203.181    7626203181    0    def
+11/17/2017 16:50:24 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    69.117.113.52    6911711352    0    def
+11/17/2017 16:52:53 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS    72.14.199.146    7214199146    0    def
+11/17/2017 17:21:00 PM    Mozilla/5.0 (Linux; Android 7.1.1; SM-J700T Build/    172.56.34.48    172563448    0    def
+11/17/2017 17:28:42 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    70.195.1.238    701951238    0    def
+11/17/2017 17:42:52 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.84    662497984    0    def
+11/17/2017 17:55:00 PM    Mozilla/5.0 (Linux; Android 7.1.1; Z899VL Build/NM    174.255.135.115    174255135115    0    def
+11/17/2017 18:02:02 PM    Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;    64.49.213.34    644921334    0    def
+11/17/2017 18:06:30 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    24.73.24.60    24732460    0    def
+11/17/2017 18:13:50 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-G900T Build/    73.76.52.181    737652181    0    def
+11/17/2017 18:16:10 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    162.228.209.162    162228209162    0    def
+11/17/2017 18:28:08 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    73.221.252.237    73221252237    0    def
+11/17/2017 18:36:21 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    99.149.16.105    9914916105    0    def
+11/17/2017 18:36:57 PM    Mozilla/5.0 (Linux; Android 7.0; VS501 Build/NRD90    71.161.208.217    71161208217    0    def
+11/17/2017 18:44:22 PM    Mozilla/5.0 (Linux; Android 7.1.1; XT1635-01 Build    70.196.13.213    7019613213    0    def
+11/17/2017 18:45:33 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.82    662497982    0    def
+11/17/2017 19:48:24 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    70.196.137.213    70196137213    0    def
+11/17/2017 20:00:59 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935T Build/NR    104.34.64.244    1043464244    0    def
+11/17/2017 20:01:51 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    68.99.110.159    6899110159    0    def
+11/17/2017 20:06:35 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    207.98.252.127    20798252127    0    def
+11/17/2017 20:19:32 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac    68.7.190.167    687190167    0    def
+11/17/2017 20:33:15 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G955U     99.203.17.132    9920317132    0    def
+11/17/2017 20:33:49 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.82    662497982    0    def
+11/17/2017 20:43:16 PM    Mozilla/5.0 (Linux; Android 7.0; XT1585 Build/NCK2    70.209.146.160    70209146160    0    def
+11/17/2017 20:48:52 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    67.186.70.9    67186709    0    def
+11/17/2017 20:52:35 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920C     82.132.243.147    82132243147    0    def
+11/17/2017 21:26:26 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    99.149.220.131    99149220131    0    def
+11/17/2017 22:40:40 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-N910V Build/    24.143.64.27    241436427    0    def
+11/17/2017 22:42:07 PM    Dalvik/2.1.0 (Linux; U; Android 7.0; SM-G955U Buil    70.196.137.213    70196137213    0    def
+11/17/2017 22:42:10 PM    Dalvik/2.1.0 (Linux; U; Android 7.0; SM-G955U Buil    70.196.137.213    70196137213    0    def
+11/18/2017 00:29:44 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.110.92.172    17411092172    2    def
+11/18/2017 02:17:24 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.80    662497980    0    def
+11/18/2017 03:25:26 AM    Mozilla/5.0 (Linux; Android 6.0.1; CPH1611 Build/M    182.55.192.124    18255192124    0    def
+11/18/2017 03:31:17 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    98.109.0.240    981090240    0    def
+11/18/2017 04:25:59 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    73.5.12.173    73512173    0    def
+11/18/2017 04:37:18 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    107.77.198.215    10777198215    0    def
+11/18/2017 05:11:47 AM    Mozilla/5.0 (Linux; Android 5.1; XT1528 Build/LPIS    172.11.1.21    17211121    0    def
+11/18/2017 05:36:47 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    24.59.3.148    24593148    0    def
+11/18/2017 05:52:59 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    108.28.73.124    1082873124    0    def
+11/18/2017 05:57:51 AM    Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) Ap    108.28.73.124    1082873124    0    def
+11/18/2017 06:01:13 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    108.28.73.124    1082873124    0    def
+11/18/2017 06:02:44 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    108.28.73.124    1082873124    0    def
+11/18/2017 06:02:46 AM    Mozilla/5.0 (Linux; Android 6.0.1; SM-N910V Build/    68.43.191.143    6843191143    0    def
+11/18/2017 06:03:34 AM    Apache-HttpClient/UNAVAILABLE (java 1.4)    68.43.191.143    6843191143    0    def
+11/18/2017 06:03:43 AM    Apache-HttpClient/UNAVAILABLE (java 1.4)    174.230.128.231    174230128231    0    def
+11/18/2017 06:04:20 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.84    662497984    0    def
+11/18/2017 06:04:23 AM    Mozilla/5.0 (Linux; Android 7.0; SM-N920T Build/NR    172.58.153.252    17258153252    0    def
+11/18/2017 06:05:32 AM    Mozilla/5.0 (Linux; Android 7.1.1; XT1635-01 Build    47.197.2.249    471972249    0    def
+11/18/2017 06:05:49 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    174.230.128.231    174230128231    0    def
+11/18/2017 06:32:48 AM    Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; LGMS3    75.147.134.129    75147134129    0    def
+11/18/2017 06:55:07 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_1 like Mac    76.248.90.165    7624890165    0    def
+11/18/2017 06:57:02 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac    107.77.198.216    10777198216    0    def
+11/18/2017 07:01:38 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    174.56.134.14    1745613414    0    def
+11/18/2017 07:06:17 AM    Mozilla/5.0 (Linux; Android 6.0.1; XT1254 Build/MC    104.57.196.191    10457196191    0    def
+11/18/2017 07:07:27 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.80    662497980    0    def
+11/18/2017 07:34:22 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    40.77.177.236    4077177236    0    def
+11/18/2017 07:40:56 AM    Mozilla/5.0 (Linux; Android 7.0; SM-N920V Build/NR    97.34.194.26    973419426    0    def
+11/18/2017 08:11:30 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G920A     71.12.251.113    7112251113    0    def
+11/18/2017 08:17:33 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    187.130.182.77    18713018277    0    def
+11/18/2017 08:28:26 AM    Mozilla/5.0 (iPad; CPU OS 11_1_1 like Mac OS X) Ap    108.28.73.124    1082873124    0    def
+11/18/2017 09:00:04 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.214.127    10777214127    0    def
+11/18/2017 09:01:00 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.84    662497984    0    def
+11/18/2017 09:01:36 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    107.77.225.67    1077722567    0    def
+11/18/2017 09:03:20 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_1 like Mac    71.175.16.54    711751654    0    def
+11/18/2017 09:18:13 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    70.211.48.225    7021148225    0    def
+11/18/2017 10:01:03 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    72.201.213.69    7220121369    0    def
+11/18/2017 10:05:31 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G920T Build/NR    208.54.80.240    2085480240    0    def
+11/18/2017 10:16:03 AM    Mozilla/5.0 (Linux; Android 4.4.2; SM-G386T Build/    69.126.57.216    6912657216    0    def
+11/18/2017 10:22:01 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.80    662497980    0    def
+11/18/2017 10:29:09 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    72.196.233.52    7219623352    0    def
+11/18/2017 10:32:31 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    73.16.124.174    7316124174    0    def
+11/18/2017 10:41:22 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    96.65.23.113    966523113    0    def
+11/18/2017 10:46:47 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac    70.195.68.180    7019568180    0    def
+11/18/2017 10:53:29 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.216.197    10777216197    0    def
+11/18/2017 11:09:37 AM    Mozilla/5.0 (Linux; Android 5.1.1; SM-G360V Build/    207.152.71.66    2071527166    0    def
+11/18/2017 11:20:49 AM    Mozilla/5.0 (Linux; Android 7.0; 5049Z Build/NRD90    208.54.85.224    2085485224    0    def
+11/18/2017 11:22:53 AM    Mozilla/5.0 (Linux; Android 7.1.1; XT1650 Build/NC    70.196.3.239    701963239    0    def
+11/18/2017 11:25:48 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    70.124.233.159    70124233159    0    def
+11/18/2017 11:30:02 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    108.2.75.9    1082759    1    def
+11/18/2017 11:36:32 AM    Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/    70.197.65.101    7019765101    0    def
+11/18/2017 11:37:40 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G930T Build/NR    172.58.201.87    1725820187    0    def
+11/18/2017 11:43:41 AM    Mozilla/5.0 (Linux; Android 7.0; XT1635-01 Build/N    174.205.19.116    17420519116    0    def
+11/18/2017 11:49:22 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    68.9.100.178    689100178    0    def
+11/18/2017 12:07:34 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    68.9.100.178    689100178    1    def
+11/18/2017 12:08:50 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.80    662497980    0    def
+11/18/2017 12:21:00 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    68.9.100.178    689100178    0    def
+11/18/2017 12:21:14 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    73.13.252.24    731325224    0    def
+11/18/2017 12:23:55 PM    Mozilla/5.0 (iPad; CPU OS 11_0_1 like Mac OS X) Ap    73.13.252.24    731325224    0    def
+11/18/2017 12:42:39 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    199.30.24.12    199302412    0    def
+11/18/2017 12:47:22 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    67.190.92.106    6719092106    0    def
+11/18/2017 12:52:19 PM    Mozilla/5.0 (Linux; Android 8.0.0; Pixel XL Build/    70.197.72.47    701977247    0    def
+11/18/2017 13:06:57 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    73.110.214.184    73110214184    0    def
+11/18/2017 13:09:46 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    107.77.253.10    1077725310    0    def
+11/18/2017 13:12:16 PM    Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-N920    174.228.11.73    1742281173    0    def
+11/18/2017 13:19:27 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.79.82    662497982    0    def
+11/18/2017 13:36:57 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    98.109.0.240    981090240    1    def
+11/18/2017 13:38:04 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac     70.195.8.91    70195891    0    def
+11/18/2017 13:42:47 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac     70.195.8.91    70195891    1    def
+11/18/2017 13:43:32 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    76.233.246.106    76233246106    0    def
+11/18/2017 13:47:20 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920T     207.30.93.184    2073093184    0    def
+11/18/2017 13:57:24 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/M    66.87.138.240    6687138240    0    def
+11/18/2017 14:05:50 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    47.149.135.96    4714913596    0    def
+11/18/2017 14:06:49 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    174.193.131.106    174193131106    0    def
+11/18/2017 14:12:16 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    66.27.94.214    662794214    0    def
+11/18/2017 14:18:11 PM    Mozilla/5.0 (Linux; Android 7.0; SM-N920T Build/NR    172.58.111.222    17258111222    0    def
+11/18/2017 14:38:21 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS    66.249.92.141    6624992141    0    def
+11/18/2017 14:49:47 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    104.0.251.34    104025134    0    def
+11/18/2017 14:50:26 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    24.59.3.148    24593148    0    def
+11/18/2017 15:01:56 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    72.191.134.45    7219113445    0    def
+11/18/2017 15:02:10 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    104.0.251.34    104025134    0    def
+11/18/2017 15:03:42 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/18/2017 15:28:15 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS    71.202.241.54    7120224154    0    def
+11/18/2017 16:00:09 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    174.99.44.253    1749944253    0    def
+11/18/2017 16:27:16 PM    Mozilla/5.0 (Android 7.0; Mobile; rv:57.0) Gecko/5    23.122.55.104    2312255104    0    def
+11/18/2017 16:37:10 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac     70.195.8.91    70195891    1    def
+11/18/2017 16:53:46 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    65.183.131.121    65183131121    1    def
+11/18/2017 17:11:07 PM    Mozilla/5.0 (Linux; Android 7.1.1; SM-N950U Build/    107.77.205.92    1077720592    1    def
+11/18/2017 17:13:12 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR    174.226.138.38    17422613838    0    def
+11/18/2017 17:14:21 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/18/2017 17:23:01 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac    1.128.107.220    1128107220    0    def
+11/18/2017 17:49:49 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/18/2017 18:11:59 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.211.151    10777211151    0    def
+11/18/2017 18:43:27 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    47.149.135.96    4714913596    2    def
+11/18/2017 18:47:56 PM    Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/53    157.55.39.55    157553955    0    def
+11/18/2017 18:48:25 PM    Mozilla/5.0 (Windows NT 6.1; Trident/7.0; MALC; rv    72.201.213.69    7220121369    0    def
+11/18/2017 19:02:33 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G935A     107.77.196.96    1077719696    0    def
+11/18/2017 19:03:09 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    146.115.191.224    146115191224    0    def
+11/18/2017 19:04:15 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/18/2017 19:48:32 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    107.201.133.250    107201133250    0    def
+11/18/2017 20:27:44 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G950U     208.54.74.198    2085474198    0    def
+11/18/2017 20:28:23 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac    104.255.82.10    1042558210    0    def
+11/18/2017 20:29:43 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/18/2017 20:53:04 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/18/2017 20:57:44 PM    Mozilla/5.0 (Linux; Android 7.1.1; SM-N950U Build/    107.77.205.7    107772057    0    def
+11/18/2017 21:15:00 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G930VL Build/N    104.255.82.10    1042558210    0    def
+11/18/2017 21:57:53 PM    Mozilla/5.0 (Linux; Android 4.4.4; XT1080 Build/SU    70.195.66.73    701956673    0    def
+11/18/2017 22:36:41 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/18/2017 22:38:09 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    107.201.133.250    107201133250    2    def
+11/18/2017 23:08:17 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.110.92.172    17411092172    2    def
+11/19/2017 00:05:16 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    172.58.121.118    17258121118    0    def
+11/19/2017 00:05:16 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    172.58.121.118    17258121118    0    def
+11/19/2017 00:21:06 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    107.141.170.227    107141170227    0    def
+11/19/2017 02:49:48 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    199.30.24.205    1993024205    0    def
+11/19/2017 02:58:04 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/19/2017 03:27:34 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/19/2017 04:07:25 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 04:07:39 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/19/2017 04:13:43 AM    Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko;    66.249.66.90    662496690    0    def
+11/19/2017 04:35:05 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    209.40.164.164    20940164164    0    def
+11/19/2017 04:38:30 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    69.136.22.130    6913622130    0    def
+11/19/2017 04:38:38 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 04:39:34 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.200.7.121    1742007121    0    def
+11/19/2017 05:07:28 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    74.248.197.91    7424819791    0    def
+11/19/2017 05:11:38 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G930A     162.230.252.221    162230252221    0    def
+11/19/2017 05:27:08 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/19/2017 05:45:25 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/19/2017 06:21:29 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    162.239.234.45    16223923445    0    def
+11/19/2017 06:22:00 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    73.126.77.160    7312677160    0    def
+11/19/2017 06:47:29 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G935A     107.77.207.67    1077720767    0    def
+11/19/2017 06:52:28 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    162.239.234.45    16223923445    2    def
+11/19/2017 07:02:06 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    162.239.234.45    16223923445    2    CTC
+11/19/2017 07:17:53 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    174.221.9.142    1742219142    0    def
+11/19/2017 07:28:09 AM    Mozilla/5.0 (Linux; Android 7.0; LGL84VL Build/NRD    96.58.49.84    96584984    0    def
+11/19/2017 07:47:50 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.110.92.172    17411092172    2    def
+11/19/2017 07:55:16 AM    Mozilla/5.0 (Android 7.1.1; Mobile; rv:57.0) Gecko    73.185.125.171    73185125171    0    def
+11/19/2017 08:04:11 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G891A     24.110.21.60    241102160    0    def
+11/19/2017 08:10:17 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    174.56.134.14    1745613414    0    def
+11/19/2017 08:31:15 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/19/2017 08:39:08 AM    Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/    70.195.139.154    70195139154    0    def
+11/19/2017 08:48:37 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/19/2017 09:04:42 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    108.196.54.28    1081965428    0    def
+11/19/2017 09:09:41 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    69.84.114.232    6984114232    0    def
+11/19/2017 09:10:13 AM    Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) Ap    69.84.114.232    6984114232    0    def
+11/19/2017 09:11:55 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    69.84.114.232    6984114232    2    def
+11/19/2017 09:21:51 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920V     174.109.147.29    17410914729    0    def
+11/19/2017 09:22:38 AM    Mozilla/5.0 (Linux; Android 6.0; LGMS631 Build/MRA    172.56.31.227    1725631227    0    def
+11/19/2017 09:38:25 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    173.72.251.153    17372251153    0    def
+11/19/2017 09:43:17 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    66.87.96.124    668796124    0    def
+11/19/2017 10:14:44 AM    Mozilla/5.0 (Linux; Android 7.0; SM-J727T Build/NR    172.58.152.94    1725815294    0    def
+11/19/2017 10:24:00 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/19/2017 10:29:39 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    174.215.5.164    1742155164    0    def
+11/19/2017 10:44:43 AM    Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR    172.2.128.73    172212873    0    def
+11/19/2017 10:46:36 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 10:55:20 AM    Mozilla/5.0 (Linux; Android 7.1.1; SM-N950U1 Build    172.56.36.249    1725636249    0    def
+11/19/2017 11:05:06 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_2 like Mac O    66.87.123.40    668712340    0    def
+11/19/2017 11:05:49 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G950U     73.174.20.220    7317420220    0    def
+11/19/2017 11:07:12 AM    Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG SCH-I54    174.204.8.239    1742048239    0    def
+11/19/2017 11:07:36 AM    Dalvik/2.1.0 (Linux; U; Android 5.0.1; SCH-I545 Bu    174.204.8.239    1742048239    0    def
+11/19/2017 11:08:30 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/19/2017 11:28:08 AM    Mozilla/5.0 (Linux; Android 5.1.1; SM-G360V Build/    73.29.68.100    732968100    0    def
+11/19/2017 11:28:15 AM    Dalvik/2.1.0 (Linux; U; Android 5.1.1; SM-G360V Bu    73.29.68.100    732968100    0    def
+11/19/2017 11:28:16 AM    Dalvik/2.1.0 (Linux; U; Android 5.1.1; SM-G360V Bu    73.29.68.100    732968100    0    def
+11/19/2017 11:44:11 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    67.169.110.20    6716911020    0    def
+11/19/2017 11:47:50 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 12:02:46 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G930A     99.0.113.23    99011323    0    def
+11/19/2017 12:08:22 PM    Mozilla/5.0 (Linux; Android 7.0; SM-J727T Build/NR    172.58.152.94    1725815294    2    def
+11/19/2017 12:10:36 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    70.211.5.46    70211546    2    def
+11/19/2017 12:15:20 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    107.77.225.98    1077722598    0    def
+11/19/2017 12:15:53 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-J327A     107.77.226.84    1077722684    0    def
+11/19/2017 12:18:52 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    70.211.5.46    70211546    2    CTC
+11/19/2017 12:22:31 PM    Mozilla/5.0 (Linux; Android 7.0; SM-J727T Build/NR    172.58.152.94    1725815294    2    def
+11/19/2017 12:54:24 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-N910V Build/    131.191.13.171    13119113171    0    def
+11/19/2017 13:18:07 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_1 like Mac    70.112.211.180    70112211180    0    def
+11/19/2017 13:21:42 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    47.148.233.117    47148233117    0    def
+11/19/2017 13:24:41 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    75.121.39.112    7512139112    0    def
+11/19/2017 13:31:41 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    24.110.21.197    2411021197    0    def
+11/19/2017 13:33:08 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    24.110.21.197    2411021197    0    def
+11/19/2017 14:03:00 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    70.160.120.242    70160120242    0    def
+11/19/2017 14:33:33 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    173.173.66.106    17317366106    0    def
+11/19/2017 14:42:08 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    24.59.3.148    24593148    0    def
+11/19/2017 14:43:47 PM    Mozilla/5.0 (Linux; Android 5.0.2; LG-D337 Build/L    179.210.246.14    17921024614    0    def
+11/19/2017 14:44:33 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    24.59.3.148    24593148    0    def
+11/19/2017 14:45:23 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    96.60.250.36    966025036    0    def
+11/19/2017 14:52:49 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    184.166.79.25    1841667925    0    def
+11/19/2017 14:54:53 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 15:05:48 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930A     107.77.221.117    10777221117    0    def
+11/19/2017 15:12:37 PM    Mozilla/5.0 (Linux; Android 7.1.1; F5121 Build/34.    5.69.105.173    569105173    0    def
+11/19/2017 15:14:57 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    68.9.100.178    689100178    0    def
+11/19/2017 15:15:30 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    71.30.192.226    7130192226    0    def
+11/19/2017 15:19:41 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    66.67.80.61    66678061    0    def
+11/19/2017 15:32:13 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    174.222.1.123    1742221123    0    def
+11/19/2017 15:33:45 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-N920A     107.77.203.200    10777203200    0    def
+11/19/2017 15:47:44 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    71.185.233.73    7118523373    0    def
+11/19/2017 16:01:00 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    47.41.82.61    47418261    0    def
+11/19/2017 16:30:45 PM    Mozilla/5.0 (Linux; Android 4.4.4; Z792 Build/KTU8    107.77.245.3    107772453    0    def
+11/19/2017 16:31:13 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    174.222.4.74    174222474    0    def
+11/19/2017 16:40:36 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    23.251.94.127    2325194127    0    def
+11/19/2017 16:54:17 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    74.103.128.101    74103128101    0    def
+11/19/2017 17:03:12 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    23.240.198.142    23240198142    0    def
+11/19/2017 17:13:58 PM    Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G900    45.37.209.223    4537209223    0    def
+11/19/2017 17:40:26 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    69.136.22.130    6913622130    2    def
+11/19/2017 17:48:27 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    99.44.182.210    9944182210    0    def
+11/19/2017 17:52:51 PM    Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) Ap    99.44.182.210    9944182210    0    def
+11/19/2017 17:55:45 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    174.124.176.243    174124176243    0    def
+11/19/2017 17:56:04 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    47.33.242.175    4733242175    0    def
+11/19/2017 17:59:26 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    174.124.176.243    174124176243    0    def
+11/19/2017 18:00:41 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    172.58.25.101    1725825101    0    def
+11/19/2017 18:09:30 PM    Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;    64.49.213.34    644921334    0    def
+11/19/2017 18:30:08 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    98.113.94.46    981139446    0    def
+11/19/2017 18:33:04 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    71.185.233.73    7118523373    2    def
+11/19/2017 18:41:06 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G928T Build/NR    172.75.107.111    17275107111    0    def
+11/19/2017 18:42:50 PM    Mozilla/5.0 (Linux; Android 7.0; LG-K428 Build/NRD    47.202.174.158    47202174158    0    def
+11/19/2017 18:52:19 PM    Mozilla/5.0 (Linux; Android 7.0; LG-M150 Build/NRD    107.210.21.82    1072102182    0    def
+11/19/2017 19:49:58 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    108.225.125.20    10822512520    0    def
+11/19/2017 19:57:03 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    184.166.24.135    18416624135    0    def
+11/19/2017 20:37:23 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    136.49.2.87    13649287    0    def
+11/19/2017 20:55:48 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.233.3.113    1742333113    0    def
+11/19/2017 21:10:57 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    49.34.134.35    493413435    0    def
+11/19/2017 21:19:18 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 21:38:41 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 21:56:44 PM    Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1;    64.235.154.141    64235154141    0    def
+11/19/2017 21:56:48 PM    Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1;    64.235.154.141    64235154141    0    def
+11/19/2017 22:35:01 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/19/2017 23:11:39 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.209.7.115    1742097115    0    def
+11/19/2017 23:21:26 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    23.241.8.134    232418134    0    def
+11/20/2017 00:19:52 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G920T1 Build/N    172.58.22.163    1725822163    0    def
+11/20/2017 01:20:10 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 01:21:56 AM    Mozilla/5.0 (Linux; Android 7.0; Moto G (4) Build/    73.224.193.82    7322419382    0    def
+11/20/2017 01:55:32 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    199.30.25.172    1993025172    0    def
+11/20/2017 02:16:23 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    32.209.167.177    32209167177    0    def
+11/20/2017 02:20:40 AM    Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebK    27.54.165.218    2754165218    2    def
+11/20/2017 02:34:31 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/20/2017 02:44:19 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    2    def
+11/20/2017 02:47:11 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    2    def
+11/20/2017 02:50:50 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    2    def
+11/20/2017 03:20:57 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    172.58.11.218    1725811218    0    def
+11/20/2017 04:26:37 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 05:20:27 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    152.16.191.34    1521619134    0    def
+11/20/2017 05:52:01 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G935T     104.0.216.102    1040216102    0    def
+11/20/2017 06:01:40 AM    Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebK    27.54.165.218    2754165218    0    def
+11/20/2017 06:31:10 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G950U     72.188.8.174    721888174    0    def
+11/20/2017 06:57:19 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 07:03:30 AM    Mozilla/5.0 (Linux; Android 6.0.1; SM-N910V Build/    74.142.209.219    74142209219    0    def
+11/20/2017 07:15:34 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 07:18:32 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    66.27.94.214    662794214    2    def
+11/20/2017 07:40:41 AM    Mozilla/5.0 (Linux; Android 6.0.1; SM-N910V Build/    74.142.209.219    74142209219    2    def
+11/20/2017 07:53:35 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    68.50.95.62    68509562    0    def
+11/20/2017 07:56:36 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    67.186.70.9    67186709    1    def
+11/20/2017 08:02:12 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G930A     107.77.234.235    10777234235    0    def
+11/20/2017 08:04:59 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    172.56.38.103    1725638103    0    def
+11/20/2017 08:17:38 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac O    174.223.3.189    1742233189    0    def
+11/20/2017 08:20:23 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.236.48    1077723648    0    def
+11/20/2017 08:37:31 AM    Mozilla/5.0 (Linux; Android 5.0; SAMSUNG SM-N900P     98.230.145.23    9823014523    0    def
+11/20/2017 08:45:38 AM    Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/5    132.3.53.81    13235381    0    def
+11/20/2017 09:06:45 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    172.2.134.152    1722134152    0    def
+11/20/2017 09:35:10 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    173.66.59.161    1736659161    0    def
+11/20/2017 09:36:27 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.234.20    1077723420    0    def
+11/20/2017 09:48:26 AM    Mozilla/5.0 (Linux; Android 7.0; SM-J327T Build/NR    172.58.144.238    17258144238    0    def
+11/20/2017 09:56:47 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    24.167.182.204    24167182204    0    def
+11/20/2017 10:02:53 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    107.77.236.204    10777236204    0    def
+11/20/2017 10:16:58 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR    67.2.178.109    672178109    0    def
+11/20/2017 10:21:06 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 10:42:19 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 10:47:45 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac    73.164.136.36    7316413636    0    def
+11/20/2017 10:55:33 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    174.237.11.86    1742371186    0    def
+11/20/2017 11:17:14 AM    Mozilla/5.0 (Linux; Android 7.0; SM-N920T Build/NR    172.56.38.143    1725638143    0    def
+11/20/2017 11:24:12 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920T     172.58.32.188    1725832188    0    def
+11/20/2017 11:27:39 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920T     172.56.38.143    1725638143    0    def
+11/20/2017 11:34:06 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    65.191.45.132    6519145132    2    def
+11/20/2017 11:36:04 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    67.186.70.9    67186709    1    def
+11/20/2017 12:06:09 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    174.237.11.86    1742371186    2    def
+11/20/2017 12:07:25 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    216.139.18.113    21613918113    0    def
+11/20/2017 12:08:17 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G930T Build/NR    172.58.200.111    17258200111    0    def
+11/20/2017 12:10:51 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    107.77.226.67    1077722667    0    def
+11/20/2017 12:12:53 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR    72.132.15.30    721321530    0    def
+11/20/2017 12:16:23 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    107.77.226.67    1077722667    2    CTC
+11/20/2017 12:23:16 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    50.86.53.226    508653226    0    def
+11/20/2017 12:40:52 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 13:06:51 PM    Mozilla/5.0 (Linux; Android 8.0.0; Nexus 6P Build/    99.203.27.39    992032739    0    def
+11/20/2017 13:15:13 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 13:16:04 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    75.110.166.67    7511016667    1    def
+11/20/2017 13:22:02 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    70.211.17.193    7021117193    0    def
+11/20/2017 13:58:22 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-G900V Build/    173.22.210.74    1732221074    0    def
+11/20/2017 14:21:29 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    198.148.31.248    19814831248    0    def
+11/20/2017 14:22:36 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac O    107.77.233.68    1077723368    0    def
+11/20/2017 14:35:00 PM    Mozilla/5.0 (Linux; Android 7.0; Moto G (4) Build/    67.188.69.116    6718869116    0    def
+11/20/2017 14:36:34 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935T Build/NR    172.56.34.156    1725634156    0    def
+11/20/2017 15:13:33 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    216.4.23.34    21642334    0    def
+11/20/2017 15:14:18 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 15:18:38 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    108.24.43.195    1082443195    0    def
+11/20/2017 15:38:43 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR    70.196.135.22    7019613522    0    def
+11/20/2017 15:41:12 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.209.67.107    17420967107    0    def
+11/20/2017 15:56:07 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.205.199    10777205199    0    def
+11/20/2017 16:02:55 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 16:07:42 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.209.24.196    17420924196    0    def
+11/20/2017 16:14:56 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac     50.201.95.250    5020195250    0    def
+11/20/2017 16:18:51 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 16:25:49 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    73.153.123.31    7315312331    0    def
+11/20/2017 16:50:18 PM    Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LR    75.128.135.153    75128135153    0    def
+11/20/2017 16:59:37 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.209.67.107    17420967107    2    def
+11/20/2017 17:08:35 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    24.1.172.112    241172112    2    def
+11/20/2017 17:18:59 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    172.58.168.95    1725816895    0    def
+11/20/2017 17:23:02 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 17:24:38 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    107.77.228.110    10777228110    0    def
+11/20/2017 17:29:56 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS    66.249.92.139    6624992139    0    def
+11/20/2017 17:34:33 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 17:41:33 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    73.54.172.170    7354172170    0    def
+11/20/2017 17:45:54 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    73.54.172.170    7354172170    0    def
+11/20/2017 17:57:03 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    172.58.169.135    17258169135    0    def
+11/20/2017 18:03:45 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G930A     107.77.245.4    107772454    0    def
+11/20/2017 18:11:58 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    76.182.77.127    7618277127    1    def
+11/20/2017 18:14:20 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-J327P Build/    174.111.252.44    17411125244    0    def
+11/20/2017 18:16:05 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 18:36:34 PM    Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG-SM-G920    107.77.231.122    10777231122    0    def
+11/20/2017 18:46:19 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.110.92.172    17411092172    2    def
+11/20/2017 18:49:51 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.110.92.172    17411092172    2    CTC
+11/20/2017 18:51:55 PM    Mozilla/5.0 (Linux; Android 6.0.1; Z981 Build/MMB2    172.58.40.15    172584015    0    def
+11/20/2017 18:54:31 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    208.104.48.203    20810448203    0    def
+11/20/2017 18:55:23 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/20/2017 19:15:39 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR    204.139.85.254    20413985254    0    def
+11/20/2017 19:16:34 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    74.74.88.29    74748829    0    def
+11/20/2017 19:17:42 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 19:20:27 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    100.6.95.103    100695103    0    def
+11/20/2017 19:26:31 PM    Mozilla/5.0 (Linux; Android 6.0.1; XT1254 Build/MC    97.86.128.24    978612824    0    def
+11/20/2017 19:29:47 PM    Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G900    73.228.10.175    7322810175    0    def
+11/20/2017 19:42:45 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G955U     208.54.5.220    208545220    0    def
+11/20/2017 19:43:48 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/20/2017 19:49:21 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    66.176.216.108    66176216108    0    def
+11/20/2017 20:28:42 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    97.88.206.52    978820652    0    def
+11/20/2017 20:28:44 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    63.153.28.147    6315328147    0    def
+11/20/2017 20:33:42 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    107.77.231.139    10777231139    0    def
+11/20/2017 20:36:02 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac    174.195.144.126    174195144126    0    def
+11/20/2017 20:38:18 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    73.41.201.198    7341201198    0    def
+11/20/2017 21:05:54 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    73.67.248.43    736724843    0    def
+11/20/2017 21:08:10 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/20/2017 21:53:40 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    74.107.124.38    7410712438    0    def
+11/20/2017 21:55:12 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/20/2017 22:03:11 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    47.41.28.232    474128232    0    def
+11/20/2017 22:18:26 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/20/2017 22:49:11 PM    Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5     66.102.6.57    66102657    0    def
+11/21/2017 01:38:42 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/21/2017 02:12:27 AM    Mozilla/5.0 (Linux; Android 4.4.4; XT1080 Build/SU    73.214.194.216    73214194216    0    def
+11/21/2017 02:24:00 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR    152.208.34.25    1522083425    0    def
+11/21/2017 03:16:30 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/21/2017 03:19:44 AM    Mozilla/5.0 (Linux; Android 4.4.4; XT1045 Build/KX    24.6.130.49    24613049    0    def
+11/21/2017 04:24:19 AM    Mozilla/5.0 (iPhone; U; CPU iPhone OS 10_3_3 like     174.233.132.11    17423313211    0    def
+11/21/2017 04:32:36 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    74.136.41.164    7413641164    0    def
+11/21/2017 04:58:38 AM    Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5     66.102.6.59    66102659    0    def
+11/21/2017 04:58:43 AM    Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5     66.102.6.57    66102657    0    def
+11/21/2017 04:58:43 AM    Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5     66.102.6.59    66102659    0    def
+11/21/2017 04:58:43 AM    Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5     66.102.6.57    66102657    0    def
+11/21/2017 05:01:21 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    97.97.247.128    9797247128    0    def
+11/21/2017 05:39:06 AM    Mozilla/5.0 (Linux; Android 6.0.1; SM-S903VL Build    67.76.39.217    677639217    0    def
+11/21/2017 06:04:34 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/21/2017 06:20:27 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    74.136.41.164    7413641164    1    def
+11/21/2017 06:30:26 AM    Mozilla/5.0 (Linux; Android 6.0.1; XT1254 Build/MC    96.70.106.233    9670106233    0    def
+11/21/2017 06:30:47 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    74.136.41.164    7413641164    1    CTC
+11/21/2017 06:44:51 AM    Mozilla/5.0 (Linux; Android 5.0.1; SCH-I545 Build/    70.214.68.1    70214681    0    def
+11/21/2017 07:09:23 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    137.100.133.100    137100133100    0    def
+11/21/2017 07:12:06 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/21/2017 07:23:56 AM    Mozilla/5.0 (Linux; Android 6.0.1; Redmi 4 Build/M    176.12.182.221    17612182221    0    def
+11/21/2017 07:55:26 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    65.55.210.95    655521095    0    def
+11/21/2017 08:02:09 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O    99.203.17.176    9920317176    0    def
+11/21/2017 08:12:29 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.249.10    1077724910    0    def
+11/21/2017 08:20:40 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    65.132.8.226    651328226    2    def
+11/21/2017 08:38:46 AM    Mozilla/5.0 (Linux; Android 6.0.1; Redmi 4 Build/M    176.12.182.221    17612182221    2    def
+11/21/2017 09:06:00 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/21/2017 09:06:39 AM    Mozilla/5.0 (Linux; Android 7.1.1; SAMSUNG SM-N950    166.182.83.232    16618283232    0    def
+11/21/2017 09:31:30 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G935T Build/NR    172.58.152.176    17258152176    0    def
+11/21/2017 09:37:11 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    209.124.242.102    209124242102    0    def
+11/21/2017 09:47:15 AM    Mozilla/5.0 (Linux; Android 7.1.1; SM-J700P Build/    99.203.26.37    992032637    0    def
+11/21/2017 09:49:30 AM    Mozilla/5.0 (Linux; Android 4.4.4; N817 Build/KTU8    99.203.15.17    992031517    0    def
+11/21/2017 09:55:53 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac    174.227.9.45    174227945    0    def
+11/21/2017 10:03:46 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G930A     107.77.235.93    1077723593    1    def
+11/21/2017 10:13:46 AM    Mozilla/5.0 (Linux; Android 6.0.1; Z833 Build/MMB2    107.77.212.149    10777212149    0    def
+11/21/2017 10:29:10 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.216.145    10777216145    1    def
+11/21/2017 10:40:37 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/21/2017 10:53:30 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    174.227.141.184    174227141184    2    def
+11/21/2017 10:57:14 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    107.77.231.152    10777231152    0    def
+11/21/2017 11:16:29 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/21/2017 11:24:11 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR    174.209.18.247    17420918247    0    def
+11/21/2017 11:37:42 AM    Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; LGL41    173.166.127.233    173166127233    0    def
+11/21/2017 11:54:16 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    24.59.3.148    24593148    0    def
+11/21/2017 12:17:40 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G890A     107.77.210.138    10777210138    0    def
+11/21/2017 12:22:47 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    69.246.157.14    6924615714    0    def
+11/21/2017 12:40:06 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/21/2017 12:42:40 PM    Mozilla/5.0 (Linux; Android 6.0.1; Redmi 4 Build/M    176.12.184.141    17612184141    2    def
+11/21/2017 12:48:28 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930A     73.95.133.98    739513398    0    def
+11/21/2017 13:02:13 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    70.211.16.104    7021116104    2    def
+11/21/2017 13:13:45 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    172.115.255.178    172115255178    0    def
+11/21/2017 13:29:51 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G920P Build/NR    72.210.71.63    722107163    0    def
+11/21/2017 13:30:08 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    172.115.255.178    172115255178    2    CTC
+11/21/2017 13:32:13 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    66.87.118.53    668711853    0    def
+11/21/2017 13:40:02 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    66.87.118.53    668711853    0    def
+11/21/2017 14:19:39 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    104.230.11.143    10423011143    0    def
+11/21/2017 14:35:20 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/21/2017 15:03:02 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    68.7.73.234    68773234    0    def
+11/21/2017 15:13:17 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS    66.249.92.141    6624992141    0    def
+11/21/2017 15:17:41 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    107.77.205.48    1077720548    0    def
+11/21/2017 15:26:59 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935T Build/NR    172.58.232.11    1725823211    0    def
+11/21/2017 16:05:27 PM    Mozilla/5.0 (Linux; Android 7.0; FRD-L04 Build/HUA    107.77.169.2    107771692    0    def
+11/21/2017 16:08:18 PM    Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG SPH-L72    99.203.143.2    992031432    0    def
+11/21/2017 16:23:43 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    99.203.16.173    9920316173    0    def
+11/21/2017 16:30:52 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    107.77.197.110    10777197110    1    def
+11/21/2017 16:43:29 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    73.36.18.48    73361848    0    def
+11/21/2017 16:44:32 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-G900V Build/    174.230.7.113    1742307113    0    def
+11/21/2017 16:47:07 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G928A     108.24.45.228    1082445228    0    def
+11/21/2017 16:55:14 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    100.6.95.103    100695103    1    def
+11/21/2017 16:57:20 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G930U Build/NR    107.77.169.11    1077716911    0    def
+11/21/2017 17:13:44 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    174.229.4.242    1742294242    0    def
+11/21/2017 17:22:32 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    24.59.3.148    24593148    0    def
+11/21/2017 17:29:40 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    74.74.88.29    74748829    1    def
+11/21/2017 17:56:54 PM    Mozilla/5.0 (Linux; Android 5.1.1; LG-K330 Build/L    172.56.15.100    1725615100    0    def
+11/21/2017 18:00:30 PM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G935A     107.77.196.111    10777196111    0    def
+11/21/2017 18:03:32 PM    Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) Ap    99.203.27.63    992032763    0    def
+11/21/2017 18:03:38 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    99.203.27.63    992032763    0    def
+11/21/2017 18:05:16 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.209.11.1    174209111    2    def
+11/21/2017 18:13:02 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.209.11.1    174209111    2    def
+11/21/2017 18:15:25 PM    Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;    176.9.17.51    17691751    0    def
+11/21/2017 18:17:49 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    69.246.157.14    6924615714    1    def
+11/21/2017 18:30:54 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/21/2017 18:45:59 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    108.248.252.9    1082482529    0    def
+11/21/2017 18:50:54 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR    71.223.171.63    7122317163    0    def
+11/21/2017 18:52:06 PM    Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR    72.81.142.13    728114213    0    def
+11/21/2017 18:54:21 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    67.141.107.6    671411076    0    def
+11/21/2017 18:59:36 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    108.248.252.9    1082482529    1    def
+11/21/2017 19:03:29 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    98.236.160.144    98236160144    0    def
+11/21/2017 19:04:57 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/21/2017 19:14:55 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    172.14.15.15    172141515    0    def
+11/21/2017 19:15:36 PM    facebookexternalhit/1.1    69.171.225.144    69171225144    0    def
+11/21/2017 19:18:43 PM    Mozilla/5.0 (iPad; CPU OS 11_0_3 like Mac OS X) Ap    108.65.52.133    1086552133    0    def
+11/21/2017 19:27:25 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    40.77.179.73    407717973    0    def
+11/21/2017 19:36:29 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    172.56.42.154    1725642154    0    def
+11/21/2017 19:39:40 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    174.224.10.129    17422410129    0    def
+11/21/2017 19:54:03 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    68.4.85.166    68485166    0    def
+11/21/2017 20:10:31 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    70.195.130.133    70195130133    0    def
+11/21/2017 20:16:18 PM    Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebK    68.7.218.15    68721815    1    def
+11/21/2017 20:16:29 PM    Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebK    68.7.218.15    68721815    1    def
+11/21/2017 20:40:22 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-G900V Build/    174.216.20.231    17421620231    0    def
+11/21/2017 20:40:29 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/21/2017 20:43:29 PM    Mozilla/5.0 (Linux; Android 6.0.1; SM-N910V Build/    70.195.209.88    7019520988    0    def
+11/21/2017 20:54:58 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    173.24.38.72    173243872    0    def
+11/21/2017 21:58:25 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/21/2017 23:18:25 PM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    2    def
+11/21/2017 23:37:46 PM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    0    def
+11/21/2017 23:41:48 PM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    198.255.234.76    19825523476    0    def
+11/22/2017 01:14:57 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/22/2017 01:50:50 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac    107.161.238.151    107161238151    0    def
+11/22/2017 01:52:07 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.76    662496676    0    def
+11/22/2017 02:04:58 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    65.132.8.226    651328226    2    def
+11/22/2017 02:34:22 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    0    def
+11/22/2017 03:15:26 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    2    def
+11/22/2017 03:16:27 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    0    def
+11/22/2017 03:37:50 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    1    def
+11/22/2017 03:41:30 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    1    def
+11/22/2017 04:14:32 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    66.67.93.16    66679316    2    def
+11/22/2017 04:15:34 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    2    def
+11/22/2017 04:51:31 AM    Mozilla/5.0 (Linux; Android 7.0; SM-N920P Build/NR    66.87.133.16    668713316    2    def
+11/22/2017 04:51:38 AM    Mozilla/5.0 (Linux; Android 7.0; SM-N920P Build/NR    66.87.133.16    668713316    2    def
+11/22/2017 05:11:08 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac    24.131.87.60    241318760    2    def
+11/22/2017 05:32:06 AM    Mozilla/5.0 (Linux; Android 7.0; SM-J727T Build/NR    172.58.11.160    1725811160    1    def
+11/22/2017 06:03:49 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    107.77.226.130    10777226130    1    def
+11/22/2017 06:11:01 AM    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA    27.54.165.218    2754165218    1    def
+11/22/2017 06:11:15 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac    162.234.8.19    162234819    2    def
+11/22/2017 06:48:18 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    24.145.81.96    241458196    2    def
+11/22/2017 07:47:30 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    1    def
+11/22/2017 08:02:20 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac    107.4.56.100    107456100    2    def
+11/22/2017 08:04:50 AM    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930P     68.229.99.7    68229997    2    def
+11/22/2017 08:06:31 AM    Mozilla/5.0 (Linux; Android 5.0.1; SCH-I545 Build/    96.18.222.214    9618222214    2    def
+11/22/2017 08:53:47 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    2    def
+11/22/2017 09:44:35 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS    199.30.24.83    199302483    1    def
+11/22/2017 09:57:28 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    1    def
+11/22/2017 09:57:32 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.75    662496675    1    def
+11/22/2017 10:27:28 AM    Mozilla/5.0 (Linux; Android 5.1.1; SM-J100VPP Buil    174.208.18.136    17420818136    1    def
+11/22/2017 10:29:12 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    172.221.199.65    17222119965    1    def
+11/22/2017 10:38:55 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.194.9.76    174194976    1    def
+11/22/2017 11:22:39 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    174.209.20.170    17420920170    1    def
+11/22/2017 11:23:32 AM    Mozilla/5.0 (Linux; Android 7.0; LGMP260 Build/NRD    172.58.108.81    1725810881    2    def
+11/22/2017 11:26:27 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    75.183.51.185    7518351185    2    def
+11/22/2017 11:26:31 AM    Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR    75.183.51.185    7518351185    2    def
+11/22/2017 11:43:09 AM    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/    66.249.66.77    662496677    2    def
+11/22/2017 11:52:47 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac    107.77.226.71    1077722671    1    def
+11/22/2017 11:53:33 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac    72.168.160.104    72168160104    1    def
+11/22/2017 11:57:37 AM    Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac    107.77.217.112    10777217112    1    def
+11/22/2017 12:23:35 PM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	68.7.215.174	687215174	1	 Main
+11/22/2017 12:24:01 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	70.196.144.152	70196144152	0	 Main
+11/22/2017 12:26:58 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_2 like Mac O	107.77.210.40	1077721040	0	 Main
+11/22/2017 12:29:47 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	70.209.198.58	7020919858	0	 Main
+11/22/2017 12:37:44 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac	107.77.217.112	10777217112	2	 Main
+11/22/2017 12:40:50 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/22/2017 12:58:51 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	75.38.238.165	7538238165	0	 Main
+11/22/2017 13:03:02 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	67.220.165.162	67220165162	1	 Main
+11/22/2017 13:05:58 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	67.220.165.162	67220165162	1	 ThYou
+11/22/2017 14:11:54 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/22/2017 14:15:33 PM	Mozilla/5.0 (compatible; SurdotlyBot/1.0; +http://	199.101.132.161	199101132161	0	 Main
+11/22/2017 14:15:35 PM	Mozilla/5.0 (compatible; SurdotlyBot/1.0; +http://	199.101.132.161	199101132161	0	 Main
+11/22/2017 14:23:23 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	174.196.131.130	174196131130	0	 Main
+11/22/2017 14:56:29 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	75.38.238.165	7538238165	1	 Main
+11/22/2017 15:02:26 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	172.73.248.89	1727324889	2	 Main
+11/22/2017 15:16:52 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac	47.186.203.125	47186203125	2	 Main
+11/22/2017 15:49:50 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	73.41.201.198	7341201198	1	 Main
+11/22/2017 15:52:58 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac	107.77.231.32	1077723132	0	 Main
+11/22/2017 16:41:13 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/22/2017 16:46:18 PM	Mozilla/5.0 (Linux; Android 5.1.1; LG-K330 Build/L	172.56.16.17	172561617	0	 Main
+11/22/2017 16:49:15 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	67.220.165.162	67220165162	1	 Main
+11/22/2017 17:39:21 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	74.242.203.234	74242203234	1	 Main
+11/22/2017 17:48:06 PM	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;	176.9.100.72	176910072	0	 Main
+11/22/2017 17:58:03 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	68.4.190.138	684190138	0	 Main
+11/22/2017 18:01:30 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	66.176.143.217	66176143217	0	 Main
+11/22/2017 18:11:31 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/M	74.140.202.234	74140202234	0	 Main
+11/22/2017 18:19:44 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	174.209.20.170	17420920170	2	 Main
+11/22/2017 18:22:53 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	70.233.107.162	70233107162	0	 Main
+11/22/2017 19:03:00 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	71.187.251.85	7118725185	0	 Main
+11/22/2017 19:15:26 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G930R4 Build/N	96.39.189.38	963918938	0	 Main
+11/22/2017 19:18:52 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	174.193.165.47	17419316547	1	 Main
+11/22/2017 19:50:28 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	72.178.192.151	72178192151	0	 Main
+11/22/2017 20:13:45 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	70.209.198.58	7020919858	1	 Main
+11/22/2017 20:32:30 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	98.161.213.11	9816121311	0	 Main
+11/22/2017 20:58:16 PM	Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebK	27.54.165.218	2754165218	2	 Main
+11/22/2017 21:25:22 PM	Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR	73.239.66.107	7323966107	0	 Main
+11/22/2017 21:27:47 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	70.197.68.146	7019768146	0	 Main
+11/22/2017 21:39:57 PM	Mozilla/5.0 (Linux; Android 5.0.1; SCH-R970 Build/	198.210.122.208	198210122208	0	 Main
+11/22/2017 22:08:06 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	66.87.119.92	668711992	0	 Main
+11/22/2017 22:35:09 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	66.87.119.37	668711937	0	 Main
+11/22/2017 22:37:54 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/23/2017 00:21:35 AM	Mozilla/5.0 (Linux; Android 5.1; HT7Pro Build/LMY4	172.56.13.254	1725613254	0	 Main
+11/23/2017 01:04:02 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/23/2017 01:41:18 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/23/2017 01:49:07 AM	Mozilla/5.0 (Linux; Android 7.0; Vivo 5R Build/NRD	107.77.253.4	107772534	0	 Main
+11/23/2017 01:59:01 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	0	 Main
+11/23/2017 02:08:12 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	184.167.194.65	18416719465	0	 Main
+11/23/2017 02:43:18 AM	Mozilla/5.0 (Windows NT 6.1; WOW64) SkypeUriPrevie	104.45.18.178	1044518178	0	 Main
+11/23/2017 02:43:21 AM	Mozilla/5.0 (Windows NT 6.1; WOW64) SkypeUriPrevie	23.99.101.118	2399101118	0	 Main
+11/23/2017 02:43:30 AM	Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebK	150.107.101.163	150107101163	2	 Main
+11/23/2017 03:04:42 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/23/2017 03:10:29 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	150.107.101.163	150107101163	2	 ThYou
+11/23/2017 03:13:41 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	150.107.101.163	150107101163	2	 Main
+11/23/2017 03:33:56 AM	Mozilla/5.0 (Linux; Android 7.1.1; SM-N950U Build/	66.74.187.60	667418760	0	 Main
+11/23/2017 03:35:42 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	73.250.168.31	7325016831	0	 Main
+11/23/2017 03:43:36 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	0	 Main
+11/23/2017 03:49:28 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	69.248.236.27	6924823627	0	 Main
+11/23/2017 03:53:06 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G935F Build/NR	84.241.203.216	84241203216	0	 Main
+11/23/2017 04:07:20 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/23/2017 04:45:50 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	71.187.251.85	7118725185	0	 Main
+11/23/2017 04:48:39 AM	Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG-SM-G935	107.77.234.204	10777234204	0	 Main
+11/23/2017 05:28:49 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	0	 Main
+11/23/2017 05:51:11 AM	Mozilla/5.0 (Linux; Android 6.0.1; SM-S120VL Build	174.255.133.9	1742551339	0	 Main
+11/23/2017 06:09:31 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/23/2017 06:19:31 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	63.153.112.123	63153112123	0	 Main
+11/23/2017 06:28:38 AM	Mozilla/5.0 (Linux; Android 7.1.1; XT1650 Build/NC	98.29.11.145	982911145	0	 Main
+11/23/2017 07:02:28 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	99.203.10.50	992031050	0	 Main
+11/23/2017 07:44:38 AM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G890A 	24.91.231.77	249123177	0	 Main
+11/23/2017 08:01:37 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	107.77.199.210	10777199210	0	 Main
+11/23/2017 08:02:29 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/23/2017 08:03:26 AM	Mozilla/5.0 (Linux; Android 6.0.1; SM-N915V Build/	107.2.94.208	107294208	0	 Main
+11/23/2017 08:54:13 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	108.82.144.121	10882144121	0	 Main
+11/23/2017 09:04:34 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR	75.139.5.83	75139583	0	 Main
+11/23/2017 09:15:24 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/23/2017 09:54:42 AM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930P 	99.203.26.85	992032685	0	 Main
+11/23/2017 09:56:00 AM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930T 	172.58.21.33	172582133	0	 Main
+11/23/2017 09:57:21 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	174.209.20.170	17420920170	0	 Main
+11/23/2017 10:11:18 AM	Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.	41.114.204.242	41114204242	0	 Main
+11/23/2017 10:14:11 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.77	662496677	0	 Main
+11/23/2017 10:48:27 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	174.131.100.109	174131100109	0	 Main
+11/23/2017 10:52:02 AM	Mozilla/5.0 (Linux; Android 5.1.1; LG-K330 Build/L	172.56.31.239	1725631239	2	 Main
+11/23/2017 11:11:15 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac O	174.16.236.232	17416236232	0	 Main
+11/23/2017 11:19:38 AM	Mozilla/5.0 (Linux; Android 4.4.4; XT1080 Build/SU	97.43.129.59	974312959	0	 Main
+11/23/2017 11:20:06 AM	Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR	72.83.241.194	7283241194	0	 Main
+11/23/2017 11:29:55 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	104.13.76.58	104137658	1	 Main
+11/23/2017 11:29:55 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	104.13.76.58	104137658	1	 Main
+11/23/2017 11:31:47 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	96.36.128.95	963612895	0	 Main
+11/23/2017 11:36:55 AM	Mozilla/5.0 (Linux; Android 4.4.4; XT1080 Build/SU	174.230.129.227	174230129227	1	 Main
+11/23/2017 12:03:17 PM	Mozilla/5.0 (Linux; Android 4.4.4; XT1080 Build/SU	50.45.206.214	5045206214	0	 Main
+11/23/2017 12:13:57 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	66.36.116.14	663611614	1	 Main
+11/23/2017 12:46:38 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	174.54.113.182	17454113182	0	 Main
+11/23/2017 12:46:40 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/23/2017 12:47:24 PM	Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR	72.83.241.194	7283241194	0	 Main
+11/23/2017 12:48:38 PM	Mozilla/5.0 (Linux; Android 7.1.1; SAMSUNG SM-N950	172.58.11.169	1725811169	0	 Main
+11/23/2017 13:03:03 PM	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) App	64.89.234.161	6489234161	0	 Main
+11/23/2017 13:39:24 PM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG-SM-G930A 	70.178.253.156	70178253156	0	 Main
+11/23/2017 14:14:30 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR	71.8.75.104	71875104	0	 Main
+11/23/2017 14:32:31 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR	73.168.232.71	7316823271	0	 Main
+11/23/2017 14:39:34 PM	Mozilla/5.0 (Linux; Android 7.1.1; XT1650 Build/NC	71.58.157.28	715815728	0	 Main
+11/23/2017 14:39:43 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	71.58.157.28	715815728	0	 Main
+11/23/2017 14:46:54 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	104.178.66.35	1041786635	0	 Main
+11/23/2017 15:31:49 PM	Mozilla/5.0 (Linux; Android 6.0.1; LG-H740 Build/M	107.77.235.131	10777235131	0	 Main
+11/23/2017 15:53:38 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	174.96.229.90	1749622990	0	 Main
+11/23/2017 16:05:53 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	72.89.181.48	728918148	2	 Main
+11/23/2017 16:12:14 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	66.63.113.87	666311387	0	 Main
+11/23/2017 16:24:19 PM	Mozilla/5.0 (Linux; Android 7.1.1; SM-J700T1 Build	172.58.173.4	172581734	0	 Main
+11/23/2017 16:27:17 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	174.85.132.94	1748513294	0	 Main
+11/23/2017 16:39:19 PM	Mozilla/5.0 (Linux; Android 7.0; SM-N920V Build/NR	70.172.193.73	7017219373	0	 Main
+11/23/2017 16:40:05 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	209.6.177.125	2096177125	0	 Main
+11/23/2017 17:23:28 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/23/2017 17:50:34 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	107.77.253.9	107772539	0	 Main
+11/23/2017 17:55:53 PM	Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 Build/O	208.53.100.193	20853100193	0	 Main
+11/23/2017 17:58:43 PM	Mozilla/5.0 (Linux; Android 6.0.1; LG-K428 Build/M	97.71.46.19	97714619	0	 Main
+11/23/2017 18:02:19 PM	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;	176.9.103.243	1769103243	0	 Main
+11/23/2017 18:07:43 PM	Mozilla/5.0 (Linux; Android 7.0; Moto G (4) Build/	70.59.145.51	705914551	0	 Main
+11/23/2017 18:09:01 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	104.10.134.161	10410134161	0	 Main
+11/23/2017 18:09:25 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	142.196.111.20	14219611120	0	 Main
+11/23/2017 18:27:06 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	174.208.17.136	17420817136	0	 Main
+11/23/2017 18:30:52 PM	Mozilla/5.0 (Linux; Android 5.1.1; SM-G530T Build/	64.222.88.79	642228879	0	 Main
+11/23/2017 18:46:46 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	67.212.46.112	6721246112	0	 Main
+11/23/2017 18:54:10 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac	24.147.91.166	2414791166	0	 Main
+11/23/2017 19:08:38 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac	23.127.215.175	23127215175	0	 Main
+11/23/2017 19:11:26 PM	Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR	71.175.182.130	71175182130	0	 Main
+11/23/2017 19:11:41 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/23/2017 19:18:42 PM	Mozilla/5.0 (Linux; Android 7.0; Moto G (4) Build/	98.125.161.78	9812516178	2	 Main
+11/23/2017 19:27:11 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	70.195.71.21	701957121	0	 Main
+11/23/2017 19:28:18 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	107.77.209.38	1077720938	0	 Main
+11/23/2017 19:37:18 PM	Mozilla/5.0 (Linux; Android 6.0.1; SM-G900V Build/	192.243.36.60	1922433660	0	 Main
+11/23/2017 20:18:42 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	99.56.207.68	995620768	0	 Main
+11/23/2017 20:46:16 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	47.223.84.15	472238415	0	 Main
+11/23/2017 20:55:48 PM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	2	 Main
+11/23/2017 21:04:11 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G955U Build/NR	70.211.139.234	70211139234	0	 Main
+11/23/2017 21:12:23 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	69.168.4.34	69168434	0	 Main
+11/23/2017 21:15:02 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	173.72.120.19	1737212019	0	 Main
+11/23/2017 21:20:09 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	104.178.66.35	1041786635	2	 Main
+11/23/2017 21:34:55 PM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	0	 Main
+11/23/2017 21:34:57 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	69.168.4.34	69168434	2	 ThYou
+11/23/2017 21:46:52 PM	Mozilla/5.0 (Linux; Android 4.4.2; LG-VS450PP Buil	97.93.52.24	97935224	0	 Main
+11/23/2017 21:51:16 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	73.67.248.43	736724843	2	 Main
+11/23/2017 22:24:52 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O	172.0.107.99	172010799	0	 Main
+11/23/2017 22:47:18 PM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G955U 	104.60.203.165	10460203165	0	 Main
+11/23/2017 23:34:01 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	172.58.155.124	17258155124	0	 Main
+11/24/2017 01:10:30 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	0	 Main
+11/24/2017 01:12:58 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	68.7.212.131	687212131	1	 Main
+11/24/2017 01:14:45 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS	199.30.25.60	199302560	0	 Main
+11/24/2017 02:25:50 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.77	662496677	0	 Main
+11/24/2017 02:50:57 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	0	 Main
+11/24/2017 03:04:20 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	124.183.197.35	12418319735	0	 Main
+11/24/2017 03:16:51 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_1 like Mac	46.233.77.8	46233778	0	 Main
+11/24/2017 04:24:42 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.77	662496677	0	 Main
+11/24/2017 05:13:05 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	68.47.195.152	6847195152	0	 Main
+11/24/2017 05:38:27 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/24/2017 05:44:57 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G950U Build/NR	66.87.124.227	6687124227	0	 Main
+11/24/2017 05:47:24 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.76	662496676	0	 Main
+11/24/2017 06:08:18 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	27.54.165.218	2754165218	0	 Main
+11/24/2017 06:08:43 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	107.77.199.210	10777199210	0	 Main
+11/24/2017 06:31:45 AM	Mozilla/5.0 (Linux; Android 7.1.1; XT1635-01 Build	70.196.21.209	7019621209	0	 Main
+11/24/2017 06:36:53 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	75.38.238.165	7538238165	1	 Main
+11/24/2017 06:52:26 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.66.75	662496675	0	 Main
+11/24/2017 06:57:29 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	107.77.216.81	1077721681	0	 Main
+11/24/2017 06:57:43 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac O	174.238.136.243	174238136243	0	 Main
+11/24/2017 07:21:37 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	75.38.238.165	7538238165	1	 ThYou
+11/24/2017 07:21:39 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	75.38.238.165	7538238165	1	 Main
+11/24/2017 07:23:37 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NR	75.38.238.165	7538238165	1	 ThYou
+11/24/2017 07:31:35 AM	Mozilla/5.0 (Linux; Android 4.4.2; SM-G386T Build/	69.126.57.216	6912657216	2	 Main
+11/24/2017 07:40:34 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	98.236.176.139	98236176139	0	 Main
+11/24/2017 07:42:16 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	73.187.197.144	73187197144	0	 Main
+11/24/2017 07:43:21 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac	70.196.128.127	70196128127	0	 Main
+11/24/2017 07:47:50 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	107.77.235.219	10777235219	0	 Main
+11/24/2017 08:16:45 AM	Mozilla/5.0 (Linux; Android 4.1.2; SHV-E250S Build	183.36.114.126	18336114126	0	 Main
+11/24/2017 08:28:42 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	73.52.234.124	7352234124	0	 Main
+11/24/2017 08:31:00 AM	Mozilla/5.0 (Linux; Android 7.1.1; SM-N950U Build/	99.203.27.67	992032767	0	 Main
+11/24/2017 08:45:15 AM	Mozilla/5.0 (Linux; Android 7.1.2; E6810 Build/5.3	68.168.198.176	68168198176	0	 Main
+11/24/2017 08:47:13 AM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G955U 	70.118.130.78	7011813078	0	 Main
+11/24/2017 09:01:05 AM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920V 	75.138.59.59	751385959	0	 Main
+11/24/2017 09:13:29 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	99.88.196.91	998819691	0	 Main
+11/24/2017 09:13:44 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	68.7.212.131	687212131	1	 Main
+11/24/2017 09:15:17 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	73.67.248.43	736724843	2	 Main
+11/24/2017 09:15:37 AM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA	68.7.212.131	687212131	0	 Main
+11/24/2017 09:28:17 AM	Mozilla/5.0 (Linux; Android 7.1.1; Moto E (4) Buil	40.138.250.114	40138250114	0	 Main
+11/24/2017 09:30:55 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G920V Build/NR	70.195.195.128	70195195128	0	 Main
+11/24/2017 09:35:54 AM	Mozilla/5.0 (Linux; Android 5.1.1; LG-K330 Build/L	172.56.30.14	172563014	2	 Main
+11/24/2017 09:47:02 AM	Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930A 	99.51.76.78	99517678	0	 Main
+11/24/2017 10:33:39 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	162.232.189.110	162232189110	0	 Main
+11/24/2017 11:03:43 AM	Mozilla/5.0 (Linux; Android 7.1.1; XT1635-01 Build	70.196.1.222	701961222	2	 Main
+11/24/2017 15:23:58 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	67.220.165.162	67220165162	1	 Main
+11/24/2017 15:35:43 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	67.220.165.162	67220165162	1	 Main
+11/24/2017 15:35:51 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	67.220.165.162	67220165162	0	 Main
+11/24/2017 15:39:49 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	67.220.165.162	67220165162	0	 Main
+11/24/2017 16:32:16 PM	Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww	66.249.75.91	662497591	0	 Main
+11/24/2017 17:38:43 PM	Mozilla/5.0 (Linux; Android 5.1.1; LG-K330 Build/L	172.56.30.185	1725630185	2	 Main
+11/24/2017 17:53:58 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.75.90	662497590	0	 Main
+11/24/2017 21:12:12 PM	Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww	66.249.75.89	662497589	0	 Main
+11/24/2017 22:18:04 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.75.89	662497589	0	 Main
+11/25/2017 00:50:16 AM	Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww	66.249.75.91	662497591	0	 Main
+11/25/2017 01:31:16 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.75.90	662497590	0	 Main
+11/25/2017 02:46:19 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.75.90	662497590	0	 Main
+11/25/2017 03:10:44 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac	174.110.92.172	17411092172	2	 Main
+11/25/2017 03:41:35 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	98.236.176.139	98236176139	1	 Main
+11/25/2017 04:42:00 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_2 like Mac	107.77.228.218	10777228218	1	 Main
+11/25/2017 05:23:32 AM	Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww	66.249.75.90	662497590	0	 Main
+11/25/2017 09:17:26 AM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.75.90	662497590	0	 Main
+11/25/2017 09:37:56 AM	Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww	66.249.75.90	662497590	0	 Main
+11/25/2017 09:54:17 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac	98.236.176.139	98236176139	0	 Main
+11/25/2017 12:56:51 PM	Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/	66.249.65.157	6624965157	0	 Main
+11/26/2017 12:49:24 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G920P Build/NR	24.20.86.51	24208651	2	 Main
+11/26/2017 14:18:32 PM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac	97.88.206.52	978820652	1	 Main
+11/26/2017 15:52:28 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G935V Build/NR	70.209.200.227	70209200227	1	 Main
+11/26/2017 20:53:40 PM	Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebK	27.54.165.218	2754165218	1	 Main

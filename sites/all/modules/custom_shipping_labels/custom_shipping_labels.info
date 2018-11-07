@@ -1,0 +1,12 @@
+name = Custom Shipping Labels
+description = Ship paid orders by creating shipping labels
+package = Custom Shipping Labels
+version = VERSION
+core = 7.x
+files[] = custom_shipping_labels.module
+configure = admin/store/orders/custom_shipping_labels
+
+
+; Information added by drupal.org packaging script on 2010-03-21
+version = "7.53"
+datestamp = "1500000000"

@@ -1,0 +1,335 @@
+<?php
+
+/**
+ * @file
+ * Define permissions and admin form paths, and write test JavaScript.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function abjs_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#abjs':
+      $output = <<<EOD
+<h2>Documentation:</h2>
+<p>See <a href="https://www.drupal.org/node/2716391">Module Documentation</a></p>
+EOD;
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function abjs_permission() {
+  return array(
+    'administer ab tests' => array(
+      'title' => t('Administer A/B Test Configuration'),
+      'description' => t('Administer A/B test configuration'),
+    ),
+    'administer ab test scripts and settings' => array(
+      'title' => t('Administer A/B Test Scripts and Settings'),
+      'description' => t('Administer A/B test condition and experience scripts and test settings.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function abjs_menu() {
+
+  $items = array();
+
+  $items['admin/config/user-interface/abjs'] = array(
+    'title' => 'A/B Test JS',
+    'description' => 'Configure settings, tests, conditions, and experiences',
+    'page callback' => 'abjs_test_admin',
+    'access arguments' => array('administer ab tests'),
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/tests'] = array(
+    'title' => 'Tests',
+    'description' => 'A/B Tests',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/conditions'] = array(
+    'title' => 'Conditions',
+    'description' => 'A/B Test Conditions',
+    'page callback' => 'abjs_condition_admin',
+    'access arguments' => array('administer ab tests'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/experiences'] = array(
+    'title' => 'Experiences',
+    'description' => 'A/B Test Experiences',
+    'page callback' => 'abjs_experience_admin',
+    'access arguments' => array('administer ab tests'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 2,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'A/B Test Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_settings_admin'),
+    'access arguments' => array('administer ab test scripts and settings'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 3,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/tests/add'] = array(
+    'title' => 'Add New Test',
+    'description' => 'Add New A/B Test',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_test_form'),
+    'access arguments' => array('administer ab tests'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/tests/%/edit'] = array(
+    'title' => 'Edit Test',
+    'description' => 'Edit A/B Test',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_test_form', 5),
+    'access arguments' => array('administer ab tests'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/tests/%/delete'] = array(
+    'title' => 'Delete This Test',
+    'description' => 'Delete This Test',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_test_delete_confirm_form', 5),
+    'access arguments' => array('administer ab tests'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/conditions/add'] = array(
+    'title' => 'Add New Condition',
+    'description' => 'Add New A/B Test Condition',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_condition_form'),
+    'access arguments' => array('administer ab test scripts and settings'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/conditions/%/edit'] = array(
+    'title' => 'Edit Condition',
+    'description' => 'Edit A/B Test Condition',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_condition_form', 5),
+    'access arguments' => array('administer ab test scripts and settings'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/conditions/%/delete'] = array(
+    'title' => 'Delete This Condition',
+    'description' => 'Delete This Condition',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_condition_delete_confirm_form', 5),
+    'access arguments' => array('administer ab test scripts and settings'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/experiences/add'] = array(
+    'title' => 'Add New Experience',
+    'description' => 'Add New A/B Test Experience',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_experience_form'),
+    'access arguments' => array('administer ab test scripts and settings'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/experiences/%/edit'] = array(
+    'title' => 'Edit Experience',
+    'description' => 'Edit A/B Test Experience',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_experience_form', 5),
+    'access arguments' => array('administer ab test scripts and settings'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  $items['admin/config/user-interface/abjs/experiences/%/delete'] = array(
+    'title' => 'Delete This Experience',
+    'description' => 'Delete This Experience',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('abjs_experience_delete_confirm_form', 5),
+    'access arguments' => array('administer ab test scripts and settings'),
+    'type' => MENU_CALLBACK,
+    'file' => 'abjs.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Outputs testing javascript for all valid and active tests inline at top of
+ * scripts via drupal_add_js.
+ */
+function abjs_preprocess_html(&$vars) {
+  if (path_is_admin(current_path())) {
+    return;
+  }
+
+  // Get all active tests that have at least one experience.
+  $test_results = db_query("SELECT DISTINCT t.tid FROM {abjs_test} AS t LEFT JOIN {abjs_test_condition} AS tc ON t.tid = tc.tid INNER JOIN {abjs_test_experience} AS te ON t.tid = te.tid WHERE t.active=1");
+  $tests = $test_results->fetchAll();
+
+  // At least one test with at least one condition and at least one experience.
+  // must be active for any script to be added to the page. Because of this,
+  // we don't need a similar check later for conditions and experiences
+  // individually.
+  if (empty($tests)) {
+    return;
+  }
+
+  // The following section prints out javascript objects for the active tests,
+  // conditions, and experiences.
+  $abjs_script = abjs_generate_js($tests);
+
+  // Outputting javascript inline above other scripts for fastest execution.
+  // Group is set to -1000 to output before JS_LIBRARY (which is -100). Note
+  // that there are no dependencies for this JavaScript. Use hook_js_alter to
+  // alter loading order.
+  drupal_add_js($abjs_script, array(
+    'type' => 'inline',
+    'scope' => 'header',
+    'group' => -1000,
+  ));
+}
+
+/**
+ * Builds the javascript for all active and valid A/B tests.
+ *
+ * @param array $tests
+ *   An array of database result objects from a query on abjs_test to get all
+ *   active and valid tests.
+ *
+ * @return string
+ *   A string of javascript for running all tests.
+ *
+ *   - abTests will be an array of test objects. Each abTest object has these
+ *     properties:
+ *   -- name: The name of the test, equal to the test id. This will be used as
+ *      the name of the cookie that gets assigned this test, prefixed by
+ *      abjs_cookie_prefix from the variables table.
+ *   -- conditions: An array of condition strings with the names of the
+ *      condition functions to run. The condition strings are prefixed by con_,
+ *      followed by the primary id from the test table and primary id from the
+ *      condition table, which is used instead of the condition table so that we
+ *      don't get duplicate function definitions with the same name.
+ *   -- experiences: An array of experience objects. Each experience object has
+ *      these properties:
+ *   --- name: The name of the experience, equal to the experience id. This will
+ *       be used as the value of the cookie that gets assigned for this test.
+ *   --- fraction: The probability of this experience getting chosen. If all
+ *       experience probabilities for a single test add to less than 1, the
+ *       remainder is the probability that a user will not be in the test on
+ *       each page hit. If probabilities add to greater than 1, experiences may
+ *       have less than their stated probability of occurring.
+ *   --- script: The name of the function for this experience. The name is
+ *       prefixed by exp_, followed by the primary id from the test table and
+ *       primary id from the experience table, which is used instead of the
+ *       experience table so that we don't get duplicate function definitions
+ *       with the same name.
+ *   - abConditions will be an array of condition functions that apply to the
+ *     active tests, named the same as abTest.conditions above, and using the
+ *     condition script from the condition table.
+ *   - abExperiences will be an array of experience functions that apply to the
+ *     active tests, named the same as abTest.experiences above, and using the
+ *     experience script from the experience table.
+ */
+function abjs_generate_js(array $tests) {
+  if (empty($tests)) {
+    return '';
+  }
+
+  $tests_js = array();
+
+  for ($i = 0; $i < count($tests); $i++) {
+    // Set name of this test to the tid.
+    $tests_js[$i] = array(
+      'name' => "t_{$tests[$i]->tid}",
+      'conditions' => array(),
+      'experiences' => array(),
+    );
+
+    // Get all conditions associated with this test,and make functions for the
+    // scripts.
+    $condition_results = db_query("SELECT tc.tid, tc.cid, c.script FROM {abjs_condition} AS c INNER JOIN {abjs_test_condition} AS tc ON c.cid = tc.cid WHERE tc.tid = :tid", array(':tid' => $tests[$i]->tid));
+    $conditions = $condition_results->fetchAll();
+    for ($j = 0; $j < count($conditions); $j++) {
+      $tests_js[$i]['conditions'][$j] = $conditions[$j]->script;
+    }
+
+    // Get all experiences associated with this test and their fractions, make
+    // a name for the value of the test cookie, and make functions for the
+    // scripts.
+    $experience_results = db_query("SELECT te.tid, te.eid, e.script, te.fraction FROM {abjs_experience} AS e INNER JOIN {abjs_test_experience} AS te ON e.eid = te.eid WHERE te.tid = :tid", array(':tid' => $tests[$i]->tid));
+    $experiences = $experience_results->fetchAll();
+    for ($j = 0; $j < count($experiences); $j++) {
+      $tests_js[$i]['experiences'][$j] = array(
+        'name' => "e_{$experiences[$j]->eid}",
+        'fraction' => $experiences[$j]->fraction,
+        'script' => $experiences[$j]->script,
+      );
+    }
+  }
+
+  // These are the only php variables referenced in the script below.
+  $cookie_prefix_var = variable_get('abjs_cookie_prefix');
+  $cookie_lifetime_var = variable_get('abjs_cookie_lifetime');
+  $cookie_domain_var = variable_get('abjs_cookie_domain');
+  $cookie_secure_var = variable_get('abjs_cookie_secure');
+  $cookie_prefix = !empty($cookie_prefix_var) ? $cookie_prefix_var : 'abjs_';
+  $cookie_lifetime = !empty($cookie_lifetime_var) ? $cookie_lifetime_var : '30';
+  $cookie_lifetime = floatval($cookie_lifetime);
+  $cookie_domain = !empty($cookie_domain_var) ? '; domain=' . $cookie_domain_var : '';
+  $cookie_secure = !empty($cookie_secure_var) ? '; secure' : '';
+
+  $js_vars = array(
+    'tests' => $tests_js,
+    'cookiePrefix' => $cookie_prefix,
+    'cookieDomain' => $cookie_domain,
+    'cookieLifetime' => $cookie_lifetime,
+    'cookieSecure' => $cookie_secure,
+  );
+  $json = json_encode($js_vars);
+
+  // abjs-common.js is the core functionality of the A/B testing javascript
+  // framework. Visitors that pass the assigned condition scripts for each test
+  // will be randomly placed and cookied into an experience for that test,
+  // based on assigned probabilities for each experience. Each experience has
+  // an associated script that is run for that experience, and all applicable
+  // experience scripts are executed for each visitor on every page load, in
+  // the order in which the tests are defined. The user will have one cookie
+  // for each active test.
+  $common_js = file_get_contents(drupal_get_path('module', 'abjs') . '/js/abjs-common.js');
+
+  $abjs_script = "'use strict'; (function() {var abjs = $json;\n$common_js})();";
+
+  return $abjs_script;
+}
