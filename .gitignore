@@ -11,3 +11,6 @@ tmp
 sites/all/themes/roofbag/.htaccess
 sites/mobile.dd
 sites/sites.php
+.idea
+nbproject
+/nbproject/private/
