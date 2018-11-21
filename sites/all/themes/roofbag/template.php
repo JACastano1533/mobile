@@ -75,3 +75,35 @@ function get_client_ip() {
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
 }
+
+function bb2html($text) {
+  $bbcode = array(
+    "[strong]", "[/strong]",
+    "[b]", "[/b]",
+    "[u]", "[/u]",
+    "[i]", "[/i]",
+    "[em]", "[/em]",
+    "[amp]", "[theta]", "[degree]", "[prime]", "[doubleprime]", "[squareroot]"
+  );
+  $htmlcode = array(
+    "<strong>", "</strong>",
+    "<strong>", "</strong>",
+    "<u>", "</u>",
+    "<em>", "</em>",
+    "<em>", "</em>",
+    "&amp;", "&theta;", "&#176;", "&prime;", "&Prime;", "&radic;"
+  );
+  return str_replace($bbcode, $htmlcode, $text);
+}
+
+function bb_strip($text) {
+  $bbcode = array(
+    "[strong]", "[/strong]",
+    "[b]", "[/b]",
+    "[u]", "[/u]",
+    "[i]", "[/i]",
+    "[em]", "[/em]",
+    "&amp;", "&theta;", "&#176;", "&prime;", "&Prime;", "&radic;"
+  );
+  return str_replace($bbcode, '', $text);
+}
