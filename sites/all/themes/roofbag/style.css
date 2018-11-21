@@ -2062,7 +2062,7 @@ fieldset#comments-pane legend.panel-heading.text-center.bg_none {
 	cursor: pointer;
 }
 .disabled_cart_btn .node-add-to-cart.btn.btn-success.form-submit {
-	background: #ccc none repeat scroll 0 0;
+	
 	border-bottom-color: #ddd;
 	cursor: not-allowed;
 	pointer-events: none;

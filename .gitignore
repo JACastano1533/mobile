@@ -4,10 +4,7 @@ sites/*/settings*.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
-.user.ini
-.htaccesss
-logs
-tmp
-sites/all/themes/roofbag/.htaccess
+.idea
+.htaccess
 sites/mobile.dd
 sites/sites.php
