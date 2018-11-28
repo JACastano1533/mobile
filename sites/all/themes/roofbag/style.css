@@ -3084,4 +3084,30 @@ ul.desktop_header_menu li a:hover { color:#FFFF9C;  }
 
 
 }
+div.faq-category-group{
+	border: 1px solid #ddd;
+	background: #f5f5f5;
+	color:#333;
+	margin: 10px 0;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+div.faq-qa-header{
 
+	color:inherit;
+}
+div.faq-dl-hide-answer{
+	background: #fff;
+}
+h3.faq-header.faq-processed > a {
+
+	color:#333;
+}
+div.faq-question{
+	background: #f5f5f5;
+	border:1px solid #ddd;
+	margin:3px;
+}
+
+div.faq-question.faq-dt-hide-answer.faq-processed > span > a {
+	color:inherit;
+}
