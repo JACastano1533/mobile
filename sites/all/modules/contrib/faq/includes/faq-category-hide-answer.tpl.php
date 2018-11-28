@@ -60,8 +60,9 @@ else {
 }
 // @codingStandardsIgnoreEnd
 
-?>
-
+?><div class="faq-category-group">
+  <!-- category header with title, link, image, description, and count of
+  questions inside -->
   <div class="faq-qa-header">
   <?php if ($display_header): ?>
     <<?php print $hdr; ?> class="faq-header">
@@ -83,12 +84,6 @@ else {
     <div class="clear-block"></div>
   <?php endif; ?>
   </div> <!-- Close div: faq-qa-header -->
-  
-  
-  <div class="faq-category-group">
-  <!-- category header with title, link, image, description, and count of
-  questions inside -->
-  
 
   <?php if (!empty($subcat_list)): ?>
     <!-- list subcategories, with title, link, description, count -->

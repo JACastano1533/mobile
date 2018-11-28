@@ -1050,27 +1050,7 @@ jQuery(document).ready(function () {
                 }
             });
 
-    if (jQuery("#block-system-main .faq-content").length > 0) {
-        jQuery("#block-system-main .faq-content .faq .faq-qa-header").each(function (idx, elem) {
-            jQuery(this).appendTo("#block-system-main .faq-content .faq");
-        });
-        jQuery("#block-system-main .faq-content .faq .faq-category-group").each(function (idx, elem) {
-            jQuery(this).appendTo("#block-system-main .faq-content .faq");
-        });
 
-        jQuery("#block-system-main .faq-content .faq .faq-category-group").eq(0).find(".faq-qa").fadeIn();
-        jQuery("#block-system-main .faq-content .faq .faq-qa-header:first-child .faq-header").addClass("active");
-        jQuery(".region.region-content").prev().addClass("faq_main_heading");
-
-        jQuery("h3.faq-header").click(function () {
-            if (jQuery(this).hasClass("faq-category-qa-visible")) {
-                jQuery("h3.faq-header").removeClass("active");
-                jQuery(this).addClass("active");
-                jQuery(".faq-category-group .faq-qa").hide();
-                jQuery("#block-system-main .faq-content .faq .faq-category-group").eq(jQuery(this).parent().index()).find(".faq-qa").fadeIn();
-            }
-        });
-    }
     jQuery(".accordion-toggle").click(function () {
         var tmp_change = false;
         if (jQuery(this).find("span.glyphicon").hasClass("glyphicon-plus")) {
