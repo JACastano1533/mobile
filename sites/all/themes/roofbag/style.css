@@ -3088,8 +3088,9 @@ div.faq-category-group{
 	border: 1px solid #ddd;
 	background: #f5f5f5;
 	color:#333;
-	margin: 10px 0;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 5px 0;
+	padding-left:5px;
+
 }
 div.faq-qa-header{
 
@@ -3101,6 +3102,8 @@ div.faq-dl-hide-answer{
 h3.faq-header.faq-processed > a {
 
 	color:#333;
+	font-size: 16px;
+
 }
 div.faq-question{
 	background: #f5f5f5;
