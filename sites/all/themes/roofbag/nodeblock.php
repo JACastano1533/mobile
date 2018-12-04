@@ -199,7 +199,7 @@
 			    }
 			}
 		    }
-		    $loader_img = '<div class="loaderimg_wraper opt_loaderimg" style="display:none;">
+		    $loader_img = '<div class="loaderimg_wraper opt_loaderimg " style="display:none;">
       <img id="imgloader" src="' . $base_url . '/sites/all/themes/roofbag/images/loader-new.svg" />
       </div>';
 		    ?>
@@ -255,7 +255,7 @@
 		    $clear_recommended_carriers = '<div class="clear_recommended_carriers_container"></div>';
 
 		    $add_to_cart_btn = '<div class="btn-yellowbig"><button class="node-add-to-cart btn btn-success form-submit" onclick="clickCartButton(\'.node_container\', \'#collapseFive_panel\');" type="button" id="" name="op" value="Add to cart"><span class="icon glyphicon"  aria-hidden="true"></span> Add to cart</button></div>';
-		    echo '<div class="attributes_cstm_wrapper clearfix" ' . $hide . ' data-node="' . $node_id . '">' . $loader_img .'<div class="default-panel">'. $size_html.'</div>'. 
+		    echo '<div class="attributes_cstm_wrapper clearfix" ' . $hide . ' data-node="' . $node_id . '">' . '<div class="default-panel">'. $size_html.'</div>'.
 			' <div class="default-panel">' . $strap_html . '</div>' . $questions_div . $clear_recommended_carriers . $add_to_cart_btn . '</div>';
 		    ?>
 
