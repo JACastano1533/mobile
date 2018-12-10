@@ -3120,4 +3120,5 @@ div.faq-question.faq-dt-hide-answer.faq-processed > span > a {
 }
 .faq-answer{
 	font-weight:normal;
+	background: #f5f5f5;
 }
