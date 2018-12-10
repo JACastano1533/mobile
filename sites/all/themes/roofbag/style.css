@@ -3114,3 +3114,6 @@ div.faq-question{
 div.faq-question.faq-dt-hide-answer.faq-processed > span > a {
 	color:inherit;
 }
+.faq-answer{
+	font-weight:normal;
+}
