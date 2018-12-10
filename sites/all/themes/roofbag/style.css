@@ -3114,6 +3114,9 @@ div.faq-question{
 	border:1px solid #ddd;
 	margin:3px;
 }
+.faq-question{
+	font-weight: 400;
+}
 
 div.faq-question.faq-dt-hide-answer.faq-processed > span > a {
 	color:inherit;
@@ -3121,4 +3124,5 @@ div.faq-question.faq-dt-hide-answer.faq-processed > span > a {
 .faq-answer{
 	font-weight:normal;
 	background: #f5f5f5;
+	font-size: 14px;
 }
