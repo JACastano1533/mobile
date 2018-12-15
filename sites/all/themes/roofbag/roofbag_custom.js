@@ -467,14 +467,7 @@ jQuery(document).ready(function () {
         });
     });
 
-
-
-    jQuery("#views-bootstrap-carousel-1").swiperight(function () {
-        jQuery(this).carousel('prev');
-    });
-    jQuery("#views-bootstrap-carousel-1").swipeleft(function () {
-        jQuery(this).carousel('next');
-    });
+    
     //jQuery("section#home-page").load(function () {
         jQuery("#cart_postal_code, #edit-panes-delivery-delivery-postal-code2").keyup(function (e) {
         
