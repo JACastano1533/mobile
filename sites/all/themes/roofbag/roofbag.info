@@ -5,7 +5,7 @@ base theme =bootstrap
 
 
 stylesheets[all][] = style.css
-scripts[] = gistfile1.js
+;scripts[] = gistfile1.js
 scripts[] = roofbag_custom.js
 scripts[] = js/credit.js
 scripts[] = js/jquery.session.js
