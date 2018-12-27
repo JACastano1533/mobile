@@ -126,6 +126,8 @@ function uc_custom_usps_quote($products, $details, $method) {
 		$USPS_weight = 9;
 	}
 
+
+  $actual_shipping_date= shipping_date_calculator ();
     foreach ($serviceArray AS $key => $service) {
 	$data .= '<Package ID="' . $key . '">'
 		. '<Service>' . $service . '</Service>'
@@ -137,7 +139,7 @@ function uc_custom_usps_quote($products, $details, $method) {
 		. '<Size>REGULAR</Size>'
 		. '<Machinable>TRUE</Machinable>'
 		. '<ReturnLocations>TRUE</ReturnLocations>'
-		. '<ShipDate Option="EMSH">' . $date_request . '</ShipDate>'
+		. '<ShipDate Option="EMSH">' . date_format($actual_shipping_date,"c") . '</ShipDate>'
 		. '</Package>';
     }
     $data .= '</RateV4Request>';
@@ -262,11 +264,12 @@ function uc_custom_usps_quote($products, $details, $method) {
 	// parameters to post
 	curl_setopt($ch, CURLOPT_POST, 1);
 	$date_request = date("d-M-Y");
+	$actual_shipping_date= shipping_date_calculator ();
 	$data = 'XML=<RateV4Request USERID="305PKIND7763"><Revision>2</Revision>
 	<Package ID="0"><Service>ALL</Service><ZipOrigination>92154</ZipOrigination>
 	<ZipDestination>' . $zip_value . '</ZipDestination><Pounds>2</Pounds><Ounces>3.3</Ounces><Container>VARIABLE</Container>
 	<Size>REGULAR</Size><Width>10</Width><Length>10</Length><Height>10</Height><Girth>40</Girth><Value>75</Value>
-	<Machinable>TRUE</Machinable><ReturnLocations>TRUE</ReturnLocations><ShipDate Option="EMSH">' . $date_request . '</ShipDate>
+	<Machinable>TRUE</Machinable><ReturnLocations>TRUE</ReturnLocations><ShipDate Option="EMSH">' . date_format($actual_shipping_date,"c") . '</ShipDate>
 	</Package></RateV4Request>';
 	$data = 'XML=<IntlRateV2Request USERID="305PKIND7763"><Revision>2</Revision><Package ID="0"><Pounds>2</Pounds><Ounces>4</Ounces><MailType>All</MailType><ValueOfContents>85</ValueOfContents><Country>Canada</Country>
 	<Container>RECTANGULAR</Container><Size>REGULAR</Size><Width></Width><Length></Length><Height></Height><Girth></Girth><OriginZip>92154

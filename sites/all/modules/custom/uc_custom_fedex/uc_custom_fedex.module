@@ -5,9 +5,68 @@
  * Shipping quote module that defines custom rate for each product.
  */
 
+require 'vendor/autoload.php';
+use Business\Day;
+use Business\Days;
+use Business\Business;
+use Business\SpecialDay;
+/**
+ * Implements hook_menu().
+ */
+function uc_custom_fedex_menu() {
+  $items = [];
+  // add this to the custom menu 'devel' created by the devel module.
+  $items['admin/shipping-date'] = array(
+    'title' => 'shipping Date',
+    'access arguments' => TRUE,
+    'page callback' => 'shipping_date_calculator',
+  );
+return $items;
+}
+
+
+function shipping_date_calculator (){
+  module_load_include('inc' ,'uc_custom_fedex','ShippingDate');
+  $days = [
+    // Standard days with fixed opening hours
+    new Day(Days::MONDAY, [['7:30 AM', '4 PM']]),
+    new Day(Days::TUESDAY, [['7:30 AM', '4 PM']]),
+    new Day(Days::WEDNESDAY, [['7:30 AM', '4 PM']]),
+    new Day(Days::THURSDAY, [['7:30 AM', '4 PM']]),
+    new Day(Days::FRIDAY, [['7:30 AM', '4 PM']]),
+
+  ];
+  // Optional holiday dates
+  $holidays = [
+    new \DateTime('2018-12-24'),
+    new \DateTime('2018-12-25'),
+    new \DateTime('2018-12-27'),
+    new \DateTime('2018-12-31'),
+    new \DateTime('2019-01-01'),
+    ];
+
+  // Optional business timezone
+  $timezone = new \DateTimeZone('Asia/Kolkata');
+
+  // Create a new Business instance
+  $business = new Business($days, $holidays, $timezone);
+
+
+
+
+
+
+  $date = new \DateTime();
+  // The closest date after Sunday is Wednesday at opening time "2015-06-03 10:00:00"
+  // because Monday and Tuesday are holidays
+  $closestNext = $business->closest($date);
+  return $closestNext;
+
+}
 /**
  * Implements hook_uc_shipping_method().
  */
+
 function uc_custom_fedex_uc_shipping_method() {
     $methods['customfedex'] = array(
 	'id' => 'customfedex',
@@ -189,14 +248,17 @@ function uc_custom_fedex_quote($products, $details, $method) {
 	$box_width = $width;
 	$box_length = $length;
     }
-    
+
+  $actual_shipping_date= shipping_date_calculator ();
+
+
     $data = "<?xml version='1.0'?>  
 	<FDXRateAvailableServicesRequest xmlns:api='http://www.fedex.com/fsmapi' xmlns:xsi='http://www.w3.org/2001/XMLSchemainstance' xsi:noNamespaceSchemaLocation='FDXRateAvailableServicesRequest.xsd'>
 		<RequestHeader>
 			<AccountNumber>1vN6TtJYilEbreCVQktuMg4pX@t9giZERJ1SP8pkBT@353527843@103951883</AccountNumber>
 			<MeterNumber>103951883</MeterNumber>
 		</RequestHeader>
-		<ShipDate>" . date("c") . "</ShipDate>
+		<ShipDate>" . date_format($actual_shipping_date,"c"). "</ShipDate>
 		<DropoffType>REGULAR_PICKUP</DropoffType>
 		<Packaging>YOUR_PACKAGING</Packaging>
 		<WeightUnits>LBS</WeightUnits>

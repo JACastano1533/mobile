@@ -1,0 +1,75 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "78a2a5ad765e5c1eec36789c08f79960",
+    "packages": [
+        {
+            "name": "florianv/business",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/florianv/business.git",
+                "reference": "c48ff909bda95f02adda951da18e18118c29aa73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/florianv/business/zipball/c48ff909bda95f02adda951da18e18118c29aa73",
+                "reference": "c48ff909bda95f02adda951da18e18118c29aa73",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "jeremeamia/superclosure": "^2.1",
+                "phpunit/phpunit": "^4.6"
+            },
+            "suggest": {
+                "jeremeamia/superclosure": "Allows to serialize special days"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Business\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Voutzinos",
+                    "email": "florian@voutzinos.com",
+                    "homepage": "http://florian.voutzinos.com"
+                }
+            ],
+            "description": "DateTime calculations in business hours",
+            "homepage": "https://github.com/florianv/business",
+            "keywords": [
+                "business",
+                "date",
+                "hour",
+                "schedule",
+                "time"
+            ],
+            "time": "2016-02-12T12:53:27+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

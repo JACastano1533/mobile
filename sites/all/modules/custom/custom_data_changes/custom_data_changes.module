@@ -280,7 +280,8 @@ function custom_data_changes_fetch_usps() {
     	
     	// Jay: re-calculate shipping date twice (date_request) based on weekends and holidays.
  		$date_request = getDateForUSPS(getDateForUSPS($date_request));
- 		
+
+      $actual_shipping_date= shipping_date_calculator ();
 	    foreach ($serviceArray AS $key => $service) {
 		$data .= '<Package ID="' . $key . '">'
 			. '<Service>' . $service . '</Service>'
@@ -292,7 +293,7 @@ function custom_data_changes_fetch_usps() {
 			. '<Size>REGULAR</Size>'
 			. '<Machinable>TRUE</Machinable>'
 			. '<ReturnLocations>TRUE</ReturnLocations>'
-			. '<ShipDate Option="EMSH">' . $date_request . '</ShipDate>'
+			. '<ShipDate Option="EMSH">' . date_format($actual_shipping_date,"c") . '</ShipDate>'
 			. '</Package>';
 	    }
 	    $data .= '</RateV4Request>';
