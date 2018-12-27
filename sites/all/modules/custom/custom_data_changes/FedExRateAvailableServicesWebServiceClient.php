@@ -1,12 +1,12 @@
 <?php
-
+$actual_shipping_date= shipping_date_calculator ();
 $data = "<?xml version='1.0'?>  
 	<FDXRateAvailableServicesRequest xmlns:api='http://www.fedex.com/fsmapi' xmlns:xsi='http://www.w3.org/2001/XMLSchemainstance' xsi:noNamespaceSchemaLocation='FDXRateAvailableServicesRequest.xsd'>
 		<RequestHeader>
 			<AccountNumber>1vN6TtJYilEbreCVQktuMg4pX@t9giZERJ1SP8pkBT@353527843@103951883</AccountNumber>
 			<MeterNumber>103951883</MeterNumber>
 		</RequestHeader>
-		<ShipDate>" . date("c") . "</ShipDate>
+		<ShipDate>" . date_format($actual_shipping_date,"c") . "</ShipDate>
 		<DropoffType>REGULAR_PICKUP</DropoffType>
 		<Packaging>YOUR_PACKAGING</Packaging>
 		<WeightUnits>LBS</WeightUnits>

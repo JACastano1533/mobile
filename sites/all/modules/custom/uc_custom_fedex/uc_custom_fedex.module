@@ -29,11 +29,11 @@ function shipping_date_calculator (){
   module_load_include('inc' ,'uc_custom_fedex','ShippingDate');
   $days = [
     // Standard days with fixed opening hours
-    new Day(Days::MONDAY, [['7:30 AM', '4 PM']]),
-    new Day(Days::TUESDAY, [['7:30 AM', '4 PM']]),
-    new Day(Days::WEDNESDAY, [['7:30 AM', '4 PM']]),
-    new Day(Days::THURSDAY, [['7:30 AM', '4 PM']]),
-    new Day(Days::FRIDAY, [['7:30 AM', '4 PM']]),
+    new Day(Days::MONDAY, [['7:30 AM', '2:30 PM']]),
+    new Day(Days::TUESDAY, [['7:30 AM', '2:30 PM']]),
+    new Day(Days::WEDNESDAY, [['7:30 AM', '2:30 PM']]),
+    new Day(Days::THURSDAY, [['7:30 AM', '2:30 PM']]),
+    new Day(Days::FRIDAY, [['7:30 AM', '2:30 PM']]),
 
   ];
   // Optional holiday dates
@@ -286,6 +286,7 @@ function uc_custom_fedex_quote($products, $details, $method) {
 			<ResidentialDelivery>TRUE</ResidentialDelivery>
 		</SpecialServices>
 	</FDXRateAvailableServicesRequest>";
+
 	
 //    $ch = curl_init("http://raladexan.com/apiratexlator.aspx");
 //    Fedex rate server changed 5.18.2018:
@@ -335,7 +336,7 @@ function returnShippingRateReplyDetails($xml_result, $sub_total, $tocountry = "U
 //  $actual_amount += getFedExHandlingFees($serviceTypeFedExName, $sub_total, $tocountry);
 
     $amount = number_format($actual_amount, 2, ".", ",");
-    
+
     if (isset($xml_result->DeliveryDate)) {
 	$deliveryDate = 'Arrives   ' . date('l, M d', strtotime($xml_result->DeliveryDate));
     } else if (isset($xml_result->TimeInTransit)) {

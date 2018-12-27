@@ -180,6 +180,7 @@ function drupal_custom_order_form() {
  * Fetch USPS Quotes
  */
 function custom_data_changes_fetch_usps() {
+
     if ($_POST) {
 		$zip_value = $_POST['id'];
 
@@ -194,8 +195,8 @@ function custom_data_changes_fetch_usps() {
 	curl_close($ch);
 	$source = $data;
 	$obj = json_decode($source);
-
 	$tocountry = "";
+
 	foreach ($obj->results[0]->address_components as $key => $address_data) {
 	    if ($address_data->types['0'] == 'country') {
 		$tocountry = $address_data->short_name;
@@ -213,12 +214,14 @@ function custom_data_changes_fetch_usps() {
 
 	// Subtotal + Calculation
 	$items = uc_cart_get_contents();
+
 	$sub_total = 0;
 	$USPS_weight = 0;
     $box_weight = 0;
     $tire_step = false;
 
 	foreach ($items as $item) {
+
 		if ($product->nid == 284) {
 			$tire_step = true;
 			$box_weight = 1.6;
@@ -281,8 +284,9 @@ function custom_data_changes_fetch_usps() {
     	// Jay: re-calculate shipping date twice (date_request) based on weekends and holidays.
  		$date_request = getDateForUSPS(getDateForUSPS($date_request));
 
-      $actual_shipping_date= shipping_date_calculator ();
 	    foreach ($serviceArray AS $key => $service) {
+
+
 		$data .= '<Package ID="' . $key . '">'
 			. '<Service>' . $service . '</Service>'
 			. '<ZipOrigination>92154</ZipOrigination>'
@@ -293,7 +297,7 @@ function custom_data_changes_fetch_usps() {
 			. '<Size>REGULAR</Size>'
 			. '<Machinable>TRUE</Machinable>'
 			. '<ReturnLocations>TRUE</ReturnLocations>'
-			. '<ShipDate Option="EMSH">' . date_format($actual_shipping_date,"c") . '</ShipDate>'
+			. '<ShipDate Option="EMSH">'.$date_request.'</ShipDate>'
 			. '</Package>';
 	    }
 	    $data .= '</RateV4Request>';
@@ -1578,7 +1582,7 @@ function IsAHolidayOrSunday($dt) {
 	$uspsHolidays = array("1/1/00" , "5/25/00" , "7/4/00" , "9/7/00" , "11/26/00" , "12/25/00" );
 	
 	if (getYear($dt) == '2018') {
-			$uspsHolidays = array("1/1/00" , "5/28/00" , "7/4/00" , "9/3/00" , "11/22/00" , "12/25/00" );
+			$uspsHolidays = array("1/1/00" , "5/28/00" , "7/4/00" , "9/3/00" , "11/22/00" , "12/25/00","12/27/00","12/31/00" );
 			foreach ($uspsHolidays as $dti) {
                
 				if (getMonth($dti) == getMonth($dt) && getDay($dti) == getDay($dt)) {
