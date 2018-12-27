@@ -46,7 +46,7 @@ function shipping_date_calculator (){
     ];
 
   // Optional business timezone
-  $timezone = new \DateTimeZone('Asia/Kolkata');
+  $timezone = new \DateTimeZone('America/Los_Angeles');
 
   // Create a new Business instance
   $business = new Business($days, $holidays, $timezone);
