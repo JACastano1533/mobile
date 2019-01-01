@@ -1,0 +1,5 @@
+{
+    "require": {
+        "florianv/business": "^1.3"
+    }
+}

@@ -1,12 +1,12 @@
 <?php
-
+$actual_shipping_date= shipping_date_calculator ();
 $data = "<?xml version='1.0'?>  
 	<FDXRateAvailableServicesRequest xmlns:api='http://www.fedex.com/fsmapi' xmlns:xsi='http://www.w3.org/2001/XMLSchemainstance' xsi:noNamespaceSchemaLocation='FDXRateAvailableServicesRequest.xsd'>
 		<RequestHeader>
 			<AccountNumber>1vN6TtJYilEbreCVQktuMg4pX@t9giZERJ1SP8pkBT@353527843@103951883</AccountNumber>
 			<MeterNumber>103951883</MeterNumber>
 		</RequestHeader>
-		<ShipDate>" . date("c") . "</ShipDate>
+		<ShipDate>" . date_format($actual_shipping_date,"c") . "</ShipDate>
 		<DropoffType>REGULAR_PICKUP</DropoffType>
 		<Packaging>YOUR_PACKAGING</Packaging>
 		<WeightUnits>LBS</WeightUnits>
@@ -85,14 +85,15 @@ foreach ($xml_results->Entry AS $xml_result) {
     $amount = '<span class="service_rate">' . number_format($actual_amount, 2, ".", ",") . '</span>';
     
     
-    
+    //dpr($xml_result);
     $deliveryDate = "";
     if (isset($xml_result->DeliveryDate)) {
-	$deliveryDate = '<span class="service_arrival">Arrives ' . date('l, M d', strtotime($xml_result->DeliveryDate)) . '</span>';
+	$deliveryDate = '<span class="service_arrival"> Ship Date: ' .date_format($actual_shipping_date,"l,M d").'<br/>'.'Arrival Date: ' . date('l, M d', strtotime($xml_result->DeliveryDate)) . '</span>';
     } else if (isset($xml_result->TimeInTransit)) {
 		$loopTimer = $xml_result->TimeInTransit;
 		// $arrivalTimeTransit = date('l, M d', strtotime("+" .$xml_result->TimeInTransit.' days'));
-		$arrivalTimeTransit = date('l, M d');
+		$arrivalTimeTransit =   date_format($actual_shipping_date,"l,M d");
+		//dpr($arrivalTimeTransit);
 
 		while ($loopTimer > 0 ){		    
 		    if( IsAHolidayOrSaturdaySunday($arrivalTimeTransit) ){
@@ -103,7 +104,7 @@ foreach ($xml_results->Entry AS $xml_result) {
 		    }
 		}
 
-		$deliveryDate = '<span class="service_arrival">Arrives ' . $arrivalTimeTransit . '</span>';
+		$deliveryDate = '<span class="service_arrival">Ship Date: ' .date_format($actual_shipping_date,"l,M d").'<br/>'.'Arrival Date: ' . $arrivalTimeTransit . '</span>';
 
     } else {
 		$timetoadd = time() + 86400;
@@ -112,8 +113,9 @@ foreach ($xml_results->Entry AS $xml_result) {
 		} else if (date('l') == "Saturday") {
 		    $timetoadd = time() + (86400 * 2);
 		}
-		$deliveryDate = '<span class="service_arrival">Arrives ' . date('l, M d', $timetoadd) . '</span>';
+		$deliveryDate = '<span class="service_arrival">Ship Date: ' .date_format($actual_shipping_date,"l,M d").'<br/>'.'Arrival Date: ' . date('l, M d', $timetoadd) . '</span>';
     }
+
     echo '<div class="form-item shipping_rates_bar form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-' . $serviceTypeFedExName . '">'
     . '<label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7"><input type="radio"   style="display:none;"  name="panes[quotes][quotes][quote_option]"'
     . ' value="customfedex---' . $serviceTypeFedExName . '"  class="form-radio ajax-processed">' . $service_name_complete . $amount . $deliveryDate . '<label></div>';

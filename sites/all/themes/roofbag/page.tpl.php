@@ -1,3 +1,12 @@
+
+
+<div class="main-container <?php print $container_class; ?>">
+  <div class="row">
+    <section<?php print $content_column_class; ?>>
+      <?php print $messages; ?>
+    </section>
+  </div>
+</div>
 <?php
 global $user;
 if ((arg(0) != 'user') && (!$user->uid )) {

@@ -46,6 +46,7 @@ try {
     $request['ShipTo'] = $shipTo;
 
     $pickup['Date'] = date("Ymd");
+
     $request['Pickup'] = $pickup;
 
     $unitOfMeasurement['Code'] = "LBS";
