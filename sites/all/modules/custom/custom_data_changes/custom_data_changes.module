@@ -455,7 +455,7 @@ function custom_data_changes_fetch_usps() {
                 // $arrival =  date('l, M d', strtotime(getDateForUSPS($arrival)));
 
 				//write corrected arrival date			
-	            echo '<span class="service_arrival"> Arrives ' . $arrival . ' or earlier</span></label></div>';
+	            echo '<span class="service_arrival">Ship Date: '.$date_request.'<br/>'.' Arrival Date: ' . $arrival . ' or earlier</span></label></div>';
 			
 		    } else {
 			echo '</label></div>';
