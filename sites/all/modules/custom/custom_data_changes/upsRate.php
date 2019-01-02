@@ -138,9 +138,9 @@ class upsRate {
 
 
 	//get status
-//    echo "Response Status: " . $resp->Response->ResponseStatus->Description . "\n";
-//        echo "<pre>";
-//        print_r($params);
+//   echo "Response Status: " . $resp->Response->ResponseStatus->Description . "\n";
+    //   echo "<pre>";
+       
 
 	if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) {
 	    $time = time();
