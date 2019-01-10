@@ -255,7 +255,7 @@ var trackOutboundLink = function(url) {
         $log  = date("m/d/Y H:i:s A")."\t".substr($_SERVER['HTTP_USER_AGENT'],0,50)."\t".$Userip."\t".str_replace(".","",$Userip)."\t".$group."\t Main".PHP_EOL;
         setcookie('userTrack',$Userip);
         setcookie('userTrackDate',date("Y-m-d"));
-        file_put_contents('logs/log_track.txt', $log, FILE_APPEND);
+        //file_put_contents('logs/log_track.txt', $log, FILE_APPEND);
       }
     }
   ?>

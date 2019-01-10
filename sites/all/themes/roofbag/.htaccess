@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "restricted area"
-AuthUserFile C:/Inetpub/vhosts/s107-180-79-142.secureserver.net/m.roofbag.com/m.roofbag.com/sites/all/themes/roofbag/.htpasswd
-require valid-user
