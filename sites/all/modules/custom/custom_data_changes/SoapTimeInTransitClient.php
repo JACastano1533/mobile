@@ -2,7 +2,7 @@
 
 // Transit API
 //Configuration
-$wsdl = "http://" . $_SERVER["HTTP_HOST"] . "/sites/all/modules/custom_data_changes/SCHEMA-WSDLs/TNTWS.wsdl";
+$wsdl = "http://" . $_SERVER["HTTP_HOST"] . "/sites/all/modules/custom/custom_data_changes/SCHEMA-WSDLs/TNTWS.wsdl";
 $operation = "ProcessTimeInTransit";
 $endpointurl = 'https://wwwcie.ups.com/webservices/TimeInTransit';
 
