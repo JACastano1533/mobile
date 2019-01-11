@@ -10,19 +10,6 @@ use Business\Day;
 use Business\Days;
 use Business\Business;
 use Business\SpecialDay;
-/**
- * Implements hook_menu().
- */
-function uc_custom_fedex_menu() {
-  $items = [];
-  // add this to the custom menu 'devel' created by the devel module.
-  $items['admin/shipping-date'] = array(
-    'title' => 'shipping Date',
-    'access arguments' => TRUE,
-    'page callback' => 'shipping_date_calculator',
-  );
-return $items;
-}
 
 
 function shipping_date_calculator (){
