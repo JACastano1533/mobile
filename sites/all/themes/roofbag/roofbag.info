@@ -138,4 +138,4 @@ settings[toggle_search] = 1
 
 ; jQuery Update
 ; --------------
-settings[jquery_update_jquery_version] = 2.1
+;settings[jquery_update_jquery_version] = 2.1
