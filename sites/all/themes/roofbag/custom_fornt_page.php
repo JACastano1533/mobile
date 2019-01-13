@@ -1,7 +1,7 @@
 <div class="new_front_top_section">
 	<?php //echo '<pre>'; print_r($_SESSION); echo '</pre>'; ?>
     <h1>The easy car storage solution<span style = "display: block;">100% Waterproof Soft Car Top Carrier</span></h1><br/><br/><br/>
-    <img src="<?php echo $base_url . '/sites/all/themes/roofbag/images/FitCloseUp-850.fw.png'; ?>" alt="Roofbag"/>
+    <img src="/sites/default/files/loader-7.gif" data-src="<?php echo $base_url . '/sites/all/themes/roofbag/images/FitCloseUp-850.fw.png'; ?>" alt="Roofbag"/>
     <ul>
 		<li><img src="<?php echo $base_url . '/sites/all/themes/roofbag/images/usa-icon.png'; ?>" alt="usa-icon"/><span>Made in the USA</span></li>
 		<li><img src="<?php echo $base_url . '/sites/all/themes/roofbag/images/shipping-icon.png'; ?>" alt="shipping-icon"/><span>Ships today</span></li>
@@ -13,10 +13,10 @@
     <h1>Fits All Cars<span style = "display: block;">With Rack or Without Rack</span></h1>
     <div class="row">
     	<div class="col-md-6">
-    		<img style="padding-bottom: 10px;" class="img-responsive" src="<?php echo $base_url . '/sites/all/themes/roofbag/images/GrayCarrier-BlueCar-Desert.fw.png'; ?>" alt="Roofbag"/>
+    		<img style="padding-bottom: 10px;" class="img-responsive" src"/sites/default/files/loader-7.gif" data-src="<?php echo $base_url . '/sites/all/themes/roofbag/images/GrayCarrier-BlueCar-Desert.fw.png'; ?>" alt="Roofbag"/>
     	</div>
     	<div class="col-md-6">
-     		<img style="width: 100%" class="img-responsive" src="<?php echo $base_url . '/sites/all/themes/roofbag/images/RoofBag-Black-Cross-Bars-Desert.jpg'; ?>" alt="Roofbag"/>
+     		<img style="width: 100%" class="img-responsive" src"/sites/default/files/loader-7.gif" data-src="<?php echo $base_url . '/sites/all/themes/roofbag/images/RoofBag-Black-Cross-Bars-Desert.jpg'; ?>" alt="Roofbag"/>
     	</div>
     </div>
 </div>
