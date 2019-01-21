@@ -117,7 +117,7 @@
 			<button class="btn btn-default" id="delivery_postal_submit" type="button">Go!</button>
 		    </span>-->
 		</div>
-		<div id="loaderimg1" class="loaderimg_wraper" style="display:none;"><img id="imgloader" src="<?php echo $base_url . '/sites/all/themes/roofbag/images/'; ?>loader-new.svg" ></div>
+		<div id="loaderimg1" class="loaderimg_wraper" style="display:none;"><img id="imgloader" src="sites/all/themes/roofbag/images/loader-new.svg" ></div>
 		<select style="width:100%; background-color:white !important;" class="form-control"  onchange="getCountryBasedQuotes();" id="shippinglocCountry" name="shippinglocCountry" size="1" >
 		    <option class="country" value="">Select country</option>
 		    <option value="AF" selected="selected">	Afghanistan </option>
@@ -562,7 +562,7 @@ window.__lo_site_id = 83234;
     </div>
     <div id="collapseThree_panel" class="customer_reviews_section">
 	<!--<div class="review_banner_container">
-	    <img src="<?php echo $base_url . '/sites/all/themes/roofbag/images/RoofBag-Cargo-Carrier-Side-Rails.jpg'; ?>" alt="Customer Reviews"/>
+	    <img src="sites/all/themes/roofbag/images/RoofBag-Cargo-Carrier-Side-Rails.jpg" alt="Customer Reviews"/>
 	    <p>Customer Reviews</p>
 	</div>-->
 
@@ -595,7 +595,7 @@ window.__lo_site_id = 83234;
 
 	<!-- Customer Reviews banner  -->
 	<!-- <div class="review_banner_container">
-	    <img src="<?php echo $base_url . '/sites/all/themes/roofbag/images/RoofBag-Cargo-Carrier-Side-Rails.jpg'; ?>" alt="Customer Reviews"/>
+	    <img src="sites/all/themes/roofbag/images/RoofBag-Cargo-Carrier-Side-Rails.jpg" alt="Customer Reviews"/>
 	    <p>Customer Reviews</p>
 	</div> -->
 
