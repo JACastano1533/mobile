@@ -177,7 +177,7 @@ if(arg('1')=='1')
       }
     }
     $loader_img = '<div id="opt_loaderimg" class="loaderimg_wraper" style="display:none;">
-    <img id="imgloader" src="'.$base_url.'/sites/all/themes/roofbag/images/loader-new.svg" />
+    <img id="imgloader" src="sites/all/themes/roofbag/images/loader-new.svg" />
     </div>';
     echo '<div class="attributes_cstm_wrapper clearfix">'.$loader_img.$size_html.$strap_html.$color_html.'</div>';
     ?>
