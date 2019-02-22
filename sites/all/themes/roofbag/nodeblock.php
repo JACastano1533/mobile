@@ -200,7 +200,7 @@
               }
             }
             $loader_img = '<div class="loaderimg_wraper opt_loaderimg" style="display:none;">
-      <img id="imgloader" src="' . $base_url . '/sites/all/themes/roofbag/images/loader-new.svg" />
+      <img id="imgloader" src="sites/all/themes/roofbag/images/loader-new.svg" />
       </div>';
             ?>
 

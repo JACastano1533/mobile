@@ -1,0 +1,2 @@
+04/20/2018 02:13:41 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/63.0.3239.73 Mobile/15E216 Safari/604.1	68.174.181.46	6817418146	2	 Main
+04/20/2018 10:47:11 AM	Mozilla/5.0 (Linux; Android 7.0; LG-H831 Build/NRD90U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36	99.254.212.235	99254212235	0	 Main

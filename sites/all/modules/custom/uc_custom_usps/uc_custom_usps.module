@@ -1,0 +1,360 @@
+<?php
+
+/**
+ * @file
+ * Shipping quote module that defines custom rate for each product.
+ */
+
+/**
+ * Implements hook_uc_shipping_method().
+ */
+function uc_custom_usps_uc_shipping_method() {
+    $methods['customusps'] = array(
+	'id' => 'customusps',
+	'module' => 'uc_custom_usps',
+	'title' => t('Custom USPS'),
+	'operations' => array(
+	    'configure' => array(
+		'title' => t('configure'),
+		'href' => 'admin/store/settings/quotes/settings',
+	    ),
+	),
+	'quote' => array(
+	    'type' => 'small_package',
+	    'callback' => 'uc_custom_usps_quote',
+	    'accessorials' => _uc_custom_usps_service_list(),
+	),
+    );
+
+    return $methods;
+}
+
+/**
+ * Standard callback to return a shipping rate via the flat rate method.
+ *
+ * @param $products
+ *   The order's products.
+ * @param $details
+ *   Other order details including a shipping address.
+ * @param $method
+ *   The shipping method to use to create the quote.
+ *
+ * @return
+ *   An array containing the shipping quote for the order.
+ */
+function uc_custom_usps_quote($products, $details, $method) {
+    $destination = (object) $details;
+    if (empty($destination->postal_code)) {
+	return array();
+    }
+
+//    if (isset($_SESSION["PREVIOUS_USPS_CITY"]) && isset($_SESSION["PREVIOUS_USPS_COUNTRY"]) && isset($_SESSION["PREVIOUS_USPS_POSTAL_CODE"]) && isset($_SESSION["PREVIOUS_USPS_ZONE"])) {
+//	if ($_SESSION["PREVIOUS_USPS_CITY"] == $details['city'] && $_SESSION["PREVIOUS_USPS_COUNTRY"] == $details['country'] && $_SESSION["PREVIOUS_USPS_POSTAL_CODE"] == $details['postal_code'] && $_SESSION["PREVIOUS_USPS_ZONE"] == $details['zone']) {
+//	    if (isset($_SESSION["PREVIOUS_USPS_ARRAY"])) {
+//		return $_SESSION["PREVIOUS_USPS_ARRAY"];
+//	    }
+//	}
+//    }
+//    $_SESSION["PREVIOUS_USPS_ZONE"] = $details['zone'];
+//    $_SESSION["PREVIOUS_USPS_CITY"] = $details['city'];
+//    $_SESSION["PREVIOUS_USPS_COUNTRY"] = $details['country'];
+//    $_SESSION["PREVIOUS_USPS_POSTAL_CODE"] = $details['postal_code'];
+    
+ //    if (isset($_SESSION["PREVIOUS_USPS_POSTAL_CODE"])) {
+	// if ($_SESSION["PREVIOUS_USPS_POSTAL_CODE"] == $details['postal_code']) {
+	//     if (isset($_SESSION["PREVIOUS_USPS_ARRAY"])) {
+	// 	return $_SESSION["PREVIOUS_USPS_ARRAY"];
+	//     }
+	// }
+ //    }
+    $_SESSION["PREVIOUS_USPS_POSTAL_CODE"] = $details['postal_code'];
+
+    $quotes = array();
+    $addresses = array(variable_get('uc_quote_store_default_address', new UcAddress()));
+
+    $postcode = $details['postal_code'];
+    $fromzip = $addresses[0]->postal_code;
+    $tozip = $details['postal_code'];
+
+//    ============================================================= USPS Services =============================================================
+
+    error_reporting(0);
+    $url = "http://production.shippingapis.com/ShippingAPI.dll?API=RateV4";
+    $ch = curl_init();
+
+    // set the target url
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HEADER, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    // parameters to post
+    curl_setopt($ch, CURLOPT_POST, 1);
+    $serviceArray = array("Express", "First Class", "Priority", "Parcel");
+    $data = 'XML=<RateV4Request USERID="305PKIND7763">';
+    $date_request = date("d-M-Y");
+    $items = uc_cart_get_contents();
+    $USPS_weight = 0;
+    $box_weight = 0;
+    $tire_step = false;
+	foreach ($items as $item) {
+		if ($product->nid == 284) {
+			$tire_step = true;
+			$box_weight = 1.6;
+		}
+		if ($product->nid == 1 || $product->nid == 292) {
+			$roofbag_1_qty = $product->qty;
+		}
+		if ($product->nid == 289 || $product->nid == 293) {
+			$roofbag_2_qty = $product->qty;
+		}
+		$USPS_weight += ( $item->weight * $item->qty );
+	}
+
+	if (!$tire_step) {
+	    if ($roofbag_1_qty + $roofbag_2_qty > 2) {
+			$box_weight = 1.6;
+	    } else if ($roofbag_1_qty == 1 && $roofbag_2_qty == 1) {
+			$box_weight = 1.2;
+	    } else if ($roofbag_box1 > $roofbag_box2) {
+			$box_weight = $roofbag_box1;
+	    } else {
+			$box_weight = $roofbag_box2;
+	    }
+	}
+	$USPS_weight += $box_weight;
+	if( empty($USPS_weight) ){
+		$USPS_weight = 9;
+	}
+
+
+  $actual_shipping_date= shipping_date_calculator ();
+    foreach ($serviceArray AS $key => $service) {
+	$data .= '<Package ID="' . $key . '">'
+		. '<Service>' . $service . '</Service>'
+		. '<ZipOrigination>92154</ZipOrigination>'
+		. '<ZipDestination>' . $tozip . '</ZipDestination>'
+		. '<Pounds>'.$USPS_weight.'</Pounds>'
+		. '<Ounces>0</Ounces>'
+		. '<Container/>'
+		. '<Size>REGULAR</Size>'
+		. '<Machinable>TRUE</Machinable>'
+		. '<ReturnLocations>TRUE</ReturnLocations>'
+		. '<ShipDate Option="EMSH">' . date_format($actual_shipping_date,"c") . '</ShipDate>'
+		. '</Package>';
+    }
+    $data .= '</RateV4Request>';
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+    $result = curl_exec($ch);
+
+    $data = strstr($result, '<?');
+//	 echo '<!-- '. $data. ' -->'; // Uncomment to show XML in comments
+    $xml_parser = xml_parser_create();
+    xml_parse_into_struct($xml_parser, $data, $vals, $index);
+    xml_parser_free($xml_parser);
+    $params = array();
+    $level = array();
+    foreach ($vals as $xml_elem) {
+
+	if ($xml_elem['type'] == 'open') {
+	    if (array_key_exists('attributes', $xml_elem)) {
+		list($level[$xml_elem['level']], $extra) = array_values($xml_elem['attributes']);
+	    } else {
+		$level[$xml_elem['level']] = $xml_elem['tag'];
+	    }
+	}
+	if ($xml_elem['type'] == 'complete') {
+	    $start_level = 1;
+	    $php_stmt = '$params';
+	    while ($start_level < $xml_elem['level']) {
+		$php_stmt .= '[$level[' . $start_level . ']]';
+		$start_level++;
+	    }
+	    $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+	    eval($php_stmt);
+	}
+    }
+    curl_close($ch);
+
+    $check_value = "";
+    foreach ($params['RATEV4RESPONSE'] as $getvalue) {
+	$result = array_search_key("MAILSERVICE", $getvalue, "");
+	$result["RATE"] = $getvalue[$result["key"]]["RATE"];
+	$result["COMMITMENTDATE"] = $getvalue[$result["key"]]["COMMITMENTDATE"];
+	if (isset($result["value"])) {
+	    if ($result["value"] == 'Media Mail Parcel' || $result["value"] == 'Library Mail Parcel')
+		continue;
+
+	    if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	    }
+
+	    if (strpos($result["value"], '&lt;') !== false) {
+		$pieces = explode("&lt;", $result["value"]);
+		$MAILSERVICE = "USPS " . $pieces['0'];
+	    } else {
+		$MAILSERVICE = "USPS " . $result["value"];
+	    }
+	    $time = time();
+
+	    $startDate = date("Y-m-d 10:00:00 A");
+		$startDate = strtotime($startDate);
+		$endDate = date("Y-m-d 11:59:59 A");
+		$endDate = strtotime($endDate);
+        $current = time();
+        if( $current >= $startDate && $current <= $endDate ){
+	    	$COMMITMENTDATE = 'Arrives ' . date('l, M d', strtotime($result["COMMITMENTDATE"]) + 86400);
+        }else{
+	    	$COMMITMENTDATE = 'Arrives ' . date('l, M d', strtotime($result['COMMITMENTDATE']));
+        }
+
+	    if ($check_value == $MAILSERVICE)
+		continue;
+	    $check_value = $MAILSERVICE;
+
+	    $tmp_arr = array("rate" => $result['RATE'], "label" => $MAILSERVICE, "option_label" => $MAILSERVICE, "arrival_date" => $COMMITMENTDATE);
+	    $quotes[$result["key"]] = $tmp_arr;
+	}
+    }
+
+//    ============================================================= UPS Services =============================================================
+    $services = $method["quote"]["accessorials"];
+
+    if ($postcode) {
+	$postcode = str_replace(' ', '+', $postcode);
+	;
+	$address = urlencode($postcode);
+	$url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $postcode . '&sensor=false';
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	$source = $data;
+	$obj = json_decode($source);
+
+	foreach ($obj->results[0]->address_components as $key => $address_data) {
+	    if ($address_data->types['0'] == 'country') {
+		$tocountry = $address_data->short_name;
+	    }
+	}
+    }
+
+    /*     * ***********************************
+      Get your own credentials from ups.com
+     * *********************************** */
+    $ups_accessnumber = "ED0EDC64284E1E19";
+    $ups_username = "pkindustries";
+    $ups_password = "Oli1533vella";
+    $ups_password = "Oli1533vella";
+    $ups_shippernumber = "";
+
+    // just doing domestic for demonstration purposes
+    if ($tocountry == 'CA') {
+	error_reporting(0);
+	$url = "http://production.shippingapis.com/ShippingAPI.dll?API=IntlRateV2";
+	$ch = curl_init();
+
+	// set the target url
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	// parameters to post
+	curl_setopt($ch, CURLOPT_POST, 1);
+	$date_request = date("d-M-Y");
+	$actual_shipping_date= shipping_date_calculator ();
+	$data = 'XML=<RateV4Request USERID="305PKIND7763"><Revision>2</Revision>
+	<Package ID="0"><Service>ALL</Service><ZipOrigination>92154</ZipOrigination>
+	<ZipDestination>' . $zip_value . '</ZipDestination><Pounds>2</Pounds><Ounces>3.3</Ounces><Container>VARIABLE</Container>
+	<Size>REGULAR</Size><Width>10</Width><Length>10</Length><Height>10</Height><Girth>40</Girth><Value>75</Value>
+	<Machinable>TRUE</Machinable><ReturnLocations>TRUE</ReturnLocations><ShipDate Option="EMSH">' . date_format($actual_shipping_date,"c") . '</ShipDate>
+	</Package></RateV4Request>';
+	$data = 'XML=<IntlRateV2Request USERID="305PKIND7763"><Revision>2</Revision><Package ID="0"><Pounds>2</Pounds><Ounces>4</Ounces><MailType>All</MailType><ValueOfContents>85</ValueOfContents><Country>Canada</Country>
+	<Container>RECTANGULAR</Container><Size>REGULAR</Size><Width></Width><Length></Length><Height></Height><Girth></Girth><OriginZip>92154
+	</OriginZip></Package></IntlRateV2Request>';
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+	$result = curl_exec($ch);
+	//echo '<pre>'; print_r($data); echo'</pre>';
+	//echo '<pre>'; print_r($result); echo'</pre>';die;
+	$data = strstr($result, '<?');
+	// echo '<!-- '. $data. ' -->'; // Uncomment to show XML in comments
+	$xml_parser = xml_parser_create();
+	xml_parse_into_struct($xml_parser, $data, $vals, $index);
+	xml_parser_free($xml_parser);
+	$params = array();
+	$level = array();
+	foreach ($vals as $xml_elem) {
+	    if ($xml_elem['type'] == 'open') {
+		if (array_key_exists('attributes', $xml_elem)) {
+		    list($level[$xml_elem['level']], $extra) = array_values($xml_elem['attributes']);
+		} else {
+		    $level[$xml_elem['level']] = $xml_elem['tag'];
+		}
+	    }
+	    if ($xml_elem['type'] == 'complete') {
+		$start_level = 1;
+		$php_stmt = '$params';
+		while ($start_level < $xml_elem['level']) {
+		    $php_stmt .= '[$level[' . $start_level . ']]';
+		    $start_level++;
+		}
+		$php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
+		eval($php_stmt);
+	    }
+	}
+	curl_close($ch);
+	$check_value = '';
+	$count_records = '';
+	foreach ($params['INTLRATEV2RESPONSE']['0'] as $service => $getvalue) {
+	    if (isset($getvalue['SVCDESCRIPTION'])) {
+		if (session_status() == PHP_SESSION_NONE) {
+		    session_start();
+		}
+		if ($check_value == $getvalue['POSTAGE']) {
+		    continue;
+		}
+		$check_value = $getvalue['POSTAGE'];
+
+		if (strpos($getvalue['SVCDESCRIPTION'], '&lt;') !== false) {
+		    $pieces = explode("&lt;", $getvalue['SVCDESCRIPTION']);
+		    $SVCDESCRIPTION = "USPS " . $pieces['0'];
+		} else {
+		    $SVCDESCRIPTION = "USPS " . $getvalue['SVCDESCRIPTION'];
+		}
+		if ($getvalue['SVCCOMMITMENTS']) {
+		    $COMMITMENTDATE = 'Arrives in ' . $getvalue['SVCCOMMITMENTS'];
+		}
+		$tmp_arr = array("rate" => $getvalue['POSTAGE'], "label" => $SVCDESCRIPTION, "option_label" => $SVCDESCRIPTION, "arrival_date" => $COMMITMENTDATE);
+		$quotes[$service] = $tmp_arr;
+	    }
+	}
+    }
+
+    uasort($quotes, 'uc_quote_price_sort');
+
+    $_SESSION["PREVIOUS_USPS_ARRAY"] = $quotes;
+    return $quotes;
+}
+
+function _uc_custom_usps_service_list() {
+    return array(
+	'3' => t('USPS Priority Mail Express 2-Day'),
+	'2' => t('USPS Priority Mail Express 1-Day'),
+	'1' => t('USPS Priority Mail 2-Day'),
+	'4' => t('USPS USPS Retail Ground'),
+	//For Canadian Postal Code USPS Shippings
+	'12' => t('USPS USPS GXG'),
+	// '1' => t('USPS Priority Mail Express International'),
+	'10' => t('USPS Priority Mail Express International'),
+	// '2' => t('USPS Priority Mail International'),
+	'11' => t('USPS Priority Mail International'),
+	'9' => t('USPS Priority Mail International'),
+	'16' => t('USPS Priority Mail International'),
+	'8' => t('USPS Priority Mail International'),
+	'14' => t('USPS First-Class Mail'),
+	'15' => t('USPS First-Class Package International Service'),
+    );
+}

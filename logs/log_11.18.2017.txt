@@ -1,0 +1,1 @@
+11/18/2017 10:40:36 AM    Mozilla/5.0 (Linux; Android 7.0; VS987 Build/NRD90U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36    68.40.174.191    6840174191    2    def

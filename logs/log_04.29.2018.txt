@@ -1,0 +1,3 @@
+04/29/2018 00:00:51 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) GSA/44.0.187102957 Mobile/15E216 Safari/604.1	70.66.81.155	706681155	3	 Main
+04/29/2018 05:30:37 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/66.0.3359.122 Mobile/15E216 Safari/604.1	107.77.212.171	10777212171	0	 Main
+04/29/2018 05:30:38 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/66.0.3359.122 Mobile/15E216 Safari/604.1	107.77.212.171	10777212171	0	 Main

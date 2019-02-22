@@ -1,0 +1,5 @@
+03/29/2018 00:27:53 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1	99.56.46.158	995646158	1	 Main
+03/29/2018 00:32:25 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1	99.56.46.158	995646158	1	 Main
+03/29/2018 00:40:48 AM	Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1	99.56.46.158	995646158	1	 Main
+03/29/2018 08:52:14 AM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36	174.198.5.60	174198560	1	 Main
+03/29/2018 14:19:16 PM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Mobile Safari/537.36	67.220.165.162	67220165162	2	 Main

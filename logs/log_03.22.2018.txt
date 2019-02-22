@@ -1,0 +1,2 @@
+03/22/2018 10:14:15 AM	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36	67.220.165.162	67220165162	2	 Main
+03/22/2018 16:04:39 PM	Mozilla/5.0 (Linux; Android 8.1.0; Pixel 2 Build/OPM1.171019.021) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36	99.16.107.64	991610764	3	 Main
