@@ -372,13 +372,15 @@ class customUpsRate {
 		    print 'Please set your credentials with the setCredentials function';
 		    die();
 		}
-		$data = "<?xml version=\"1.0\"?>  
+
+
+
+/*		$data = "<?xml version=\"1.0\"?>  
 			<AccessRequest xml:lang=\"en-US\">  
-			    <AccessLicenseNumber>$this->AccessLicenseNumber</AccessLicenseNumber>  
+			    <AccessLicenseNumber>BBED9E039F39CB20</AccessLicenseNumber>  
 			    <UserId>$this->UserID</UserId>  
 			    <Password>$this->Password</Password>  
 			</AccessRequest>  
-			<?xml version=\"1.0\"?>  
 			<RatingServiceSelectionRequest xml:lang=\"en-US\">  
 			    <Request>  
 				<TransactionReference>  
@@ -435,12 +437,98 @@ class customUpsRate {
 				    <Weight>$weight</Weight>  
 				</PackageWeight>  
 			    </Package>  
+			<RateInformation>
+				<NegotiatedRatesIndicator>
+				</NegotiatedRatesIndicator>
+			</RateInformation>			
 			</Shipment>  
-		</RatingServiceSelectionRequest>";
+		</RatingServiceSelectionRequest>"; */
+		
+
+
+
+		$data = "<?xml version=\"1.0\"?>  
+			<AccessRequest xml:lang=\"en-US\">  
+			    <AccessLicenseNumber>BBED9E039F39CB20</AccessLicenseNumber>  
+			    <UserId>pkindustries</UserId>  
+			    <Password>Oli1533vella</Password>  
+			</AccessRequest>  
+			<?xml version=\"1.0\"?>  
+			<RatingServiceSelectionRequest xml:lang=\"en-US\">  
+			    <Request>  
+				<TransactionReference>  
+				    <CustomerContext>Rating and Service</CustomerContext>  
+				    <XpciVersion>1.0001</XpciVersion>  
+				</TransactionReference>  
+				<RequestAction>Rate</RequestAction>  
+				<RequestOption>Shop</RequestOption>  
+			    </Request>  
+			<PickupType>  
+			    <Code>01</Code>  
+			</PickupType>  
+			<Shipment>  
+			    <Shipper>
+			    <ShipperNumber>837548</ShipperNumber>  
+				<Address>
+				<City>San Diego</City>  
+				<PostalCode>92154</PostalCode>  
+				<CountryCode>US</CountryCode>
+				<StateProvinceCode>CA</StateProvinceCode>  
+				</Address>  			      
+			    </Shipper>  
+			    <ShipFrom>  
+				<Address>  
+				    <PostalCode>92154</PostalCode>  
+				    <CountryCode>US</CountryCode>
+				    <City>San Diego</City>
+				    <StateProvinceCode>CA</StateProvinceCode>  
+				</Address>  
+			    </ShipFrom>  
+			    <ShipTo>
+	      		<Address>	        
+	        		<PostalCode>$dest_zip</PostalCode>
+	        		<CountryCode>$dest_country</CountryCode>
+	        		<ResidentialAddress>1</ResidentialAddress>
+	      		</Address>
+	   			</ShipTo> 
+			    <Service>  
+				<Code>$service</Code>  
+			    </Service>  
+			    <Package>  
+				<PackagingType>  
+				    <Code>02</Code>  
+				</PackagingType>  
+				<Dimensions>  
+				    <UnitOfMeasurement>  
+					<Code>$this->dimensionsUnits</Code>  
+				    </UnitOfMeasurement>  
+				    <Length>$length</Length>  
+				    <Width>$width</Width>  
+				    <Height>$height</Height>  
+				</Dimensions>  
+				<PackageWeight>  
+				    <UnitOfMeasurement>  
+					<Code>$this->weightUnits</Code>  
+				    </UnitOfMeasurement>  
+				    <Weight>$weight</Weight>  
+				</PackageWeight>  
+			    </Package>  			
+			<RateInformation>
+				<NegotiatedRatesIndicator>
+				</NegotiatedRatesIndicator>
+			</RateInformation>			
+			<ShipmentServiceOptions/>
+			</Shipment>  
+		</RatingServiceSelectionRequest>";		
+		
+		
+		
+		
 		// echo "<pre>";
-  //      print_r($data);
-  //      exit;
-		$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+//      print_r($data);
+//      exit;
+//		$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+		$ch = curl_init("https://onlinetools.ups.com/ups.app/xml/Rate");
 		curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
@@ -479,9 +567,11 @@ class customUpsRate {
 		}
 		curl_close($ch);
 
-		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) {
+/*		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) { */
+		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['NEGOTIATEDRATES']['NETSUMMARYCHARGES']['GRANDTOTAL']['MONETARYVALUE'])) {
 		    $time = time();
-		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'];
+/*		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE']; */
+		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['NEGOTIATEDRATES']['NETSUMMARYCHARGES']['GRANDTOTAL']['MONETARYVALUE'];
 		    $return_data_1 = "";
 		    if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'])) {
 			$GUARANTEEDDAYSTODELIVERY = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'];
@@ -509,44 +599,48 @@ class customUpsRate {
 		}
 		$data = "<?xml version=\"1.0\"?>  
 			<AccessRequest xml:lang=\"en-US\">  
-			    <AccessLicenseNumber>$this->AccessLicenseNumber</AccessLicenseNumber>  
-			    <UserId>$this->UserID</UserId>  
-			    <Password>$this->Password</Password>  
+			    <AccessLicenseNumber>BBED9E039F39CB20</AccessLicenseNumber>  
+			    <UserId>pkindustries</UserId>  
+			    <Password>Oli1533vella</Password>  
 			</AccessRequest>  
 			<?xml version=\"1.0\"?>  
 			<RatingServiceSelectionRequest xml:lang=\"en-US\">  
 			    <Request>  
 				<TransactionReference>  
-				    <CustomerContext>Bare Bones Rate Request</CustomerContext>  
+				    <CustomerContext>Rating and Service</CustomerContext>  
 				    <XpciVersion>1.0001</XpciVersion>  
 				</TransactionReference>  
 				<RequestAction>Rate</RequestAction>  
-				<RequestOption>Rate</RequestOption>  
+				<RequestOption>Shop</RequestOption>  
 			    </Request>  
 			<PickupType>  
 			    <Code>01</Code>  
 			</PickupType>  
 			<Shipment>  
-			    <Shipper>  
-				<Address>  
-				    <PostalCode>$PostalCode</PostalCode>  
-				    <CountryCode>US</CountryCode>  
-				</Address>  
-			    <ShipperNumber>$this->shipperNumber</ShipperNumber>  
+			    <Shipper>
+			    <ShipperNumber>837548</ShipperNumber>  
+				<Address>
+				<City>San Diego</City>  
+				<PostalCode>92154</PostalCode>  
+				<CountryCode>US</CountryCode>
+				<StateProvinceCode>CA</StateProvinceCode>  
+				</Address>  			      
 			    </Shipper>  
-			    <ShipTo>
-	      <Address>
-	        
-	        <PostalCode>$dest_zip</PostalCode>
-	        <CountryCode>$dest_country</CountryCode>
-	      </Address>
-	    </ShipTo> 
 			    <ShipFrom>  
 				<Address>  
-				    <PostalCode>$PostalCode</PostalCode>  
-				    <CountryCode>US</CountryCode>  
+				    <PostalCode>92154</PostalCode>  
+				    <CountryCode>US</CountryCode>
+				    <City>San Diego</City>
+				    <StateProvinceCode>CA</StateProvinceCode>  
 				</Address>  
 			    </ShipFrom>  
+			    <ShipTo>
+	      		<Address>	        
+	        		<PostalCode>$dest_zip</PostalCode>
+	        		<CountryCode>$dest_country</CountryCode>
+	        		<ResidentialAddress>1</ResidentialAddress>
+	      		</Address>
+	   			</ShipTo> 
 			    <Service>  
 				<Code>$service</Code>  
 			    </Service>  
@@ -568,10 +662,17 @@ class customUpsRate {
 				    </UnitOfMeasurement>  
 				    <Weight>$weight</Weight>  
 				</PackageWeight>  
-			    </Package>  
+			    </Package>  			
+			<RateInformation>
+				<NegotiatedRatesIndicator>
+				</NegotiatedRatesIndicator>
+			</RateInformation>			
+			<ShipmentServiceOptions/>
 			</Shipment>  
 		</RatingServiceSelectionRequest>";
-		$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+		
+//		$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+		$ch = curl_init("https://onlinetools.ups.com/ups.app/xml/Rate");
 		curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
@@ -609,9 +710,14 @@ class customUpsRate {
 		    }
 		}
 		curl_close($ch);
-		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) {
+
+
+
+/*		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) { */
+		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['NEGOTIATEDRATES']['NETSUMMARYCHARGES']['GRANDTOTAL']['MONETARYVALUE'])) {
 		    $time = time();
-		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'];
+/*		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE']; */
+		    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['NEGOTIATEDRATES']['NETSUMMARYCHARGES']['GRANDTOTAL']['MONETARYVALUE'];
 		    $return_data_1 = "";
 		    if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'])) {
 			$GUARANTEEDDAYSTODELIVERY = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['GUARANTEEDDAYSTODELIVERY'];

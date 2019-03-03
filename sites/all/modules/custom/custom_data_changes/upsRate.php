@@ -43,7 +43,7 @@ class upsRate {
 		<RatingServiceSelectionRequest xml:lang=\"en-US\">  
 		    <Request>  
 			<TransactionReference>  
-			    <CustomerContext>Bare Bones Rate Request</CustomerContext>  
+			    <CustomerContext>Rating and Service</CustomerContext>  
 			    <XpciVersion>1.0001</XpciVersion>  
 			</TransactionReference>  
 			<RequestAction>Rate</RequestAction>  
@@ -55,27 +55,29 @@ class upsRate {
 		<Shipment>  
 		    <Shipper>  
 			<Address>  
-			    <PostalCode>$PostalCode</PostalCode>  
+			    <PostalCode>92154</PostalCode>  
 			    <CountryCode>US</CountryCode>  
+				<StateProvinceCode>CA</StateProvinceCode>
 			</Address>  
-		    <ShipperNumber>$this->shipperNumber</ShipperNumber>  
+		    <ShipperNumber>837548</ShipperNumber>  
 		    </Shipper>  
 		    <ShipTo>
 			<Address>
 			  <PostalCode>$dest_zip</PostalCode>
 			  <CountryCode>$dest_country</CountryCode>
-			<ResidentialAddressIndicator/>  
+			  <ResidentialAddressIndicator/>  
 			</Address>
-		      </ShipTo> 
+		    </ShipTo> 
+			<Service>  
+			<Code>$service</Code>  
+			</Service>  
 		    <ShipFrom>  
 			<Address>  
-			    <PostalCode>$PostalCode</PostalCode>  
+			    <PostalCode>92154</PostalCode>  
 			    <CountryCode>US</CountryCode>  
+				<StateProvinceCode>CA</StateProvinceCode>  
 			</Address>  
 		    </ShipFrom>  
-		    <Service>  
-			<Code>$service</Code>  
-		    </Service>  
 		    <Package>  
 			<PackagingType>  
 			    <Code>02</Code>  
@@ -95,9 +97,15 @@ class upsRate {
 			    <Weight>$weight</Weight>  
 			</PackageWeight>  
 		    </Package>  
+			<RateInformation>
+				<NegotiatedRatesIndicator>
+				</NegotiatedRatesIndicator>
+			</RateInformation>	
 		</Shipment>  
-		</RatingServiceSelectionRequest>";
-	$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+		</RatingServiceSelectionRequest>"; 
+							
+//	$ch = curl_init("https://www.ups.com/ups.app/xml/Rate");
+	$ch = curl_init("https://onlinetools.ups.com/ups.app/xml/Rate");
 	curl_setopt($ch, CURLOPT_HEADER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
@@ -142,9 +150,12 @@ class upsRate {
     //   echo "<pre>";
        
 
-	if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) {
+//		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'])) {
+		if (isset($params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['NEGOTIATEDRATES']['NETSUMMARYCHARGES']['GRANDTOTAL']['MONETARYVALUE'])) {
 	    $time = time();
-	    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'];
+//	    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'];	      
+	    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['NEGOTIATEDRATES']['NETSUMMARYCHARGES']['GRANDTOTAL']['MONETARYVALUE'];
+//echo $return_data_0	; 
 	    $return_data_1 = '<span class="service_rate">';
 	    $GUARANTEEDDAYSTODELIVERY = "";
 	    foreach ($timeInTransits->TransitResponse->ServiceSummary AS $timeInTransit) {
