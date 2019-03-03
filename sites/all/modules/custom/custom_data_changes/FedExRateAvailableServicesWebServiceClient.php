@@ -63,7 +63,8 @@ foreach ($xml_results->Entry AS $xml_result) {
     $actual_amount = $xml_result->EstimatedCharges->DiscountedCharges->NetCharge;
  
 
-
+// test change 
+// another test
    
 //echo '<pre>'; print_r($service_name); echo'</pre>'; 
 //echo '<pre>'; print_r($service_name_complete); echo'</pre>'; 
@@ -72,15 +73,19 @@ foreach ($xml_results->Entry AS $xml_result) {
 // FedEx Ground
 // 15.2
 
-// Make free Fedex Ground
+// Make free Fedex Ground: uncomment next 3 lines
+// Removed free shipping: 2/27/2019
     
-	if (strpos($service_name, 'FedEx Ground') !== false) {
-		$actual_amount = 0;
-	}
-// exclude FedEx Ground CA
+//	if (strpos($service_name, 'FedEx Ground') !== false) {
+//		$actual_amount = 0;
+//	}
+
+// FedEx Ground CA needs to be excluded when making free Fedex Ground shipping
  
-// 7/10/2018 - remove handling fees
-//    $actual_amount += getFedExHandlingFees($serviceTypeFedExName, $sub_total, $tocountry);
+// 7/10/2018 - remove handling fees: comment next line
+// 2/27/2019 - re-activated handling fees
+
+    $actual_amount += getFedExHandlingFees($serviceTypeFedExName, $sub_total, $tocountry);
 
     $amount = '<span class="service_rate">' . number_format($actual_amount, 2, ".", ",") . '</span>';
     

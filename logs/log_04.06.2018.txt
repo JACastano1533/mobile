@@ -1,0 +1,2 @@
+04/06/2018 01:23:13 AM	Mozilla/5.0 (Linux; Android 8.1.0; Pixel 2 Build/OPM2.171019.029) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36	67.183.13.142	6718313142	0	 Main
+04/06/2018 21:13:50 PM	Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36	174.213.4.184	1742134184	3	 Main

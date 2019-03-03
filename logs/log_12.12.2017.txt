@@ -1,0 +1,2 @@
+12/12/2017 13:53:24 PM	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36	50.235.89.180	5023589180	1	 Main
+12/12/2017 20:56:41 PM	Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Mobile Safari/537.36	68.8.201.94	68820194	2	 Main

@@ -149,10 +149,6 @@ DirectoryIndex index.php index.html index.htm
 </IfModule>
 
 
-
-
-
-
 # Cache Control Settings
 <FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
 Header set Cache-Control "max-age=1333600, public"
@@ -179,3 +175,4 @@ ExpiresByType image/x-icon "access plus 1 year"
 ExpiresDefault "access plus 2 days"
 </IfModule>
 ## EXPIRES CACHING ##
+
