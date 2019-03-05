@@ -157,6 +157,7 @@ class upsRate {
 	    $return_data_0 = $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['NEGOTIATEDRATES']['NETSUMMARYCHARGES']['GRANDTOTAL']['MONETARYVALUE'];
 //echo $return_data_0	; 
 	    $return_data_1 = '<span class="service_rate">';
+//echo $return_data_1 ;
 	    $GUARANTEEDDAYSTODELIVERY = "";
 	    foreach ($timeInTransits->TransitResponse->ServiceSummary AS $timeInTransit) {
 		if ($service === $this->UPSTNTtoUPSRATES($timeInTransit->Service->Code)) {

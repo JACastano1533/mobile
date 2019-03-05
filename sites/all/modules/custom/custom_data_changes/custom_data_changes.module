@@ -1122,7 +1122,7 @@ function custom_data_changes_get_ups_fast() {
 
 		if ($rate_price != 0) {
 
-		    $rate_price += getUPSHandlingFees($service, $sub_total);
+//		    $rate_price += getUPSHandlingFees($service, $sub_total);
 		    $rate_price = number_format($rate_price, 2);
 		    echo '<div class="form-item shipping_rates_bar form-item-panes-quotes-quotes-quote-option form-type-radio radio" id="edit-panes-quotes-quotes-quote-option-ups-' . $service . '"><label class="control-label" for="edit-panes-quotes-quotes-quote-option-usps-7"><input type="radio"   style="display:none;"  name="panes[quotes][quotes][quote_option]" value="customups---' . $service . '"  class="form-radio ajax-processed"><span class="ups5 service_name">'
 		    . $name . '</span>' . $rate["rate_p_1"] . $rate_price . $rate["rate_p_2"] . '<label></div>';

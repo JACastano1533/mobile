@@ -208,7 +208,7 @@ function uc_custom_ups_quote($products, $details, $method) {
 	    }
 	}
 	if ($rate_price != 0) {
-	    $rate_price += getUPSHandlingFees($service, $sub_total);
+   $rate_price += getUPSHandlingFees($service, $sub_total);
 	    $tmp_arr = array("rate" => $rate_price, "label" => $name, "option_label" => $name, "arrival_date" => $rate["arrives"]);
 	    $quotes[$service] = $tmp_arr;
 	}
